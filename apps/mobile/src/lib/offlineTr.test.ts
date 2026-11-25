@@ -6,7 +6,7 @@ import { loadModule } from "../../test-support/loadModule.ts";
 
 const sourcePath = fileURLToPath(new URL("./offlineTr.ts", import.meta.url));
 type Offline = typeof import("./offlineTr");
-const { offlineMushafPage, offlineSurahs, offlineVerses } = loadModule<Offline>(sourcePath);
+const { offlineMushafPage, offlineSurahs, offlineVerses, offlineAyah, offlineDaily } = loadModule<Offline>(sourcePath);
 const golden = JSON.parse(readFileSync(new URL("./__fixtures__/offlineTr.golden.json", import.meta.url), "utf8"));
 
 test("fixed local route golden responses survive lossless decoding", () => {
@@ -41,4 +41,20 @@ test("missing or corrupt embedded data never throws", () => {
   assert.equal(offline.offlineSurahs(), null);
   assert.equal(offline.offlineVerses(1), null);
   assert.equal(offline.offlineMushafPage(1), null);
+});
+
+test("offline ayah keeps the embedded text, navigation boundaries and absent analysis", () => {
+  const first = offlineAyah(1, 1)!;
+  assert.equal(first.meal, offlineVerses(1)!.verses[0].meal);
+  assert.equal(first.arabicText, golden.pages[1].verses[0].arabic);
+  assert.equal(first.prevAyah, null);
+  assert.deepEqual(offlineAyah(1, 7)!.nextAyah, { surahId: 2, ayahNumber: 1 });
+  assert.equal(offlineAyah(114, 6)!.nextAyah, null);
+  assert.deepEqual(first.words, []);
+  assert.equal(first.farkAnalizi, null);
+  for (const n of [0, -1, 8, 1.5, NaN]) assert.equal(offlineAyah(1, n), null);
+  const daily = offlineDaily()!;
+  assert.ok(daily.verse?.meal);
+  assert.equal(daily.dua?.verse_key, "2:201");
+  assert.ok(daily.dua?.arabic_text);
 });

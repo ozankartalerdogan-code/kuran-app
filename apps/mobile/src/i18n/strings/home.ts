@@ -2,6 +2,7 @@ import { defineStrings } from "../index";
 
 export default defineStrings({
   tr: {
+    retry: "Tekrar dene",
     lessThanMin: "1 dk'dan az",
     hrMin: "{h} sa {m} dk",
     hr: "{h} sa",
@@ -38,6 +39,7 @@ export default defineStrings({
     mealFail: "Bu ayetin meali şu an yüklenemedi. Ayet sayfasından tekrar kontrol edebilirsin.",
   },
   en: {
+    retry: "Try again",
     lessThanMin: "less than 1 min",
     hrMin: "{h} hr {m} min",
     hr: "{h} hr",

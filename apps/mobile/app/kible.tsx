@@ -108,7 +108,7 @@ const NORTH_DARK  = "#f87171";
 
 // ── Ana Ekran ─────────────────────────────────────────────────────────────────
 
-type Step = "locating" | "compass";
+type Step = "locating" | "compass" | "error";
 
 export default function KibleScreen() {
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
@@ -118,11 +118,20 @@ export default function KibleScreen() {
   const ks = useStrings(kibleStrings) as Record<string, string>;
   const dark = c.isDark;
   const [step, setStep]           = useState<Step>("locating");
+  const [permissionReady, setPermissionReady] = useState(false);
   const [qibla, setQibla]         = useState<number | null>(null);
   const [distance, setDistance]   = useState<number | null>(null);
   // Yaklaşık (eski/kayıtlı) konumla açıldı; arka planda yenileniyor.
   const [approx, setApprox]       = useState(false);
   const refineRun = useRef(0);
+  useEffect(() => {
+    if (step !== "locating" || !permissionReady) return;
+    const timer = setTimeout(() => {
+      refineRun.current += 1; // Geç konum sonucu hata/yeniden deneme ekranını ezmesin.
+      setStep("error");
+    }, 12_000);
+    return () => clearTimeout(timer);
+  }, [step, permissionReady]);
   const [compassOk, setCompassOk] = useState<boolean | null>(null);
   const [showCalib, setShowCalib] = useState(true);
   const [isAligned, setIsAligned] = useState(false);
@@ -303,19 +312,23 @@ export default function KibleScreen() {
   // Konum al — Balanced doğruluk, 3 aşamalı fallback
   const getLocation = useCallback(async () => {
     setStep("locating");
-    refineRun.current += 1; // önceki arka plan yenilemesini geçersiz kıl
+    setPermissionReady(false);
+    const runId = ++refineRun.current;
+    const isCurrent = () => isMountedRef.current && runId === refineRun.current;
     setApprox(false);
     alignedRef.current = false;
     setIsAligned(false);
 
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (!isMountedRef.current) return;
+    const permission = await Location.requestForegroundPermissionsAsync().catch(() => null);
+    if (!isCurrent()) return;
+    if (!permission) { setStep("error"); return; }
+    const { status } = permission;
 
     if (status !== "granted") {
       const t = getStrings(kibleStrings);
       Alert.alert(
         t.permTitle,
-        t.permBody,
+        Platform.OS === "ios" ? t.permBodyIos : t.permBody,
         [
           { text: t.goSettings, onPress: () => Linking.openSettings() },
           { text: t.ok, style: "cancel" },
@@ -324,6 +337,7 @@ export default function KibleScreen() {
       goHome();
       return;
     }
+    setPermissionReady(true);
 
     // Hesaplanan yönü ekrana uygular (anlık konum ve arka plan yenilemesi ortak kullanır).
     const apply = (c: { latitude: number; longitude: number }) => {
@@ -335,23 +349,31 @@ export default function KibleScreen() {
       setDistance(calcDist(c.latitude, c.longitude));
     };
 
+    const currentPosition = async (timeoutMs: number) => {
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      try {
+        return await Promise.race([
+          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
+          new Promise<null>(resolve => { timer = setTimeout(() => resolve(null), timeoutMs); }),
+        ]);
+      } finally {
+        clearTimeout(timer);
+      }
+    };
+
     // 1. Anlık konum: son bilinen (yaşı ne olursa olsun) ya da uygulamanın kaydettiği konum.
     //    Pusula hemen açılır; konum eskiyse arka planda yenilenir.
     let last: Location.LocationObject | null = null;
     try { last = await Location.getLastKnownPositionAsync(); } catch { /* ignore */ }
     const quick = chooseQuickFix(last, await getSavedCoords(), Date.now());
-    if (!isMountedRef.current) return;
+    if (!isCurrent()) return;
     if (quick) {
       apply(quick.coords);
       setApprox(quick.refine);
       setStep("compass");
       if (!quick.refine) return;
-      const runId = ++refineRun.current;
       try {
-        const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>(r => setTimeout(() => r(null), 20000)),
-        ]);
+        const pos = await currentPosition(20000);
         if (!isMountedRef.current || runId !== refineRun.current) return;
         if (pos && "coords" in pos) {
           apply(pos.coords);
@@ -367,39 +389,25 @@ export default function KibleScreen() {
     // 2. Balanced (ağ + GPS, Android uyumlu)
     if (!coords) {
       try {
-        const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced }),
-          new Promise<null>(r => setTimeout(() => r(null), 15000)),
-        ]);
+        const pos = await currentPosition(15000);
         if (pos && "coords" in pos) coords = pos.coords;
       } catch { /* ignore */ }
     }
 
-    // 3. GPS (yüksek doğruluk, uzun bekleme) — 2. adım ağ tabanlı hızlı denemeydi;
-    // burada gerçek uydu sabitlemesi için daha fazla süre tanınır (iç mekan/zayıf sinyalde işe yarar).
+    // 3. Gizlilik metni hassas konum kullanılmadığını söylüyor; Balanced korunur.
+    // Bu adım yalnız uzun bekleme süreli son denemedir.
+    if (!isCurrent()) return;
     if (!coords) {
       try {
-        const pos = await Promise.race([
-          Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High }),
-          new Promise<null>(r => setTimeout(() => r(null), 25000)),
-        ]);
+        const pos = await currentPosition(25000);
         if (pos && "coords" in pos) coords = pos.coords;
       } catch { /* ignore */ }
     }
 
-    if (!isMountedRef.current) return;
+    if (!isCurrent()) return;
 
     if (!coords) {
-      const t = getStrings(kibleStrings);
-      Alert.alert(
-        t.noLocTitle,
-        t.noLocBody,
-        [
-          { text: t.goSettings, onPress: () => Linking.openSettings() },
-          { text: t.ok, style: "cancel" },
-        ],
-      );
-      goHome();
+      setStep("error");
       return;
     }
 
@@ -446,6 +454,20 @@ export default function KibleScreen() {
   const calib = calloutColors(c, "warning");
 
   // ── KONUM ALIYOR ──────────────────────────────────────────────────────────
+  if (step === "error") {
+    return (
+      <>
+        <Stack.Screen options={{ title: ks.screenTitle }} />
+        <View style={[s.centered, { backgroundColor: c.bg, paddingBottom: insets.bottom, paddingHorizontal: space.gutter }]}>
+          <Callout tone="error">{ks.noLocBody}</Callout>
+          <View style={s.errorActions}>
+            <Button variant="secondary" label={ks.retry} onPress={getLocation} />
+            <Button variant="secondary" label={ks.goSettings} onPress={() => { void Linking.openSettings(); }} />
+          </View>
+        </View>
+      </>
+    );
+  }
   if (step === "locating") {
     return (
       <>
@@ -582,6 +604,7 @@ const s = StyleSheet.create({
   container: { flex: 1 },
   scroll: { flex: 1, alignSelf: "stretch" },
   scrollContent: { flexGrow: 1, alignItems: "center", paddingHorizontal: space.gutter, paddingTop: space.sm },
+  errorActions: { flexDirection: "row", flexWrap: "wrap", justifyContent: "center", gap: space.xs },
   centered:  { flex: 1, alignItems: "center", justifyContent: "center", gap: 12 },
   loadingText: { fontSize: 16, fontWeight: "600", marginTop: 8 },
   loadingSub:  { fontSize: 12 },

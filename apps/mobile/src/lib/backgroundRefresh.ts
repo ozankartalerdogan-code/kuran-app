@@ -40,6 +40,11 @@ if (TaskManager && BackgroundTask) {
       // interactive:false — arka planda izin penceresi açılamaz; ilk-kurulum
       // akışı yalnız gerçek uygulama açılışına bırakılır.
       await ensureNotificationsFresh({ interactive: false });
+      // iOS widget'ı App Group'taki 16 günlük pencereyle çalışır; uygulama uzun süre
+      // açılmasa da pencere ileri kaysın. (Android'de widget'ları da tazeler, zararsız.)
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+      const { refreshPrayerWidgetsNow } = require("../widgets/widgetRefresh") as typeof import("../widgets/widgetRefresh");
+      await refreshPrayerWidgetsNow();
       return BT.BackgroundTaskResult.Success;
     } catch {
       return BT.BackgroundTaskResult.Failed;

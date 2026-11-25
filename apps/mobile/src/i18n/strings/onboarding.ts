@@ -1,6 +1,7 @@
 import { defineStrings } from "../index";
 export default defineStrings({
   tr: {
+    setupSlow: "Hatırlatmaların hazırlanması uzun sürüyor. Uygulamaya devam edebilirsin; hazırlık arka planda sürecek.",
     welcome: "Kuran Yolu’na hoş geldin", startQuestion: "Bugün nereden başlamak istersin?",
     read: "Kur’an okumak", understand: "Meal ve anlamını keşfetmek", letters: "Harfleri öğrenmek",
     notifTitle: "Vakitleri hatırlatalım", notifSummary: "Namaz vakitleri için hatırlatmalar; her gün bir ayet ve bir dua bildirimi.",
@@ -13,6 +14,7 @@ export default defineStrings({
     lettersAction: "Harfleri öğrenmeye başla", change: "Değiştir", dismissStartingPoint: "Başlangıç kartını kapat",
   },
   en: {
+    setupSlow: "Setting up reminders is taking longer than expected. Continue to the app; setup will carry on in the background.",
     welcome: "Welcome to Kuran Yolu", startQuestion: "Where would you like to start today?",
     read: "Read the Quran", understand: "Explore its meaning", letters: "Learn the letters",
     notifTitle: "Remember prayer times", notifSummary: "Prayer time reminders, plus one verse and one dua notification each day.",

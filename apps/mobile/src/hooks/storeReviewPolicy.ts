@@ -1,6 +1,11 @@
 export const REVIEW_WAIT_MS = 3_000;
 export const REVIEW_INTERVAL_MS = 3 * 24 * 60 * 60 * 1000;
 
+// Örtüler aboneliği kesmez; yalnız bekleme sonundaki uygunluk kontrolünü engeller.
+export function reviewSubscriptionBlocked(c: { isActive: boolean; foreground: boolean; pathname: string }): boolean {
+  return c.isActive || !c.foreground || c.pathname === "/onboarding";
+}
+
 export function parseLastAsked(raw: string | null | undefined, nowMs: number): number | null {
   if (raw == null || raw.trim() === '') return null;
   if (raw === 'true') return nowMs;
@@ -26,4 +31,12 @@ export function subscribeReviewCompletion(listener: () => () => void) {
 export function notifyReviewCompletion() {
   const cleanups = [...listeners].map(listener => listener());
   return () => cleanups.forEach(cleanup => cleanup());
+}
+
+export function isStreakReviewMoment(
+  prev: { lastDate: string | null; current: number },
+  next: { lastDate: string | null; current: number },
+): boolean {
+  return prev.lastDate !== null && prev.lastDate !== next.lastDate
+    && next.current === prev.current + 1 && next.current >= 3;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   View, Text, FlatList, ScrollView, TouchableOpacity, TextInput,
-  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder,
+  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder, Platform,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -10,6 +10,7 @@ import { api, type MushafPageResponse, type SurahListItem } from "../src/lib/api
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
 import { useStreak } from "../src/hooks/useStreak";
+import { notifyReviewCompletion } from "../src/hooks/storeReviewPolicy";
 import { useKeepAwakeSafe } from "../src/hooks/useKeepAwakeSafe";
 import { useFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP } from "../src/hooks/useFontScale";
 import { SAYFA_SAYISI, sayfaninCuzu, sayfaBasSuresi, arapRakam, ayetinSayfasi, mushafMetniHazirla } from "../src/lib/mushafSayfa";
@@ -229,7 +230,8 @@ const TUM_SAYFALAR = Array.from({ length: SAYFA_SAYISI }, (_, i) => i + 1);
 const SURE_ROW_H = 58;
 
 export default function MushafSayfaEkrani() {
-  useStreak();        // Sayfa görünümünden okumak da okuma serisini ilerletir
+  const { reviewMoment } = useStreak();        // Sayfa görünümünden okumak da okuma serisini ilerletir
+  useEffect(() => { if (reviewMoment > 0) return notifyReviewCompletion(); }, [reviewMoment]);
   useKeepAwakeSafe(); // Okuma sırasında ekran kararmasın
   const c = useColors();
   const t = useStrings(mushafStrings);
@@ -248,7 +250,15 @@ export default function MushafSayfaEkrani() {
   // ?hatim=1 ile açılırsa (eski /hatim rotasından yönlendirme) panel direkt açılır.
   const [hatimOpen, setHatimOpen] = useState(() => hatimParam === "1");
   // Tecvid renklendirmesi — ayet ekranı ve mushaf moduyla ORTAK kalıcı tercih.
-  const [tajweed, setTajweed] = useState(() => storage.getStringSync(STORAGE_KEYS.tajweed) !== "0");
+  const [tajweed, setTajweed] = useState(true);
+  const tajweedTouchedRef = useRef(false);
+  useEffect(() => {
+    let alive = true;
+    storage.getString(STORAGE_KEYS.tajweed).then((v) => {
+      if (alive && v != null && !tajweedTouchedRef.current) setTajweed(v !== "0");
+    }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
   // Başlangıç sayfası hazır olmadan liste kurulmaz (initialScrollIndex için şart).
   const [initialPage, setInitialPage] = useState<number | null>(null);
   const [listHeight, setListHeight] = useState(0);
@@ -448,6 +458,7 @@ export default function MushafSayfaEkrani() {
   }, [aktifSure, c, sureyeGit, t, surahNameOf]);
 
   const handleTajweedToggle = useCallback(() => {
+    tajweedTouchedRef.current = true;
     setTajweed((prev) => {
       const next = !prev;
       storage.setString(STORAGE_KEYS.tajweed, next ? "1" : "0").catch(() => {});
@@ -645,7 +656,7 @@ export default function MushafSayfaEkrani() {
               initialNumToRender={1}
               maxToRenderPerBatch={2}
               windowSize={3}
-              removeClippedSubviews
+              removeClippedSubviews={Platform.OS === "android"}
             />
           </View>
         )}

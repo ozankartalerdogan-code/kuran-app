@@ -1,4 +1,4 @@
-import { offlineSurahs, offlineVerses, offlineMushafPage } from "./offlineTr";
+import { offlineSurahs, offlineVerses, offlineMushafPage, offlineAyah, offlineDaily } from "./offlineTr";
 import { storage } from "./storage";
 import { API_BASE_URL } from "./runtimeConfig";
 
@@ -77,14 +77,22 @@ async function withRetry<T>(
   retries = MAX_RETRIES,
   initialTimeoutMs = TIMEOUT_MS,
 ): Promise<T> {
+  const deadline = Date.now() + 12_000;
   for (let attempt = 0; attempt <= retries; attempt++) {
     const controller = new AbortController();
-    // timeout: 10 sn → 15 sn → 22.5 sn
-    const timeoutMs = initialTimeoutMs * Math.pow(1.5, attempt);
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const remaining = deadline - Date.now();
+    if (remaining <= 0) throw new ApiError(408, "Zaman aşımı");
+    const timeoutMs = Math.min(initialTimeoutMs * Math.pow(1.5, attempt), remaining);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const timeout = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => {
+        reject(new ApiError(408, "Zaman aşımı"));
+        controller.abort();
+      }, timeoutMs);
+    });
 
     try {
-      const result = await fn(controller.signal);
+      const result = await Promise.race([fn(controller.signal), timeout]);
       clearTimeout(timer);
       return result;
     } catch (err) {
@@ -100,6 +108,7 @@ async function withRetry<T>(
         !isLast
       ) {
         const waitMs = err.retryAfter * 1000;
+        if (waitMs >= deadline - Date.now()) throw err;
         await new Promise((r) => setTimeout(r, waitMs));
         continue;
       }
@@ -109,9 +118,9 @@ async function withRetry<T>(
           ? err.status >= 500 || err.status === 408 || err.status === 429
           : true;
 
-      if (isLast || !isRetryable) throw err;
+      if (isLast || !isRetryable || Date.now() >= deadline) throw err;
 
-      await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+      await new Promise((r) => setTimeout(r, Math.min(400 * (attempt + 1), Math.max(0, deadline - Date.now()))));
     }
   }
   throw new Error("unreachable");
@@ -323,7 +332,7 @@ const CACHE_TTL_DAILY  = 24 * 60 * 60 * 1000;        // 1 gün
 
 // Cache sürümü — artırınca tüm eski yerel cache'ler geçersiz olur.
 // (v2: gloss/literal/fark analizi büyük veri güncellemesi)
-const CACHE_VERSION = "v4"; // v4: AsyncStorage → MMKV geçişi, eski cache biçimi geçersiz
+const CACHE_VERSION = "v4"; // Geçmişteki depolama denemesinin sürümü; veri uyumu için korunur.
 const vkey = (k: string) => `${CACHE_VERSION}_${k}`;
 // Diğer modüllerin (örn. useDailyContent) aynı sürümlü anahtarı hardcode etmeden
 // okuyabilmesi için dışa açılır — sürüm ileride tekrar artınca burada da otomatik değişir.
@@ -448,7 +457,7 @@ export const api = {
     // v=4: render artık canonical `arabic` + `tajweedSpans` kullanıyor (markup
     // metni değil). tajweedSpans eski cihaz cache'inde YOK; sürüm artırılmazsa
     // eski kayıtlar renksiz ve yanlış metinle sunulurdu.
-    // Parametre CDN cache'ini, anahtar da yerel MMKV cache'ini yeniler.
+    // Parametre CDN önbelleğini, anahtar da yerel AsyncStorage önbelleğini yeniler.
     page: (page: number) =>
       withCacheFallback(
         `cache_mushaf_v4_p${page}`,
@@ -466,13 +475,13 @@ export const api = {
       withCacheFallback(
         `cache_ayah_v2_${surahId}_${ayahNumber}`,
         CACHE_TTL_STATIC,
-        () => withRetry((signal) =>
+        (signal) =>
           request<AyahDetailResponse>(
             `/ayah?surah_id=${surahId}&ayah_number=${ayahNumber}`,
             undefined,
             signal,
           ),
-        ),
+        undefined, () => offlineAyah(surahId, ayahNumber),
       ),
   },
 
@@ -574,7 +583,8 @@ export const api = {
       return withCacheFallback(
         key,
         CACHE_TTL_DAILY,
-        () => withRetry((signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(day)}`, undefined, signal)),
+        (signal) => request<DailyResponse>(`/daily?date=${encodeURIComponent(day)}`, undefined, signal),
+        undefined, offlineDaily,
       );
     },
     /** Belirli günün ayet/duası (YYYY-MM-DD) — 7 günlük bildirim planı için; önbelleksiz. */

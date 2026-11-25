@@ -11,7 +11,7 @@ import { READING_MAX_WIDTH } from "../../src/lib/layout";
 import { useStrings, fmt } from "../../src/i18n";
 import kuranStrings from "../../src/i18n/strings/kuranTab";
 import { Badge, MenuCard, ScreenHeading, SectionHeader, space, toneColors, type IoniconName } from "../../src/components/ui";
-import { storage, STORAGE_KEYS, usingMmkv } from "../../src/lib/storage";
+import { storage, STORAGE_KEYS } from "../../src/lib/storage";
 import { sayfaninCuzu, sayfaBasSuresi, ayetinSayfasi } from "../../src/lib/mushafSayfa";
 import { parseSavedPage } from "../../src/lib/resumeReading";
 import { JUZ_DATA, summarizeHatim, countFavorites, type HatimSummary } from "../../src/lib/hatim";
@@ -58,13 +58,10 @@ type KuranTabState = {
 };
 
 function readKuranTabSync(): KuranTabState {
-  const rawPage = storage.getStringSync(STORAGE_KEYS.mushafPage);
-  const bookmark = rawPage ? null : storage.getJSONSync<string>(STORAGE_KEYS.mushafBookmark);
-  const rawHatim = storage.getStringSync(STORAGE_KEYS.hatimTracking);
   return {
-    page: parseSavedPage(rawPage, bookmark, ayetinSayfasi),
-    hatim: summarizeHatim(rawHatim),
-    favCount: countFavorites(storage.getJSONSync<unknown>(STORAGE_KEYS.favorites)),
+    page: parseSavedPage(null, null, ayetinSayfasi),
+    hatim: summarizeHatim(null),
+    favCount: countFavorites(null),
   };
 }
 
@@ -90,8 +87,6 @@ export default function KuranTab() {
     useCallback(() => {
       let active = true;
       const applyResume = (next: KuranTabState) => setResume(next);
-      if (usingMmkv) applyResume(readKuranTabSync());
-      if (usingMmkv) return;
       (async () => {
         try {
           const [rawPage, bookmark, rawHatim, favorites] = await Promise.all([
@@ -107,7 +102,7 @@ export default function KuranTab() {
             favCount: countFavorites(favorites),
           });
         } catch {
-          // Depolama okuma hatasında senkron durumu koru
+          // Depolama okuma hatasında mevcut durumu koru
         }
       })();
       return () => { active = false; };

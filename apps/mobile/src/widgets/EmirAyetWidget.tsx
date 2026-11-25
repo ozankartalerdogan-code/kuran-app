@@ -36,7 +36,7 @@ const PALETTES = {
 } as const satisfies Record<Theme, Record<string, `#${string}`>>;
 
 // Arayüz dili İngilizceyse Pickthall meali. Widget headless JS görevinde çalışır;
-// englishMeal → i18n → storage (MMKV/AsyncStorage) zinciri orada güvenli olmayabilir,
+// englishMeal → i18n → storage (AsyncStorage) zinciri orada güvenli olmayabilir,
 // bu yüzden tembel require + try/catch ile Türkçe metne düşülür.
 function widgetSurahName(ayet: EmirAyet): string | null {
   try {

@@ -38,21 +38,15 @@ function detectSystemLang(): Lang {
   }
 }
 
-function readPref(): LangPreference {
-  const v = storage.getStringSync(PREF_KEY);
-  return v === "tr" || v === "en" ? v : "system";
-}
-
-const initialPreference = readPref();
 let languageState: LanguageState = {
-  preference: initialPreference,
-  current: initialPreference === "system" ? detectSystemLang() : initialPreference,
+  preference: "system",
+  current: detectSystemLang(),
 };
 const listeners = new Set<() => void>();
 let prefGeneration = 0;
 const startupGeneration = prefGeneration;
 
-// MMKV yoksa senkron okuma null döner; tercihi async olarak bir kez yükle.
+// Başlangıçta sistem dili kullanılır; kayıtlı tercih AsyncStorage'dan bir kez yüklenir.
 export const languageReady: Promise<void> = languageState.preference === "system"
   ? storage.getString(PREF_KEY).then((v) => {
     if (prefGeneration !== startupGeneration) return;

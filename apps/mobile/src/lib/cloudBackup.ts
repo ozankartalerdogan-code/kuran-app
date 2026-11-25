@@ -20,7 +20,7 @@ import { storage, STORAGE_KEYS, setStorageChangeListener } from "./storage";
 //
 // Native modüller (auth/firestore) yeni EAS build gerektirir; eski build'de
 // require başarısız olur → tüm fonksiyonlar sessiz no-op (build-gated guard,
-// MMKV/Sentry ile aynı desen).
+// Sentry ile aynı desen).
 
 type AuthModule = typeof import("@react-native-firebase/auth");
 type FirestoreModule = typeof import("@react-native-firebase/firestore");
@@ -125,8 +125,9 @@ function schedulePush(): void {
 }
 
 // İlk kurulumda (restore bayrağı yok) buluttan 1 kez oku ve YALNIZ yerelde boş
-// olan anahtarları doldur. Bayrak MMKV'de → kaldır-kur'da silinir, restore yine
-// çalışır; normal açılışlarda 0 Firestore okuması.
+// olan anahtarları doldur. Bayrak AsyncStorage'da; uygulama kaldırılınca yerel
+// kopyası silinir. Sistem yedeği bayrağı geri getirirse restore atlanır;
+// bayrak yoksa restore yine çalışır. Normal açılışlarda 0 Firestore okuması.
 async function maybeRestore(): Promise<boolean> {
   const id = uid;
   if (!id || !fsMod) return false;

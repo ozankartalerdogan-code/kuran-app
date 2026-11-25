@@ -12,7 +12,7 @@ module.exports = {
     name: 'Kuran Yolu',
     slug: 'kuran-analiz',
     scheme: 'kuranyolu',
-    version: '1.2.4',
+    version: '1.2.5',
     sdkVersion: '56.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
@@ -30,6 +30,12 @@ module.exports = {
       // yatay moda hiç geçilemez, gerçekte tablet deneyimi yok.
       supportsTablet: false,
       bundleIdentifier: 'com.kuranapp.mobile',
+      appStoreUrl: 'https://apps.apple.com/app/id6816732808',
+      // Apple Developer > Membership details. @bacons/apple-targets widget hedefini bu takımla imzalar.
+      appleTeamId: 'B58BQR745Y',
+      entitlements: {
+        'com.apple.security.application-groups': ['group.com.kuranapp.mobile'],
+      },
       // Firebase iOS yapılandırması: Android'deki google-services.json ile aynı
       // desen — EAS'te file-type env (GOOGLE_SERVICES_PLIST), yerelde gitignore'lı
       // dosya. Commit'lenmez.
@@ -50,22 +56,25 @@ module.exports = {
         CFBundleLocalizations: ['tr', 'en'],
         CFBundleAllowMixedLocalizations: true,
       },
-      // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). MMKV/AsyncStorage
+      // Apple "required reason API" beyanı (PrivacyInfo.xcprivacy). AsyncStorage
       // (UserDefaults), expo-file-system (dosya zamanı/disk alanı) ve RN/Sentry
       // (sistem açılış süresi) bu API'leri kullanıyor; yalnız app-içi amaçlar.
+      // 0A2A.1/3B52.1/85F4.1 SDK nedenlerini expo-file-system kendi PrivacyInfo.xcprivacy
+      // dosyasında beyan eder; uygulama manifesti yalnız uygulama nedenlerini taşır.
+      // 1C8F.1 = App Group paylaşımlı UserDefaults (iOS namaz widget'ı).
       privacyManifests: {
         NSPrivacyTracking: false,
         NSPrivacyAccessedAPITypes: [
-          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults', NSPrivacyAccessedAPITypeReasons: ['CA92.1'] },
-          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp', NSPrivacyAccessedAPITypeReasons: ['0A2A.1', '3B52.1', 'C617.1'] },
-          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace', NSPrivacyAccessedAPITypeReasons: ['E174.1', '85F4.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults', NSPrivacyAccessedAPITypeReasons: ['CA92.1', '1C8F.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp', NSPrivacyAccessedAPITypeReasons: ['C617.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace', NSPrivacyAccessedAPITypeReasons: ['E174.1'] },
           { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategorySystemBootTime', NSPrivacyAccessedAPITypeReasons: ['35F9.1'] },
         ],
       },
     },
     android: {
       package: 'com.kuranapp.mobile',
-      // Android Auto Backup (bedava): favori/not/ilerleme (MMKV) kullanıcının
+      // Android Auto Backup (bedava): favori/not/ilerleme (AsyncStorage) kullanıcının
       // Google Drive'ına yedeklenir → kaldır-kur / yeni telefonda kısmi kurtarma.
       // Bizim sunucumuz yok; yedek Google tarafından yönetilir.
       allowBackup: true,
@@ -205,22 +214,27 @@ module.exports = {
       // (Android WorkManager / iOS BGTaskScheduler). iOS tarafına UIBackgroundModes
       // "processing" + BGTaskSchedulerPermittedIdentifiers ekler.
       'expo-background-task',
+      // iOS widget uzantısı: targets/ klasörünü Xcode hedefi yapar (targets/namaz-widget).
+      '@bacons/apple-targets',
       // App yalnızca ses ÇALAR (Kur'an tilaveti), kayıt YAPMAZ → RECORD_AUDIO
       // (mikrofon) iznini ekleme. Aksi halde expo-audio varsayılan olarak ekliyor;
       // reklamsız/minimal-izin app için gereksiz + Play Veri Güvenliği'nde mikrofon
       // beyanı gerektirirdi. MODIFY_AUDIO_SETTINGS (normal izin) korunur.
+      // iOS'ta NSMicrophoneUsageDescription da eklenmesin.
       // iOS: expo-audio'nun eklediği arka plan "audio" modunu kaldırır (yalnız iOS).
       // expo-audio'dan ÖNCE listelenmeli: config mod'ları ters sırada çalışır,
       // bu plugin'in Info.plist mod'u expo-audio'nunkinden sonra işlesin.
       './plugins/with-ios-no-background-audio',
-      ['expo-audio', { recordAudioAndroid: false }],
+      ['expo-audio', { recordAudioAndroid: false, microphonePermission: false }],
       '@react-native-firebase/app',
       // iOS: reklam kimliği (IDFA) desteği olmadan kur — Android'de AD_ID engelli;
       // reklamsız app, ATT izni ve App Store "tracking" beyanı gerekmesin.
       ['@react-native-firebase/analytics', { ios: { withoutAdIdSupport: true } }],
       // Bulut yedek (anonim auth + Firestore tek doküman) — src/lib/cloudBackup.ts.
       // Firestore'un ayrı config plugin'i yok; native kodu paket kurulumuyla gelir.
-      '@react-native-firebase/auth',
+      // Uygulama yalnız anonim giriş kullanır; reCAPTCHA/telefon doğrulaması yok.
+      // Eklentinin AppDelegate'e yaptığı openURL yaması gereksiz ve kırılgan.
+      ['@react-native-firebase/auth', { ios: { captchaOpenUrlFix: false } }],
       // Sentry: org/project burada (commit'li, EAS'e gider); AUTH TOKEN ise EAS
       // secret'ı (SENTRY_AUTH_TOKEN) — source map upload için. Olaylar 'react-native'
       // projesine gidiyor (DSN), source map de oraya yüklenmeli.
@@ -252,6 +266,10 @@ module.exports = {
       // Android ana ekran widget'ı — "Emir Ayetleri" (bkz. src/widgets/). Sadece
       // Android'de native kod ekler, iOS/web build'ini etkilemez.
       // 'name' değeri src/widgets/emirRotation.ts'teki WIDGET_NAME ile AYNI OLMALI.
+      // Widget'ların kilit ekranında da (keyguard) eklenebilmesi için widgetCategory'ye
+      // "keyguard" ekler. 'react-native-android-widget'tan ÖNCE gelmeli: Expo mod'ları
+      // sondan başa çalıştırır, böylece XML dosyaları üretildikten SONRA güncellenir.
+      './plugins/with-widget-keyguard',
       [
         'react-native-android-widget',
         {

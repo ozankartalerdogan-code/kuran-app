@@ -11,24 +11,23 @@ export const FONT_SCALE_STEP = 0.15;
 // olsaydı her bileşen kendi kopyasını tutardı: mushafta A−/A+ düğmeleri üst
 // barda, metin ayrı (memo'lu) sayfa bileşeninde — düğme yalnız kendi kopyasını
 // günceller, açık sayfa hiç yeniden çizilmezdi.
-let scale = (() => {
-  const v = Number(storage.getStringSync(STORAGE_KEYS.ayahFontScale));
-  return v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX ? v : 1;
-})();
+let scale = 1;
 let loaded = false;
+let touched = false;
 const listeners = new Set<() => void>();
 
 function notify() {
   listeners.forEach((fn) => fn());
 }
 
-// AsyncStorage fallback'inde senkron okuma boş döner → asenkron tamamla.
+// Kayıtlı yazı boyutunu AsyncStorage'dan bir kez yükle.
 function ensureLoaded() {
   if (loaded) return;
   loaded = true;
   storage
     .getString(STORAGE_KEYS.ayahFontScale)
     .then((raw) => {
+      if (touched) return;
       const v = Number(raw);
       if (v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX && v !== scale) {
         scale = v;
@@ -51,6 +50,7 @@ export function changeFontScale(delta: number) {
   const next =
     Math.round(Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, scale + delta)) * 100) / 100;
   if (next === scale) return;
+  touched = true;
   scale = next;
   storage.setString(STORAGE_KEYS.ayahFontScale, String(next)).catch(() => {});
   notify();

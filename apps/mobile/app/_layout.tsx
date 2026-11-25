@@ -205,7 +205,7 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
       <NavigationGate needsOnboarding={needsOnboarding} response={response} />
       <ExactAlarmOpeningPrompt />
       <Stack
-        initialRouteName="(tabs)"
+        initialRouteName={needsOnboarding ? "onboarding" : "(tabs)"}
         screenOptions={{
           headerStyle: { backgroundColor: c.card },
           headerTintColor: c.text,
@@ -259,7 +259,7 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
 
 function RootLayout() {
   const [videoFinished, setVideoFinished] = useState(false);
-  const [fontsLoaded] = Font.useFonts({
+  const [fontsLoaded, fontError] = Font.useFonts({
     "Amiri":      require("../assets/fonts/Amiri-Regular.ttf"),
     "Amiri-Bold": require("../assets/fonts/Amiri-Bold.ttf"),
     // KFGQPC Uthmanic HAFS (242KB) — mushaf sayfa görünümünün hattı; basılı
@@ -297,7 +297,7 @@ function RootLayout() {
     })();
   }, []);
 
-  const ready = videoFinished && !!fontsLoaded && needsOnboarding !== null;
+  const ready = videoFinished && (!!fontsLoaded || !!fontError) && needsOnboarding !== null;
 
   const handleSplashFinish = useCallback(() => {
     setVideoFinished(true);
@@ -317,7 +317,7 @@ function RootLayout() {
 
   // Açılış sayacı hemen ilerler; değerlendirme istemini AppTourProvider koordine eder.
   useEffect(() => {
-    trackAppOpen();
+    trackAppOpen().catch(() => {});
   }, []);
 
   // Bulut yedek: anonim oturum aç, ilk kurulumda ilerlemeyi geri yükle, sonrasında

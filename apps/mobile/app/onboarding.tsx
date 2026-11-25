@@ -19,7 +19,7 @@ export default function OnboardingScreen() {
   const { completeOnboarding } = useAppTour();
   const [step, setStep] = useState(1), [busy, setBusy] = useState(false);
   const [preference, setPreference] = useState<StartPreference | null>(null);
-  const [result, setResult] = useState<"denied" | "error" | null>(null);
+  const [result, setResult] = useState<"denied" | "error" | "slow" | null>(null);
   const [preferenceReady, setPreferenceReady] = useState(false);
   const preferenceWrites = useRef(Promise.resolve());
   useEffect(() => {
@@ -71,7 +71,17 @@ export default function OnboardingScreen() {
     if (locked.current) return;
     locked.current = true; setBusy(true);
     await preferenceWrites.current;
-    const outcome = await enablePrayerNotificationsFirstRun().catch(() => "error" as const);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    // Sistem izinleri yanıtlandıktan sonra GPS/ağ/planlama için 12 sn tanı.
+    let startSlowTimer!: () => void;
+    const slow = new Promise<"slow">((resolve) => {
+      startSlowTimer = () => { timer = setTimeout(() => resolve("slow"), 12_000); };
+    });
+    const outcome = await Promise.race([
+      enablePrayerNotificationsFirstRun({ onPermissionsResolved: startSlowTimer }).catch(() => "error" as const),
+      slow,
+    ]);
+    clearTimeout(timer);
     if (outcome === "enabled") { await finish(); return; }
     setResult(outcome); setBusy(false); locked.current = false;
   };
@@ -111,7 +121,7 @@ export default function OnboardingScreen() {
           {step === 1 ? <StartPreferenceOptions value={preference} onChange={choosePreference} disabled={busy || !preferenceReady} /> :
             <View style={{ width: "100%", flexDirection: "row", gap: 12, padding: 16, borderRadius: 16, borderWidth: 1, borderColor: c.border, backgroundColor: c.card, marginTop: 24 }}>
               <Icon name={result ? "information-circle-outline" : "location-outline"} color={c.actionBg} />
-              <Text accessibilityLiveRegion={result ? "polite" : "none"} style={{ flex: 1, fontSize: 14, lineHeight: 22, color: c.textSecondary }}>{result ? result === "denied" ? t.permissionDenied : t.setupFailed : t.locationNote}</Text>
+              <Text accessibilityLiveRegion={result ? "polite" : "none"} style={{ flex: 1, fontSize: 14, lineHeight: 22, color: c.textSecondary }}>{result ? result === "denied" ? t.permissionDenied : result === "slow" ? t.setupSlow : t.setupFailed : t.locationNote}</Text>
             </View>}
         </Entrance>
         {fontScale >= 1.3 && <OnboardingFooter step={step} busy={busy || !preferenceReady} primaryLabel={step === 1 || result ? t.continueBtn : t.enableBtn}

@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
+  Platform,
   Text,
   View,
 } from "react-native";
@@ -176,7 +177,7 @@ export default function TafsirScreen() {
           initialNumToRender={8}
           maxToRenderPerBatch={6}
           windowSize={5}
-          removeClippedSubviews
+          removeClippedSubviews={Platform.OS === "android"}
         />
       )}
     </View>

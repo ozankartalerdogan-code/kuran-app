@@ -147,28 +147,22 @@ const dark: AppColors = {
 // okumasını/effect'ini kurmaz; tema bir kez yüklenir, değişimler yayınlanır.
 let override: "light" | "dark" | null = null;
 let loaded = false;
+let touched = false;
 const listeners = new Set<() => void>();
 
 function notify() {
   listeners.forEach(fn => fn());
 }
 
-// Persisted theme is loaded once through the shared storage adapter.
+// Kayıtlı tema paylaşılan depolama katmanından bir kez yüklenir.
 function ensureLoaded() {
   if (loaded) return;
   loaded = true;
-  // Önce senkron dene (MMKV) — tema İLK boyamadan önce hazır olsun. Async'e
-  // kalırsa ilk kareler açık temayla çizilir: karanlık modda skeleton/yükleme
-  // ekranı beyaz yanıp söner.
-  const sync = storage.getJSONSync<"light" | "dark">(STORAGE_KEYS.nightMode);
-  if (sync) {
-    override = sync;
-    return;
-  }
-  // MMKV yoksa (Expo Go / eski build) AsyncStorage'dan asenkron yükle.
+  // Başlangıçta sistem teması kullanılır; kayıtlı tercih AsyncStorage'dan yüklenir.
   storage
     .getJSON<"light" | "dark">(STORAGE_KEYS.nightMode)
     .then((value) => {
+      if (touched) return;
       if (value && value !== override) {
         override = value;
         notify();
@@ -192,8 +186,15 @@ export function toggleTheme() {
   // değişmezdi (düğme "bozuk" hissederdi).
   const effective = override ?? (Appearance.getColorScheme() ?? "light");
   const next = effective === "dark" ? "light" : "dark";
+  touched = true;
   override = next;
-  storage.setJSON(STORAGE_KEYS.nightMode, next).catch(() => {});
+  storage.setJSON(STORAGE_KEYS.nightMode, next).then(() => {
+    // Android: widget'ları yeniden çizer; iOS: App Group'a yeni temayı yazar (iOS widget'ı).
+    // Lazy import avoids import cycles.
+    // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+    const { refreshWidgetNow, refreshPrayerWidgetsNow } = require("../widgets/widgetRefresh") as typeof import("../widgets/widgetRefresh");
+    return Promise.all([refreshWidgetNow(), refreshPrayerWidgetsNow()]);
+  }).catch(() => {});
   notify();
 }
 

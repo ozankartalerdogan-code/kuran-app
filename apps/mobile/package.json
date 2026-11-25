@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@bacons/apple-targets": "^5.0.0",
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-firebase/analytics": "^24.1.1",
@@ -45,8 +46,6 @@
     "react-dom": "19.2.3",
     "react-native": "0.85.3",
     "react-native-android-widget": "^0.21.0",
-    "react-native-mmkv": "^4.3.2",
-    "react-native-nitro-modules": "^0.36.1",
     "react-native-reanimated": "4.3.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",

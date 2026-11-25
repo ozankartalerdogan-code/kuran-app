@@ -9,14 +9,15 @@ import { buildEmirWidgetRepresentation } from "./EmirAyetWidget";
 import { currentEmirAyet, randomEmirAyet, WIDGET_NAME } from "./emirRotation";
 import { PRAYER_WIDGET_NAMES, readNamazWidgetData } from "./namazWidgetData";
 import { buildNamazWidgetRepresentation } from "./NamazWidget";
+import { applyWidgetTheme, readWidgetThemePreference } from "./widgetTheme";
 
 export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
   try {
     const prayerName = PRAYER_WIDGET_NAMES.find(name => name === props.widgetInfo.widgetName);
     if (prayerName) {
       if (["WIDGET_ADDED", "WIDGET_UPDATE", "WIDGET_RESIZED"].includes(props.widgetAction)) {
-        const data = await readNamazWidgetData();
-        props.renderWidget(buildNamazWidgetRepresentation(prayerName, data, props.widgetInfo.height));
+        const [data, pref] = await Promise.all([readNamazWidgetData(), readWidgetThemePreference()]);
+        props.renderWidget(applyWidgetTheme(buildNamazWidgetRepresentation(prayerName, data, props.widgetInfo.height), pref));
         planPrayerWidgetTick(data);
       } else if (props.widgetAction === "WIDGET_DELETED") {
         const remaining = (await Promise.all(PRAYER_WIDGET_NAMES.map(name => getWidgetInfo(name)))).flat();
@@ -31,7 +32,8 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
       case "WIDGET_ADDED":
       case "WIDGET_UPDATE":
       case "WIDGET_RESIZED": {
-        props.renderWidget(buildEmirWidgetRepresentation(currentEmirAyet(), props.widgetInfo.height));
+        const pref = await readWidgetThemePreference();
+        props.renderWidget(applyWidgetTheme(buildEmirWidgetRepresentation(currentEmirAyet(), props.widgetInfo.height), pref));
         break;
       }
       case "WIDGET_CLICK": {
@@ -39,7 +41,8 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
         // hiç dönmeden uygulamayı doğrudan açar. Yalnız özel "REFRESH_AYET"
         // (widget üstündeki ↻ ikonu) buraya düşer.
         if (props.clickAction === "REFRESH_AYET") {
-          props.renderWidget(buildEmirWidgetRepresentation(randomEmirAyet(), props.widgetInfo.height));
+          const pref = await readWidgetThemePreference();
+          props.renderWidget(applyWidgetTheme(buildEmirWidgetRepresentation(randomEmirAyet(), props.widgetInfo.height), pref));
         }
         break;
       }

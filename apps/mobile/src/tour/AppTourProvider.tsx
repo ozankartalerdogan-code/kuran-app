@@ -8,7 +8,7 @@ import { TourOverlay } from "./TourOverlay";
 import type { Rect } from "./tourGeometry";
 import { logFeature } from "../lib/analytics";
 import { maybeAskReview } from "../hooks/useStoreReview";
-import { REVIEW_WAIT_MS, subscribeReviewCompletion } from "../hooks/storeReviewPolicy";
+import { REVIEW_WAIT_MS, subscribeReviewCompletion, reviewSubscriptionBlocked } from "../hooks/storeReviewPolicy";
 
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import { isOverlayBusy, isContextualHintOpen, useOverlayBusy, beginOverlay } from "./overlayBusy";
@@ -137,9 +137,11 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
       void logFeature("guide_offer");
     }
   }, [offerVisible]);
-  // Sonuç ekranı kapanırsa veya bir örtü açılırsa bu fırsat iptal edilir.
+  const reviewBlocked = reviewSubscriptionBlocked({ isActive, foreground, pathname });
+  // Örtü açıkken de tamamlanmayı dinle; örtü uygunluğu 3 sn sonra kontrol edilir.
+  // Rota/ön plan/rehber değişince veya sonuç ekranı kapanınca fırsat iptal edilir.
   useEffect(() => {
-    if (!state || !onboarded || offered || hintBlocked) return;
+    if (!state || !onboarded || offered || reviewBlocked) return;
     const pending = new Set<() => void>();
     const unsubscribe = subscribeReviewCompletion(() => {
       let cancelled = false;
@@ -149,14 +151,14 @@ export function AppTourProvider({ children }: { children: ReactNode }) {
         if (!eligible() || reviewAttempted.current) return;
         reviewAttempted.current = true;
         reviewBusy.current = true;
-        void maybeAskReview(eligible).finally(() => { reviewBusy.current = false; });
+        void maybeAskReview(eligible).finally(() => { reviewBusy.current = false; }).catch(() => {});
       }, REVIEW_WAIT_MS);
       const cancel = () => { cancelled = true; clearTimeout(timer); pending.delete(cancel); };
       pending.add(cancel);
       return cancel;
     });
     return () => { unsubscribe(); pending.forEach(cancel => cancel()); };
-  }, [state, onboarded, offered, hintBlocked, pathname]);
+  }, [state, onboarded, offered, reviewBlocked, pathname]);
 
   const close = useCallback((completed = false) => {
     if (!activeRef.current) return;

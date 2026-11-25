@@ -25,18 +25,12 @@ async function openExternalUrl(url: string) {
   const t = getStrings(hakkindaStrings);
   try {
     void Haptics.selectionAsync();
-    const supported = await Linking.canOpenURL(url);
-    if (!supported) {
-      Alert.alert(t.linkFailTitle, t.linkFailBody);
-      return;
-    }
-
     await Linking.openURL(url);
   } catch (error) {
     if (__DEV__) {
       console.warn("Failed to open external URL", error);
     }
-    Alert.alert(t.linkFailTitle, t.linkFailRetry);
+    Alert.alert(t.linkFailTitle, t.linkFailBody);
   }
 }
 
