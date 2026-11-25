@@ -12,7 +12,9 @@ import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../src/hooks/useColors";
-import { useStrings, fmt } from "../src/i18n";
+import { useStrings, useLang, fmt } from "../src/i18n";
+import type { Lang } from "../src/i18n";
+import { citySubtitle } from "../src/lib/countryNamesEn";
 import sehirSecStrings from "../src/i18n/strings/sehirSec";
 import {
   getManualCity,
@@ -40,18 +42,14 @@ type SearchState =
   | { status: "error" }
   | { status: "done"; cities: ManualCity[] };
 
-function subtitleOf(city: ManualCity): string {
-  const tr = isTurkeyCountry(city.country);
-  const name = titleCaseTr(city.name, tr);
-  const state = titleCaseTr(city.state, tr);
-  const country = titleCaseTr(city.country, tr);
-  const parts = state === name ? [country] : [state, country];
-  return parts.filter((part) => part.length > 0).join(", ");
+function subtitleOf(city: ManualCity, lang: Lang): string {
+  return citySubtitle(city, lang, isTurkeyCountry(city.country), titleCaseTr);
 }
 
 export default function SehirSecScreen() {
   const c = useColors();
   const t = useStrings(sehirSecStrings);
+  const lang = useLang();
   const insets = useSafeAreaInsets();
 
   const [manual, setManual] = useState<ManualCity | null>(null);
@@ -211,7 +209,7 @@ export default function SehirSecScreen() {
         search.cities.map((city) => {
           const isSelected = manual?.id === city.id;
           const name = titleCaseTr(city.name, isTurkeyCountry(city.country));
-          const subtitle = subtitleOf(city);
+          const subtitle = subtitleOf(city, lang);
           return (
             <TouchableOpacity
               key={city.id}
