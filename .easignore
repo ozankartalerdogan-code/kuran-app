@@ -14,3 +14,22 @@ apps/web/public/audio/surah
 dist/
 apps/web/.next/
 _arsiv/
+
+# EAS arşivi: iOS bulut derlemesine gerekmeyen büyük yerel klasörler (25 Kas: arşiv 1 GB olmuştu)
+apps/mobile/android/
+apps/mobile/ios/
+backups/
+legacy_archive/
+*.aab
+*.apk
+
+# İmza/gizli dosyalar asla yüklenmesin (.easignore varken .gitignore okunmaz)
+credentials.json
+credentials/
+*.jks
+*.keystore
+*.p12
+*.p8
+*.mobileprovision
+.env
+.env.*
