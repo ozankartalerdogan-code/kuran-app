@@ -19,6 +19,60 @@ Kuran okuyun, Arapça öğrenin, ders testleri çözün, namaz vakitlerini takip
 
 **Açıklama**
 
+> 2026-11-25: ASC canlı Türkçe açıklama (özellikler öne alındı, 2689 kr):
+
+> Kuran Yolu; namaz vakitlerini takip etmek, İslam'ı dersler ve testlerle adım adım öğrenmek ve Kur'an'ı okuyup anlamak için hazırlanmış, reklamsız ve sade bir uygulamadır. Hesap açmanız gerekmez.
+>
+> NAMAZ VAKİTLERİ VE WIDGET'LAR
+> - Dünyanın her yerinde namaz vakitleri: konumunuza göre ya da şehir arayarak
+> - Sıradaki vakte canlı geri sayım
+> - Vakit bildirimleri (hatırlatmayla birlikte bir ayet) ve isteğe bağlı günlük ayet ve dua bildirimleri
+> - Namaz vakti widget'ı: ana ekranda ve kilit ekranında sıradaki vakit ve geri sayım
+>
+> DERSLER VE TESTLER
+> - Kart kart dersler: 16 konu, 260'ı aşkın ders kartı ve her derste test
+> - Konular: namaz, abdest, oruç, zekât, hac ve umre, kurban, iman esasları, kitaplara iman, güzel ahlak, tecvid, siyer, sahabe hayatları, peygamber kıssaları ve daha fazlası
+> - Elif-Ba: Arap alfabesini öğrenme dersleri, sesli okunuş, alıştırmalar, dinleme ve harf tanıma testleri
+>
+> İNTERNETSİZ ÇALIŞIR
+> - 604 sayfalık tecvidli mushaf, meal, dersler, tefsir, dualar ve namaz rehberi cihazınızda; uçak modunda da açılır
+>
+> ARAÇLAR
+> - Kıble pusulası
+> - Dijital tesbih (zikirmatik): tur takibi ve kendi hedefleriniz
+> - Hatim takibi ve günlük okuma serisi
+> - Favoriler ve kişisel notlar
+> - Günün Ayeti ve Günün Duası
+>
+> KUR'AN VE OKUMA
+> - 114 surenin tamamı: Arapça metin, Türkçe meal ve kelime kelime çeviri
+> - Kelime analizi: her kelimenin kökü, anlamı ve morfolojisi
+> - Kök keşfi: bir kelimenin Kur'an'daki türevleri ve geçtiği yerler
+> - Tefsir: Elmalılı Hamdi Yazır tefsirinin orijinal metni ve günümüz Türkçesine sadeleştirilmiş anlatımı (114 sure; sadeleştirme yapay zekâ desteğiyle hazırlanmıştır)
+> - Mushaf sayfa görünümü ve tecvid renklendirmeli okuma
+> - Akıllı arama (kelime, meal, tema)
+>
+> İBADET REHBERLERİ
+> - Namaz Rehberi: adım adım namaz kılınışı, namaz duaları, zamm-ı sureler ve özel namazlar
+> - İbadet Rehberi: İslam'ın ve imanın şartları, abdest, gusül, teyemmüm, oruç, zekât, hac ve kurban
+>
+> DUA VE İSLAMİ BİLGİ
+> - 23 kategoride 89 dua
+> - Manevi Sığınak: korunma ve şifa duaları, İsm-i Azam ve Sekine ayetleri
+> - Esmaü'l-Hüsna: Allah'ın 99 ismi (Arapça yazılış, anlam ve kök)
+> - Siyer-i Nebi: Hz. Muhammed'in (s.a.v.) hayatı
+> - 25 peygamberin kıssası
+> - 27 konuda 219 seçme hadis (ağırlıklı olarak Buhari ve Müslim'den)
+> - Mübarek gün ve geceler: kandiller, bayramlar ve faziletleri
+>
+> NEDEN KURAN YOLU?
+> - Reklamsız
+> - Gizlilik dostu: reklam kimliği toplanmaz, sizi takip etmez; konum yalnızca namaz vakti ve kıble için yaklaşık olarak kullanılır
+> - İlerlemeniz anonim bulut yedeğiyle korunur; yedeğinizi dilediğiniz an uygulama içinden silebilirsiniz
+> - Sade, modern arayüz; karanlık mod; Türkçe ve İngilizce kullanılabilir
+>
+> Rabbimiz bu uygulamayı Kur'an'a ve ilme yaklaşmamıza vesile eylesin.
+
 > 2026-11-24: App Store Connect'teki canlı açıklama bu taslaktan FARKLI (madde işaretli uzun metin). Oraya yalnız ARAÇLAR'a "- Namaz vakti widget'ı: ana ekranda ve kilit ekranında sıradaki vakit ve geri sayım" satırı eklendi. App Store'da yalnız Türkçe yerelleştirme var; İngilizce eklenmedi.
 
 Kuran Yolu ile okuyun, öğrenin ve günlük ibadetinizi düzenleyin. Kuran'ı dersler, namaz araçları ve tefekkür kaynaklarıyla birlikte keşfedin.
