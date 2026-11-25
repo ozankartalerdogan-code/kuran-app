@@ -176,12 +176,13 @@ export async function fetchPrayerDays(lat: number, lng: number): Promise<DayTime
 // One notification two minutes after the prayer starts, including carried instants.
 const NOTIFY_AFTER_MIN = 2;
 
-// Android 8+ bildirim kanalları — yüksek öncelik (heads-up + ses). Olmadan bildirimler
-// varsayılan kanalda sessiz/önemsiz görünebilir. İKİ AYRI kanal: kullanıcı Android
+// Android 8+ bildirim kanalları — namaz yüksek, günlük ayet/dua varsayılan öncelikte.
+// İKİ AYRI kanal: kullanıcı Android
 // sistem ayarlarından (bildirime uzun bas → kanal ayarları) namaz ve günlük ayet
 // bildirimlerini birbirinden bağımsız susturabilsin — tek kanalda bu mümkün değildi.
 const ANDROID_CHANNEL_ID_PRAYER = "namaz-vakitleri";
-const ANDROID_CHANNEL_ID_DAILY  = "gunun-ayeti";
+const ANDROID_CHANNEL_ID_DAILY_LEGACY = "gunun-ayeti";
+const ANDROID_CHANNEL_ID_DAILY  = "gunun-ayeti-v2";
 
 async function ensureAndroidChannel(): Promise<void> {
   if (Platform.OS !== "android") return;
@@ -196,13 +197,14 @@ async function ensureAndroidChannel(): Promise<void> {
   });
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
     name:             getStrings(notifStrings).channelDaily,
-    importance:       Notifications.AndroidImportance.HIGH,
+    importance:       Notifications.AndroidImportance.DEFAULT,
     // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
     // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
     // adı sanıp ("Custom sound 'default' not found") hata basıyordu.
-    vibrationPattern: [0, 250, 250, 250],
     lightColor:       "#059669",
   });
+  // Android mevcut kanalın önemini düşürmez; eski HIGH kanalı kaldır.
+  await Notifications.deleteNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY_LEGACY).catch(() => {});
 }
 
 // Verilen vakitten offsetMin dakika öncesi için DAILY tetikleyici üretir.
@@ -295,7 +297,7 @@ async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications
     // EN modda Pickthall (yoksa Türkçe yedek), TR'de sunucu meali.
     const translation = v?.translation ? localizedMeal({ surah: v.surah_id, ayah: v.ayah_number }, v.translation) : null;
     const verseLine = translation
-      ? `\n\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
+      ? `\n📖 ${translation.slice(0, 150)}${translation.length > 150 ? "…" : ""}`
       : "";
     return {
       content: {
@@ -303,6 +305,7 @@ async function buildPrayerNotifications(days: DayTimes[]): Promise<Notifications
         title: key === "Sunrise" ? ns.sunriseTitle : fmt(ns.prayerTitle, { label }),
         body:  `${key === "Sunrise" ? ns.sunriseBody : fmt(ns.prayerBody, { label })}${verseLine}`,
         sound: true,
+        interruptionLevel: "timeSensitive",
         data:  { route: "/namaz" },
       },
       trigger,

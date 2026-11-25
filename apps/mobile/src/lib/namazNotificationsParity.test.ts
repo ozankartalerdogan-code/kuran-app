@@ -38,7 +38,7 @@ function load(source: string, deps: Record<string, unknown>) {
   return mod.exports;
 }
 
-function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolean; noCity?: boolean; zone?: string; intl?: boolean; aladhan?: boolean; now?: number; scheduleFail?: boolean; writeFail?: boolean; contentFail?: boolean } = {}) {
+function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolean; noCity?: boolean; zone?: string; intl?: boolean; aladhan?: boolean; now?: number; scheduleFail?: boolean; writeFail?: boolean; contentFail?: boolean; verseMeal?: string; android?: boolean; deleteChannelFail?: boolean; dailyRepeating?: boolean } = {}) {
   const values = new Map<string, any>([["namazNotifEnabled", "1"], ["dailyVerseNotifEnabled", "0"]]);
   const writes: string[] = [];
   let cancels = 0, subscribes = 0, fills = 0;
@@ -57,6 +57,12 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     "./prayerInstant": instants, "./prayerMethod": method, "./diyanetPrayer": diyanet,
   });
   const scheduled: any[] = [];
+  const channels = new Map<string, any>();
+  const deletedChannels: string[] = [];
+  const daily = (key: string) => ({
+    verse: { verse_key: key, surah_id: 1, ayah_number: 1, meal: "Daily verse" },
+    dua: { surah_id: 2, ayah_number: 201, meal: "Daily dua" },
+  });
   const listeners: ((event: any) => void)[] = [];
   const repo = createPrayerDayRepository({
     instants, nowMs: () => options.now ?? NOW,
@@ -82,14 +88,20 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     "../tour/overlayBusy": { withOverlayBusy: (fn: any) => fn() },
     "expo-notifications": {
       SchedulableTriggerInputTypes: { DATE: "date", DAILY: "daily" },
+      AndroidImportance: { HIGH: 4, DEFAULT: 3 },
+      setNotificationChannelAsync: async (id: string, channel: any) => { channels.set(id, channel); },
+      deleteNotificationChannelAsync: async (id: string) => { deletedChannels.push(id); if (options.deleteChannelFail) throw Error("channel"); },
       cancelAllScheduledNotificationsAsync: async () => { cancels++; scheduled.length = 0; },
       scheduleNotificationAsync: async (request: any) => { if (options.scheduleFail && !failed) { failed = true; throw Error("native"); } scheduled.push(request); return "id"; },
     },
     "expo-device": { isDevice: true }, "expo-location": { getForegroundPermissionsAsync: async () => ({ status: "denied" }) },
-    "react-native": { Platform: { OS: "ios" } },
-    "./api": { api: { notifications: { namazVerse: () => { if (options.contentFail) throw Error("content"); return Promise.resolve(null); } } } },
-    "./storage": { storage, STORAGE_KEYS: {} }, "./englishMeal": { localizedMeal: () => "" },
-    "../i18n": { getStrings: () => ({ sunriseTitle: "Sunrise", sunriseBody: "Sunrise" }), fmt: () => "", getLang: () => "tr" },
+    "react-native": { Platform: { OS: options.android ? "android" : "ios" } },
+    "./api": { api: {
+      notifications: { namazVerse: () => { if (options.contentFail) throw Error("content"); return Promise.resolve(options.verseMeal ? { surah_id: 1, ayah_number: 1, translation: options.verseMeal } : null); } },
+      daily: { forDate: async (date: string) => daily(options.dailyRepeating ? "same" : date), get: async () => daily("today") },
+    } },
+    "./storage": { storage, STORAGE_KEYS: {} }, "./englishMeal": { localizedMeal: (_verse: unknown, meal: string) => meal },
+    "../i18n": { getStrings: () => ({ sunriseTitle: "Sunrise", sunriseBody: "Sunrise", channelPrayer: "Prayer", channelDaily: "Daily", dailyVerse: "Verse", dailyDua: "Dua" }), fmt: () => "Prayer body", getLang: () => "tr" },
     "../i18n/strings/notifications": {}, "../i18n/strings/prayerNames": {},
     "./timeZone": { deviceTimeZone: () => ZONE },
     "./prayerInstant": { ...instants, intlZoneSupported: () => options.intl !== false },
@@ -103,16 +115,16 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     "./diyanetPrayerDeps": { diyanetDeps: () => ({}), deviceOffsetMin: () => 180,
       localYmdStr: (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}` },
     "./prayerDayRepositoryDeps": { getPrayerDayRepository: () => repository },
-    "./notifVersePick": { dedupeVerses: () => [], pickFromPool: () => null },
+    "./notifVersePick": { dedupeVerses: (list: unknown[]) => list.filter(Boolean), pickFromPool: (pool: unknown[]) => pool[0] ?? null },
     "../../modules/exact-alarm": { canScheduleExactAlarms: () => true },
   };
   const source = readFileSync(new URL("./namazNotifications.ts", import.meta.url), "utf8");
   const contextDeps = load(readFileSync(new URL("./prayerContextDeps.ts", import.meta.url), "utf8"), dependencies);
-  const app = load(source + "\nexport { buildPrayerNotifications, computeGapSlots };", {
+  const app = load(source + "\nexport { buildPrayerNotifications, buildDailyVerseNotifications, computeGapSlots };", {
     ...dependencies, "./prayerContextDeps": contextDeps,
   });
   const legacy = load(readFileSync(new URL("./__fixtures__/namazNotificationsLegacy.ts.txt", import.meta.url), "utf8"), dependencies);
-  return { app, legacy, calendarFetch, urls, values, writes, scheduled, contexts, emit: (event: any) => listeners.forEach(fn => fn(event)),
+  return { app, legacy, calendarFetch, urls, values, writes, scheduled, channels, deletedChannels, contexts, emit: (event: any) => listeners.forEach(fn => fn(event)),
     counts: () => ({ cancels, subscribes, fills }) };
 }
 
@@ -126,6 +138,46 @@ async function fixedTime(fn: () => Promise<void>, now = NOW) {
   } as DateConstructor;
   try { await fn(); } finally { globalThis.Date = NativeDate; if (previous === undefined) delete process.env.TZ; else process.env.TZ = previous; }
 }
+
+test("vakitler (Güneş dahil) timeSensitive ve tek satır aralıklı; günlük ayet/dua active varsayılanında", async () => fixedTime(async () => {
+  for (const verseMeal of [undefined, "Kısa meal", "a".repeat(151)]) {
+    const h = setup(fixtures[0], { verseMeal });
+    const days = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+    const jobs = await h.app.buildPrayerNotifications(days);
+    assert.equal(jobs.length, 42);
+    assert.equal(jobs.filter((job: any) => job.content.title === "Sunrise").length, 7);
+    for (const { content } of jobs) {
+      assert.equal(content.interruptionLevel, "timeSensitive");
+      assert.equal(content.body.includes("\n\n"), false);
+      const base = content.title === "Sunrise" ? "Sunrise" : "Prayer body";
+      assert.equal(content.body, base + (verseMeal ? `\n📖 ${verseMeal.slice(0, 150)}${verseMeal.length > 150 ? "…" : ""}` : ""));
+    }
+  }
+  for (const dailyRepeating of [false, true]) {
+    const h = setup(fixtures[0], { dailyRepeating });
+    const days = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+    const jobs = await h.app.buildDailyVerseNotifications(days);
+    assert.equal(jobs.length, dailyRepeating ? 2 : 14);
+    for (const job of jobs) {
+      assert.equal(Object.hasOwn(job.content, "interruptionLevel"), false);
+      assert.equal(job.trigger.channelId, "gunun-ayeti-v2");
+    }
+  }
+}));
+
+test("Android günlük kanal DEFAULT'a taşınır; eski kanal silme hatası planlamayı engellemez", async () => fixedTime(async () => {
+  for (const deleteChannelFail of [false, true]) {
+    const h = setup(fixtures[0], { android: true, deleteChannelFail });
+    const days = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+    await h.app.applyNotifications({ days, prayer: true, dailyVerse: true });
+    assert.deepEqual(h.channels.get("namaz-vakitleri"), {
+      name: "Prayer", importance: 4, vibrationPattern: [0, 250, 250, 250], lightColor: "#059669",
+    });
+    assert.deepEqual(h.channels.get("gunun-ayeti-v2"), { name: "Daily", importance: 3, lightColor: "#059669" });
+    assert.deepEqual(h.deletedChannels, ["gunun-ayeti"]);
+    assert.equal(h.scheduled.length, 56);
+  }
+}));
 
 for (const city of fixtures) test(`${city.name}: 7-day Diyanet triggers and gap epochs match pre-migration code to 0 ms`, async () => fixedTime(async () => {
   const { app, legacy } = setup(city);

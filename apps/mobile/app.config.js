@@ -35,6 +35,8 @@ module.exports = {
       appleTeamId: 'B58BQR745Y',
       entitlements: {
         'com.apple.security.application-groups': ['group.com.kuranapp.mobile'],
+        // Vakit bildirimlerinin Odak moduna ulaşması için; EAS build Apple capability'sini otomatik açar.
+        'com.apple.developer.usernotifications.time-sensitive': true,
       },
       // Firebase iOS yapılandırması: Android'deki google-services.json ile aynı
       // desen — EAS'te file-type env (GOOGLE_SERVICES_PLIST), yerelde gitignore'lı

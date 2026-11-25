@@ -108,7 +108,9 @@ function parseNotificationPlan(raw: string | null, stamp: string, prayer: boolea
       const route = content.data.route;
       if (typeof route !== "string" || (route !== "/namaz" && !/^\/ayah\/\d+\/\d+$/.test(route))) return null;
       if (route === "/namaz" ? !prayer : !dailyVerse) return null;
-      if (trigger.channelId !== (route === "/namaz" ? "namaz-vakitleri" : "gunun-ayeti")) return null;
+      // "gunun-ayeti" = 1.2.6 öncesi kaydedilmiş plan; geri yüklerken yeni (DEFAULT) kanala taşınır.
+      if (route === "/namaz" ? trigger.channelId !== "namaz-vakitleri" : trigger.channelId !== "gunun-ayeti-v2" && trigger.channelId !== "gunun-ayeti") return null;
+      const channelId = route === "/namaz" ? "namaz-vakitleri" : "gunun-ayeti-v2";
       const triggerKey = JSON.stringify([trigger.channelId, trigger.type, trigger.date, trigger.hour, trigger.minute]);
       if (triggers.has(triggerKey)) return null;
       triggers.add(triggerKey);
@@ -118,11 +120,11 @@ function parseNotificationPlan(raw: string | null, stamp: string, prayer: boolea
         const date = new Date(trigger.date);
         if (!Number.isFinite(date.getTime()) || date.toISOString() !== trigger.date) return null;
         if (date.getTime() <= now.getTime()) continue;
-        restored = { type: "date", date, channelId: trigger.channelId } as NotificationRequestInput["trigger"];
+        restored = { type: "date", date, channelId } as NotificationRequestInput["trigger"];
       } else if (trigger.type === "daily" && route !== "/namaz" && clockPart(trigger.hour, 23) && clockPart(trigger.minute, 59)) {
-        restored = { type: "daily", hour: trigger.hour, minute: trigger.minute, channelId: trigger.channelId } as NotificationRequestInput["trigger"];
+        restored = { type: "daily", hour: trigger.hour, minute: trigger.minute, channelId } as NotificationRequestInput["trigger"];
       } else return null;
-      requests.push({ content: { title: content.title, body: content.body, sound: true, data: { route } }, trigger: restored });
+      requests.push({ content: { title: content.title, body: content.body, sound: true, ...(route === "/namaz" ? { interruptionLevel: "timeSensitive" as const } : {}), data: { route } }, trigger: restored });
     }
     // Geçmiş bildirimler elenebilir; kaynak planda etkin türün kayıp olması bozulmadır.
     if (dailyVerse && dailyRequests === 0) return null;
