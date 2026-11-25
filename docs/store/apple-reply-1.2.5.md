@@ -4,7 +4,7 @@ Kullanıcı 25 Kas: itiraza cevap gibi değil, gönderimde uygulamanın özellik
 
 ## App Review Notes
 
-Kuran Yolu is a daily worship and learning app for Muslims. No account or login is required, and there are no ads or in-app purchases. A short screen recording of the features below is attached.
+Kuran Yolu is a daily worship and learning app for Muslims. No account or login is required, and there are no ads or in-app purchases.
 
 KEY FEATURES
 
@@ -27,7 +27,7 @@ ALSO INCLUDED
 - Browse by topic: every verse is tagged by topic (24 main topics, 260 sub-topics) under Learn > Topics, plus search across surahs and verses.
 - Optional "Daily Verse & Dua" notification.
 - Khatm tracker for the 30 juz, favorites, personal notes and shareable verse image cards.
-- Worship guide (faith, wudu, fard and sunnah), a step-by-step prayer guide, 10 special prayers and a calendar of 12 holy days.
+- Worship guide (faith, wudu, fard and sunnah), a step-by-step prayer guide, 10 special prayers and a calendar of 13 holy days and nights.
 - 23 categories of duas, 219 hadiths, the 99 Names of Allah, the life of the Prophet (49 events), stories of the prophets, and Spiritual Refuge (verses and duas for protection and comfort).
 - Dark mode, adjustable text size, and a guided tour on first launch.
 - Optional anonymous cloud backup of favorites, notes and progress.
