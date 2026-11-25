@@ -1,50 +1,46 @@
-# App Review cevabı — iOS 1.2.5 (6) yeniden gönderim (taslak, 25 Kas)
+# iOS 1.2.5 (6) gönderimi — App Review notu + "What's New" (taslak, 25 Kas)
 
-Apple'ın son mesajı (3 Kas, Guideline 4.2): "app primarily offers content for users to view... not enough of this content". Cevap iki ayağa dayanır: (1) içerik hacmi, (2) cihaz-yerel etkileşimli özellikler. ASC'ye kullanıcı onayıyla, Submit'ten hemen önce yapıştırılır. Sayılar 25 Kas'ta `apps/mobile/src/data` üzerinden doğrulandı. Video: kuzenin İngilizce arayüzle çektiği 1–2 dk kayıt, App Review Information > Attachment.
+Kullanıcı 25 Kas: itiraza cevap gibi değil, gönderimde uygulamanın özelliklerini anlatalım — widget, tüm dünyada namaz vakitleri, 2 dil, dersler ve testler, çevrimdışı içerik, tesbih, kıble bulucu. Sayılar 25 Kas'ta `apps/mobile/src/data` üzerinden doğrulandı. ASC: App Review Information > Notes alanı (düz metin) + ekran kaydı Attachment. Submit'ten hemen önce kullanıcıya son onay sorulur.
 
----
+## App Review Notes
 
-Hello App Review team,
+Kuran Yolu is a daily worship and learning app for Muslims. No account or login is required, and there are no ads or in-app purchases. A short screen recording of the features below is attached.
 
-Thank you for your feedback on version 1.2.0. We took Guideline 4.2 seriously and rebuilt the app around interactive, device-native features and a much larger body of content. Version 1.2.5 (build 6) is a substantially different app. A short screen recording of the features below is attached to the App Review Information section.
+KEY FEATURES
 
-WHAT IS NEW SINCE 1.2.0
+1. Prayer times worldwide: Home shows today's five prayer times for any city in the world, with a live countdown to the next prayer. Tap the city name to search for another city. The bell icon schedules up to 7 days of local prayer notifications.
 
-1. Full English experience. The whole app, including all content, is now available in English and opens in English automatically on any device not set to Turkish.
+2. Home Screen and Lock Screen widgets: small and medium Home Screen widgets and a Lock Screen widget show the next prayer and a countdown. To add one, long-press the Home Screen > Edit > Add Widget > "Kuran Yolu".
 
-2. Home Screen and Lock Screen widgets (WidgetKit). Small and medium Home Screen widgets and a Lock Screen widget show the next prayer time with a live countdown, using a shared App Group with the app.
+3. Two languages: the whole app, including all content, is available in English and Turkish. It opens in English on any device not set to Turkish (manual switch: More > Language).
 
-3. Interactive learning. 16 lessons with quizzes, plus a 9-lesson Arabic Alphabet course with letter audio, practice, listening exercises, quizzes and mistake review.
+4. Lessons and quizzes: Learn > Lessons has 16 lessons (faith, prayer, ablution, fasting, zakat, Hajj, tajweed and more) in swipeable cards, each ending with a quiz. Learn > Lessons > Arabic Alphabet (Elif-Ba) is a 9-lesson course with letter audio, practice, listening exercises, quizzes and mistake review.
 
-4. Topic browser. Every one of the 6,236 verses is tagged by topic (24 main topics, 260 sub-topics), so users can explore the Quran by subject.
+5. Works offline: the full 604-page Arabic Quran with tajweed colors, the English translation of all 6,236 verses, lessons, duas, hadiths and the prayer guide are bundled in the app and work in airplane mode.
 
-DEVICE-NATIVE FEATURES
+6. Tasbih counter: Worship > Tasbih is a tap-to-count bead ring with haptic feedback, rounds and custom targets.
 
-- Prayer times with a live countdown for any city, and up to 7 days of scheduled local prayer notifications.
-- Qibla compass using the device heading and approximate location, with haptic feedback when aligned.
-- Tasbih counter with haptics, rounds and custom targets.
-- Khatm (full reading) tracker across the 30 juz.
-- Verse image cards created on the device and shared through the system share sheet.
-- Favorites, personal notes and reading progress, with an optional anonymous cloud backup that can be deleted at any time.
-- Works offline: the full 604-page Arabic mushaf with tajweed colors, translation, lessons and duas are bundled in the app (airplane mode supported).
+7. Qibla finder: Worship > Qibla uses the device compass and approximate location to point to the Kaaba, with haptic feedback when aligned.
 
-CONTENT IN THE APP
+ALSO INCLUDED
+- Verse details with word-by-word meanings and Arabic roots, and topics for every verse (Learn > Topics).
+- Khatm tracker for the 30 juz, favorites, personal notes and verse image sharing.
+- 23 categories of duas, 219 hadiths, the 99 Names of Allah, the life of the Prophet and stories of the prophets.
 
-- Complete Arabic Quran (604 pages) with tajweed coloring.
-- Complete English translation of all 6,236 verses (M. M. Pickthall, 1930) and English transliteration.
-- Simplified English commentary for all 114 surahs.
-- Word-by-word study: meanings and grammatical analysis for each word, with 1,703 Arabic roots.
-- 23 categories of duas, 219 hadiths, the 99 Names of Allah, the life of the Prophet (8 periods, 49 events), stories of the prophets, a step-by-step prayer guide, 10 special prayers and 12 holy days.
-
-HOW TO SEE IT QUICKLY (no login needed)
-
-1. Home: prayer countdown, tap the bell for notifications, open Qibla.
-2. Learn > Lessons: open a lesson and tap Start Quiz on the last card. Learn > Topics: browse verses by subject.
+60-SECOND TOUR
+1. Home: see the countdown, tap the bell, then open Qibla.
+2. Learn > Lessons: open a lesson and tap Start Quiz on the last card.
 3. Worship > Tasbih: tap the bead ring.
-4. Quran > Read the Quran: works in airplane mode; tap a verse > View Details > Words.
-5. Long-press the Home Screen > Edit > Add Widget > "Kuran Yolu".
+4. Quran > Read the Quran: turn on airplane mode and swipe pages. Tap a verse > View Details.
+5. Add the "Kuran Yolu" widget to the Home Screen.
 
-The detailed walkthrough is also in the App Review notes. We would be grateful if you could review the new version. Please let us know if anything needs clarification.
+Privacy: location is requested only as approximate location, for prayer times and Qibla. Analytics and crash reports are anonymous, and there is no tracking. The optional anonymous cloud backup can be deleted under More > Privacy Policy.
 
-Best regards,
-Kartal Studio
+## What's New in This Version (1.2.5)
+
+- New Home Screen and Lock Screen widgets with the next prayer time
+- Prayer times for cities worldwide, with notifications
+- Full English language support
+- New Arabic Alphabet course with audio, practice and quizzes
+- Browse Quran verses by topic
+- Performance and stability improvements
