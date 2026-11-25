@@ -2,7 +2,7 @@
 
 > Taslak: Codex (gpt-6.1-terra) uygulama kodundan üretti, 2026-11-11. Apple 4.2 itirazı sonuçlanmadan mağazaya girilmeyecek.
 > Güncelleme (2026-11-12 akşam): yurt dışı vakit cümlesi ve yeni yenilikler eklendi; TR karşılığı listing.tr.md. Karakter sayıları parantez içinde eski olabilir.
-> Not (2026-11-12): Kelime anlamları, kök açıklamaları ve literal çeviri artık İngilizce (AI destekli; açıklamadaki "AI-assisted translations" cümlesi bunları da kapsar). Meal–literal fark analizi İngilizce modda gizli; açıklamada vaat edilmiyor. Gizlilik politikası URL'si için web'de İngilizce sayfa henüz yok (yalnız /privacy Türkçe).
+> Not (2026-11-12): Kelime anlamları, kök açıklamaları ve literal çeviri artık İngilizce (AI destekli; açıklamadaki "AI-assisted translations" cümlesi bunları da kapsar). Meal–literal fark analizi İngilizce modda gizli; açıklamada vaat edilmiyor. İngilizce gizlilik sayfası /privacy/en (master birleştirmesiyle canlıya çıkar).
 
 ## App Store (iOS)
 
@@ -19,7 +19,7 @@ Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 > - Prayer times and local notifications: Home shows today's prayer times with a live countdown to the next prayer; tap the city name to search and choose another city. The bell icon (or More > Notifications) schedules up to 7 days of local prayer alerts, plus an optional "Daily Verse & Dua" notification.
 > - Qibla compass: Worship > Qibla (or Home > Qibla) uses the device compass and approximate location to point to the Kaaba, with haptic feedback when aligned.
 > - Lessons and quizzes (offline): Learn > Lessons has 16 bundled lessons in swipeable card view (Read All switches to a scrolling view); tap Start Quiz at the end of a lesson.
-> - Arabic Alphabet (Elif-Ba): 9 lessons with letter audio, Practice, Listen (on multi-letter lessons such as Lesson 1), Quiz and mistake review. Lesson data and audio are downloaded on first use, so this section needs an internet connection.
+> - Arabic Alphabet (Elif-Ba): Learn > Lessons > Arabic Alphabet (Elif-Ba) has 9 lessons with letter audio, Practice, Listen (on multi-letter lessons such as Lesson 1), Quiz and mistake review. Lesson data and audio are downloaded on first use, so this section needs an internet connection.
 > - Tasbih counter: Worship > Tasbih (or Home > Tasbih) is a tap-to-count bead ring with haptic feedback, round tracking and custom targets saved on the device.
 > - Khatm tracker: Quran > Khatm (or the bookmark icon in Read the Quran): tap "+ Start a New Khatm", then mark any of the 30 juz as read and jump to its first page.
 > - Offline Quran: Quran > Read the Quran opens the bundled 604-page Arabic mushaf with tajweed colors and works in airplane mode. Tap a verse > View Details (or use Quran > List of Surahs) for the bundled M. M. Pickthall (1930) English translation.
