@@ -2,6 +2,15 @@ import { defineStrings } from "../index";
 
 export default defineStrings({
   tr: {
+    warnTilted: "Doğru yön için telefonu yere paralel düz tut",
+    warnTiltedA11y: "Uyarı: Telefon eğik. Doğru yön için telefonu yere paralel düz tut.",
+    warnMagnetic: "Metal veya mıknatıstan uzaklaşıp telefonu 8 çizerek çevir",
+    warnMagneticA11y: "Uyarı: Manyetik etki algılandı. Metal veya mıknatıstan uzaklaşıp telefonu 8 çizerek çevir.",
+    warnLowAccuracy: "Pusula doğruluğu düşük; telefonu 8 şeklinde çevir",
+    warnLowAccuracyA11y: "Uyarı: Pusula doğruluğu düşük. Kalibrasyon için telefonu 8 şeklinde birkaç kez çevir.",
+    warnStaleLocation: "Konum güncellenemedi; son bilinen konum gösteriliyor",
+    warnStaleLocationA11y: "Uyarı: Yeni konum alınamadı, son bilinen konum gösteriliyor. Açık alanda Konumu Yenile düğmesine bas.",
+    alignmentPaused: "Pusula güvenilir değil; hizalama duraklatıldı.",
     retry: "Tekrar dene",
     screenTitle: "Kıble Yönü",
     permTitle: "Konum İzni Gerekli",
@@ -33,6 +42,15 @@ export default defineStrings({
     K: "K", KD: "KD", D: "D", GD: "GD", G: "G", GB: "GB", B: "B", KB: "KB",
   },
   en: {
+    warnTilted: "Hold your phone flat for an accurate reading",
+    warnTiltedA11y: "Warning: Phone is tilted. Hold your phone flat for an accurate reading.",
+    warnMagnetic: "Move away from metal or magnets and trace a figure 8",
+    warnMagneticA11y: "Warning: Magnetic interference detected. Move away from metal or magnets and trace a figure 8.",
+    warnLowAccuracy: "Compass accuracy is low; move phone in a figure 8",
+    warnLowAccuracyA11y: "Warning: Compass accuracy is low. Move your phone in a figure 8 a few times to calibrate.",
+    warnStaleLocation: "Couldn't update location; showing last saved location",
+    warnStaleLocationA11y: "Warning: Couldn't update location, showing last saved location. Tap Refresh Location outdoors.",
+    alignmentPaused: "Compass reading is unreliable; alignment paused.",
     retry: "Try again",
     screenTitle: "Qibla Direction",
     permTitle: "Location Permission Required",
