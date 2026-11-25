@@ -108,7 +108,8 @@ type Step = "locating" | "compass" | "error";
 export default function KibleScreen() {
   const { width, height } = useWindowDimensions();
   // Dikey telefonda mevcut ölçü birebir korunur; yatayda kısa kenar da sınırlar.
-  const SIZE = Math.min(width - 48, height * (width > height ? 0.48 : 1), 300);
+  // Telefonda en çok 300; tablette (kısa kenar ≥600) 420 — dikey tablette pusula küçük kalmasın.
+  const SIZE = Math.min(width - 48, height * (width > height ? 0.48 : 1), Math.min(width, height) >= 600 ? 420 : 300);
   const OUTER = SIZE + 44;
   const FACE = SIZE - 56;
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok

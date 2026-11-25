@@ -994,7 +994,8 @@ const styles = StyleSheet.create({
   lockHint: { fontSize: 14, lineHeight: 20, textAlign: "center" },
   lockActions: { width: "100%", gap: 10, marginTop: space.xs },
   noData:    { fontSize:14, textAlign:"center" },
-  modeBar:   { margin:space.sm },
+  // Tablette içerikle aynı genişlikte ortalanır; telefonda görünüm aynı (yan boşluk = space.sm).
+  modeBar:   { marginVertical: space.sm, paddingHorizontal: space.sm, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   counter:   { textAlign:"center", fontSize:12, marginBottom:space.xxs },
   letters: { flexDirection: "row", gap: 7, paddingHorizontal: space.gutter, paddingVertical: space.xs },
   letterChip: { width: 44, minHeight: 44, alignItems: "center", justifyContent: "center", borderWidth: 1, borderRadius: radius.sm },
