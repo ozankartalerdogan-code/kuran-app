@@ -268,7 +268,7 @@ struct AccessoryRectangularNamazView: View {
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
                     Spacer(minLength: 4)
-                    Text(prayer.time)
+                    Text(prayer.approximate ? "\(prayer.time) (~)" : prayer.time)
                         .font(.system(size: 17, weight: .bold))
                         .monospacedDigit()
                         .lineLimit(1)

@@ -208,7 +208,11 @@ enum NamazCalculator {
 
         if payload.approximate == true {
             // Aynı UTC ofsetindeki farklı şehirleri ayırmak için IANA kimliğini karşılaştır.
-            guard payload.tz == TimeZone.current.identifier else {
+            // autoupdatingCurrent: uzun ömürlü uzantı sürecinde saat dilimi değişimi kaçmasın.
+            // Yedek 14 günden eskiyse (JS'teki sınırla aynı) gösterme.
+            let ageMs = now.timeIntervalSince1970 * 1000.0 - (payload.writtenAtMs ?? 0)
+            guard payload.tz == TimeZone.autoupdatingCurrent.identifier,
+                  ageMs <= 14.0 * 86_400_000.0 else {
                 return NamazViewState(
                     lang: payload.lang,
                     theme: payload.theme,
