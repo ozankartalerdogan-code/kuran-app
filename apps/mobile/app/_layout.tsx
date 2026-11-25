@@ -14,6 +14,7 @@ import { AppSplash } from "../src/components/AppSplash";
 import { needsWelcome } from "../src/lib/onboardingPolicy";
 import { useOverlayBusy, isOverlayBusy } from "../src/tour/overlayBusy";
 import { PendingNavigation } from "../src/lib/pendingNavigation";
+import { notificationTarget } from "../src/lib/notificationTarget";
 import { useAppTour, AppTourProvider } from "../src/tour/AppTourProvider";
 import { ensureNotificationsFresh, NOTIF_KEY } from "../src/lib/namazNotifications";
 import { maybePromptExactAlarm } from "../src/lib/exactAlarmPrompt";
@@ -155,7 +156,7 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
     }
     if (response) {
       const request = response.notification.request;
-      pending.current.remember("/(tabs)", `${request.identifier}:${response.notification.date}:${response.actionIdentifier}`);
+      pending.current.remember(notificationTarget(request.content.data), `${request.identifier}:${response.notification.date}:${response.actionIdentifier}`);
     }
     if (needsOnboarding && !onboarded) {
       if (pathname !== "/onboarding") router.replace("/onboarding");
