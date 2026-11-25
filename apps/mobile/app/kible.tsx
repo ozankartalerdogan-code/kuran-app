@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   View, Text, StyleSheet, ScrollView,
-  ActivityIndicator, Alert, Dimensions, Linking, Animated, Easing, Platform, AccessibilityInfo,
+  ActivityIndicator, Alert, useWindowDimensions, Linking, Animated, Easing, Platform, AccessibilityInfo,
 } from "react-native";
 import { Stack, router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -16,15 +16,13 @@ import { useStrings, getStrings, fmt, localeTag, caps } from "../src/i18n";
 import kibleStrings from "../src/i18n/strings/kible";
 import { magneticDeclination } from "../src/lib/geomagnetism";
 import { chooseQuickFix } from "../src/lib/qiblaLocation";
+import { effectiveScreenRotation, headingForScreen } from "../src/lib/qiblaScreenRotation";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { getSavedCoords, rememberCoords } from "../src/lib/namazNotifications";
 
 // ── Sabitler ──────────────────────────────────────────────────────────────────
 
 const MECCA     = { lat: 21.4225, lng: 39.8262 };
-const { width } = Dimensions.get("window");
-const SIZE      = Math.min(width - 48, 300);
-const OUTER     = SIZE + 44; // dönen pusula gülü (dış kadran)
-const FACE      = SIZE - 56; // iç ibre dairesi — yön bandına (tik+harf) yer açacak kadar küçük
 const SMOOTH_N  = 5; // ortalama alınacak ölçüm sayısı
 const MAG_OFFSET = 0; // Magnetometer yön düzeltmesi (gerekirse cihazda ince ayar)
 
@@ -111,6 +109,13 @@ const NORTH_DARK  = "#f87171";
 type Step = "locating" | "compass" | "error";
 
 export default function KibleScreen() {
+  const { width, height } = useWindowDimensions();
+  const uiLandscapeRef = useRef(width > height);
+  uiLandscapeRef.current = width > height;
+  // Dikey telefonda mevcut ölçü birebir korunur; yatayda kısa kenar da sınırlar.
+  const SIZE = Math.min(width - 48, height * (width > height ? 0.48 : 1), 300);
+  const OUTER = SIZE + 44;
+  const FACE = SIZE - 56;
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
   useKeepAwakeSafe(); // Pusulaya bakarken ekran kararmasın
   const insets = useSafeAreaInsets();
@@ -166,12 +171,20 @@ export default function KibleScreen() {
     if (step !== "compass") return;
 
     let active = true;
+    let screenRotation: number | undefined = 0;
+    let lastOrientationAt = 0;
     gotData.current = false;
     firstHeadingRef.current = true;
 
     // Nihai yön (0–360) → yumuşatma + akıcı animasyon + hizalama kontrolü
     const onDeg = (deg: number) => {
       if (!active || !(deg >= 0)) return;
+      // DeviceMotion veri vermiyorsa eski yön davranışını koru.
+      deg = headingForScreen(deg, effectiveScreenRotation(
+        Platform.OS,
+        Date.now() - lastOrientationAt <= 1500 ? screenRotation : undefined,
+        uiLandscapeRef.current,
+      ));
       gotData.current = true;
       headingBuf.current = [...headingBuf.current.slice(-(SMOOTH_N - 1)), deg];
       const raw = avgAngles(headingBuf.current); // 0–360
@@ -266,24 +279,32 @@ export default function KibleScreen() {
     // Birincil: DeviceMotion (OS füzyonu). 1.5 sn içinde veri gelmezse (rotation
     // yok / eski cihaz) manyetometreye düşer.
     let dmFallbackTimer: ReturnType<typeof setTimeout> | null = null;
+    const useDeviceMotionHeading = Platform.OS !== "ios" && USE_DEVICE_MOTION;
+    let dmStarted = false;
+    // Ekran dönüşü, heading kaynağından bağımsızdır (iOS / mag / location dahil).
+    try {
+      DeviceMotion.setUpdateInterval(SENSOR_MS);
+      subsRef.current.push(DeviceMotion.addListener(d => {
+        if (!active) return;
+        screenRotation = d?.orientation;
+        lastOrientationAt = Date.now();
+        if (useDeviceMotionHeading && d?.rotation) onDeviceMotion(d.rotation.alpha);
+      }));
+      dmStarted = true;
+    } catch {
+      screenRotation = 0;
+      lastOrientationAt = 0;
+    }
     if (Platform.OS === "ios") {
       // iOS'ta DeviceMotion.rotation.alpha = CMAttitude.yaw (xMagneticNorthZVertical:
       // X ekseni kuzey) — Android'deki -azimut'tan farklı eksen referansı, DM_SIGN/
       // DM_OFFSET Android'e göre ayarlı. iOS'un kendi heading servisi doğrudan
       // pusula yönü verir; platform farkı taşımaz.
       startLocationHeading();
-    } else if (USE_DEVICE_MOTION) {
-      try {
-        DeviceMotion.setUpdateInterval(SENSOR_MS);
-        subsRef.current.push(
-          DeviceMotion.addListener((d) => { if (d?.rotation) onDeviceMotion(d.rotation.alpha); }),
-        );
-        dmFallbackTimer = setTimeout(() => {
-          if (active && !gotData.current) startMagnetometer();
-        }, 1500);
-      } catch {
-        startMagnetometer();
-      }
+    } else if (useDeviceMotionHeading && dmStarted) {
+      dmFallbackTimer = setTimeout(() => {
+        if (active && !gotData.current) startMagnetometer();
+      }, 1500);
     } else {
       startMagnetometer();
     }
@@ -548,14 +569,14 @@ export default function KibleScreen() {
           <View style={[s.face, { backgroundColor: faceBg, borderColor: isAligned ? c.accent : c.border }, { width: FACE, height: FACE, borderRadius: FACE / 2 }]}>
             {/* Kuyruk (zıt yön) — denge için */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: tailRotate }] }]}>
-              <View style={[s.needleTail, { backgroundColor: c.border }, { height: FACE / 2 - 34 }]} />
+              <View style={[s.needleTail, { backgroundColor: c.border }, { height: Math.max(0, FACE / 2 - 34) }]} />
             </Animated.View>
             {/* Kabe oku */}
             <Animated.View style={[s.needleLayer, { transform: [{ rotate: needleRotate }] }]}>
               <View style={[s.kaabaBadge, { backgroundColor: kaabaBg, borderColor: kaabaBorder }]}>
                 <Animated.Text accessible={false} importantForAccessibility="no" style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
-              <View style={[s.needleUp, { backgroundColor: needleColor }, { height: FACE / 2 - 56 }]} />
+              <View style={[s.needleUp, { backgroundColor: needleColor }, { height: Math.max(0, FACE / 2 - 56) }]} />
             </Animated.View>
             <View style={[s.centerHub, { backgroundColor: needleColor, borderColor: faceBg }]} />
           </View>
@@ -612,7 +633,7 @@ const s = StyleSheet.create({
 
   // Sade kalibrasyon çubuğu
   calibSlim: {
-    width: "100%", flexDirection: "row", alignItems: "center", gap: space.xs,
+    width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center", flexDirection: "row", alignItems: "center", gap: space.xs,
     borderRadius: radius.md, borderWidth: 1,
     paddingLeft: space.sm, paddingRight: space.xxs, paddingVertical: space.xxs, marginBottom: space.sm,
   },
@@ -686,6 +707,6 @@ const s = StyleSheet.create({
   badgeSubRow: { flexDirection: "row", alignItems: "center", gap: space.xxs, marginTop: 1, minHeight: 16 },
   badgeSub: { fontSize: 11, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase" },
 
-  infoBox:  { marginTop: space.sm, width: "100%" },
+  infoBox:  { marginTop: space.sm, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   refreshBtn: { marginTop: space.md },
 });
