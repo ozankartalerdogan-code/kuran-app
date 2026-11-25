@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   View, Text, TouchableOpacity, StyleSheet,
-  Animated, Platform, Pressable, ScrollView, TextInput, Alert,
+  Animated, Platform, Pressable, ScrollView, TextInput, Alert, KeyboardAvoidingView,
 } from "react-native";
 import { storage } from "../lib/storage";
+import { READING_MAX_WIDTH } from "../lib/layout";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useColors } from "../hooks/useColors";
@@ -360,11 +361,18 @@ export function TasbihScreen({ onClose }: { onClose: () => void }) {
   return (
     <>
       <KeepAwakeWhileOpen />
-      <View style={[m.screen, {
-        backgroundColor: c.bg,
-        paddingTop: insets.top + 8,
-        paddingBottom: insets.bottom + 14,
-      }]}>
+      <View style={[m.screen, { backgroundColor: c.bg }]}>
+        <KeyboardAvoidingView style={m.flex1} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+          <ScrollView
+            style={m.flex1}
+            contentContainerStyle={[m.scrollContent, {
+              paddingTop: insets.top + 8,
+              paddingBottom: insets.bottom + 14,
+              paddingHorizontal: Math.max(20, insets.left, insets.right),
+            }]}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
 
         {/* ── Başlık ── */}
         <View style={m.header}>
@@ -574,13 +582,17 @@ export function TasbihScreen({ onClose }: { onClose: () => void }) {
           )}
         </View>
 
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </>
   );
 }
 
 const m = StyleSheet.create({
-  screen:      { flex: 1, paddingHorizontal: 20 },
+  screen:        { flex: 1 },
+  flex1:         { flex: 1 },
+  scrollContent: { flexGrow: 1, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
 
   header:      { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 12 },
   headerLeft:  { flexDirection: "row", alignItems: "center", gap: 8 },

@@ -1,13 +1,17 @@
 import React, { useRef, useEffect } from "react";
-import { View, StyleSheet, Dimensions, Animated, ImageBackground } from "react-native";
-
-const { width, height } = Dimensions.get("window");
+import { View, StyleSheet, Animated, ImageBackground, useWindowDimensions } from "react-native";
 
 interface AppSplashProps {
   onFinish: () => void;
 }
 
 export function AppSplash({ onFinish }: AppSplashProps) {
+  const { width, height } = useWindowDimensions();
+  // Görsel 1080×2340 (~0.46). Dikey telefonlarda (<= 0.62) mevcut cover görünümü korunur;
+  // yatay veya tablet gibi geniş ekranlarda logo/yazı kırpılmasın diye contain kullanılır.
+  const screenAspect = height > 0 ? width / height : 1;
+  const resizeMode = screenAspect <= 0.62 ? "cover" : "contain";
+
   const dots = useRef([
     new Animated.Value(0.2),
     new Animated.Value(0.2),
@@ -43,8 +47,8 @@ export function AppSplash({ onFinish }: AppSplashProps) {
   return (
     <ImageBackground
       source={require("../../assets/splash_logo.jpg")}
-      style={styles.container}
-      resizeMode="cover"
+      style={[StyleSheet.absoluteFill, styles.container]}
+      resizeMode={resizeMode}
     >
       <View style={styles.footer}>
         <View style={styles.dotsRow}>
@@ -60,8 +64,6 @@ export function AppSplash({ onFinish }: AppSplashProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width,
-    height,
     backgroundColor: "#000517",
   },
   // "Kuran Yolu" yazısı artık görselin içinde gömülü — footer'da yalnız

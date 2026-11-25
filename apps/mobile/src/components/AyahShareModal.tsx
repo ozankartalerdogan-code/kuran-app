@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import {
   Modal, View, Text, TouchableOpacity, ScrollView,
-  ActivityIndicator, StyleSheet, Dimensions,
+  ActivityIndicator, StyleSheet, useWindowDimensions,
 } from "react-native";
 import { useColors } from "../hooks/useColors";
 import { captureAndShareView } from "../lib/shareImage";
@@ -12,8 +12,6 @@ import componentStrings from "../i18n/strings/components";
 // Görsel ayet paylaşımı — "Kuran Yolu" markalı kart önizlemesi + paylaşım seçimi.
 // Kart tasarımı temadan BAĞIMSIZ sabittir (krem zemin): paylaşılan görsel her
 // kullanıcıda aynı marka kimliğiyle görünsün diye.
-
-const CARD_W = Math.min(Dimensions.get("window").width - 48, 360);
 
 // Uzun ayetlerde yazı küçülür; Kur'an metni asla kırpılmaz, kart uzar.
 function arabicFontSize(len: number) {
@@ -37,6 +35,8 @@ interface Props {
 export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic, meal, onShareText, onShared }: Props) {
   const c = useColors();
   const t = useStrings(componentStrings);
+  const { width } = useWindowDimensions();
+  const cardW = Math.min(width - 48, 360);
   // KARTTA basılan metin font uyumluluğundan geçmeli: production fontu U+06DF,
   // U+06E3 ve U+06EB yuvalarında gerçek glif taşımaz, yerlerine noktalı daire
   // (sahipsiz işaret) çizer. Mushaf sayfası ve ayet detayı bunu zaten uyguluyor;
@@ -73,7 +73,7 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
       <View style={m.backdrop}>
         <ScrollView contentContainerStyle={m.scrollContent} showsVerticalScrollIndicator={false}>
           {/* Yakalanan kart — collapsable={false}: Android'de view-shot için şart */}
-          <View ref={cardRef} collapsable={false} style={m.card}>
+          <View ref={cardRef} collapsable={false} style={[m.card, { width: cardW }]}>
             <Text style={m.cardHeader}>{fmt(t.shareCardHeader, { name: surahName.toLocaleUpperCase(localeTag()), n: ayahNumber })}</Text>
             {kartArapca ? (
               <Text style={[m.cardArabic, { fontSize: arabicFontSize(kartArapca.length), lineHeight: arabicFontSize(kartArapca.length) * 1.8 }]}>
@@ -93,7 +93,7 @@ export function AyahShareModal({ visible, onClose, surahName, ayahNumber, arabic
           </View>
 
           {/* Aksiyonlar */}
-          <View style={[m.actions, { backgroundColor: c.card, borderColor: c.border }]}>
+          <View style={[m.actions, { width: cardW, backgroundColor: c.card, borderColor: c.border }]}>
             <TouchableOpacity
               style={[m.primaryBtn, { backgroundColor: c.accent }]}
               onPress={handleShareImage}
@@ -138,7 +138,7 @@ const m = StyleSheet.create({
 
   // Kart — sabit marka tasarımı (krem zemin, yeşil vurgular)
   card: {
-    width: CARD_W, backgroundColor: "#fffdf7", borderRadius: 20,
+    backgroundColor: "#fffdf7", borderRadius: 20,
     paddingHorizontal: 24, paddingTop: 22, paddingBottom: 18,
     borderWidth: 1, borderColor: "#d6d3d1",
   },
@@ -167,7 +167,7 @@ const m = StyleSheet.create({
 
   // Aksiyon paneli
   actions: {
-    width: CARD_W, borderRadius: 16, borderWidth: 1, padding: 12, gap: 8,
+    borderRadius: 16, borderWidth: 1, padding: 12, gap: 8,
   },
   primaryBtn: {
     borderRadius: 10, paddingVertical: 12, alignItems: "center", minHeight: 44, justifyContent: "center",
