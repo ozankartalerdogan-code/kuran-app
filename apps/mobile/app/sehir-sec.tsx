@@ -31,6 +31,7 @@ import { getPrayerDayRepository } from "../src/lib/prayerDayRepositoryDeps";
 import { addDaysYmd, prayerDateInZone } from "../src/lib/prayerInstant";
 import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { refreshPrayerWidgetsNow } from "../src/widgets/widgetRefresh";
+import { clearPrayerWidgetFallback } from "../src/widgets/prayerWidgetFallback";
 
 type SearchState =
   | { status: "idle" }
@@ -75,7 +76,7 @@ export default function SehirSecScreen() {
     complete: (city) => {
       setManual(city);
       markPrayerCityChanged();
-      void refreshPrayerWidgetsNow();
+      void (city ? clearPrayerWidgetFallback() : Promise.resolve()).then(() => refreshPrayerWidgetsNow());
       // The public entry point uses the existing notification SerialQueue.
       void rescheduleNotifications().catch(() => {});
       router.back();

@@ -15,7 +15,7 @@ import { getStrings, fmt, getLang } from "../i18n";
 import notifStrings from "../i18n/strings/notifications";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { deviceTimeZone } from "./timeZone";
-import { formatHmInZone, futureCarry, intlZoneSupported, notificationAtMs } from "./prayerInstant";
+import { addDaysYmd, prayerDateInZone, formatHmInZone, futureCarry, intlZoneSupported, notificationAtMs } from "./prayerInstant";
 import type { PrayerInstants } from "./prayerInstant";
 import { getManualCity, prayerCityStampPart } from "./diyanetPrayer";
 import { diyanetDeps, localYmdStr } from "./diyanetPrayerDeps";
@@ -23,6 +23,7 @@ import { getPrayerDayRepository } from "./prayerDayRepositoryDeps";
 import type { PrayerDayRecord } from "./prayerDayRepository";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
+import { readPrayerWidgetFallback, writePrayerWidgetFallback } from "../widgets/prayerWidgetFallback";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -150,6 +151,23 @@ export async function fetchPrayerDays(lat: number, lng: number): Promise<DayTime
   prevDate.setDate(today.getDate() - 1);
   const dates = (previousDay ? [prevDate, ...wanted] : wanted).map(localYmdStr);
   const records = await getPrayerDayRepository().ensureDays(context, dates);
+  if (context.cityKey.startsWith("geo:")) {
+    // Best effort widget maintenance must never change notification planning.
+    try {
+      const writtenAtMs = Date.now();
+      const snapshot = await readPrayerWidgetFallback(writtenAtMs);
+      if (snapshot?.city && snapshot.tz === context.cityTimeZone) {
+        const date = prayerDateInZone(writtenAtMs, context.cityTimeZone);
+        const cached = (await getPrayerDayRepository().readCachedDays(
+          { cityKey: context.cityKey, cityTimeZone: context.cityTimeZone },
+          Array.from({ length: 16 }, (_, i) => addDaysYmd(date, i - 1)),
+        )).filter(record => record.source === "aladhan");
+        if (cached.length) await writePrayerWidgetFallback({
+          city: snapshot.city, tz: context.cityTimeZone, writtenAtMs, records: cached,
+        });
+      }
+    } catch { /* Notifications remain independent of widget storage. */ }
+  }
   const days: DayTimes[] = wanted.flatMap(date => {
     const record = records.get(localYmdStr(date));
     if (!record) return [];

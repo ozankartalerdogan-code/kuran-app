@@ -40,11 +40,13 @@ type BuildIosWidgetPayloadInput = {
   lang: Lang;
   theme: WidgetThemePreference;
   nowMs: number;
+  approximate?: boolean;
 };
 
 export function buildIosWidgetPayload(input: BuildIosWidgetPayloadInput): IosWidgetPayload {
   const { lang, theme, nowMs } = input;
-  const city = input.city ? (lang === "en" ? input.city.replace(/İ/g, "I") : input.city) : "";
+  const cityName = input.city ? (lang === "en" ? input.city.replace(/İ/g, "I") : input.city) : "";
+  const city = cityName && input.approximate ? `${cityName} (~)` : cityName;
   const tz = city ? input.tz : "";
   const emptyText = lang === "tr" ? "Vakitler için uygulamayı açın" : "Open the app to load prayer times";
   const focusHeading = city
@@ -94,7 +96,7 @@ export function buildIosWidgetPayload(input: BuildIosWidgetPayloadInput): IosWid
     emptyText,
     focusHeading,
     nextLabel: lang === "tr" ? "SIRADAKİ" : "NEXT",
-    a11yNext: lang === "tr" ? "Sıradaki vakit" : "Next prayer",
+    a11yNext: `${input.approximate && city ? lang === "tr" ? "Yaklaşık vakitler. " : "Approximate times. " : ""}${lang === "tr" ? "Sıradaki vakit" : "Next prayer"}`,
     names,
     toLabels,
     days,
@@ -125,6 +127,7 @@ export async function writeIosWidgetPayload(nowMs = Date.now()): Promise<void> {
       lang: source.lang,
       theme,
       nowMs,
+      approximate: source.approximate,
     });
     new ExtensionStorage(IOS_APP_GROUP).set(IOS_WIDGET_KEY, JSON.stringify(payload));
     ExtensionStorage.reloadWidget();

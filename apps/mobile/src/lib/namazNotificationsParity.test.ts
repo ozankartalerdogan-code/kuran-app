@@ -72,7 +72,9 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     fetchAladhanMonth: async (context, month) => { if (options.aladhan) return adapters.fetchAladhanMonthInputs(context, month, calendarFetch); throw Error("offline"); },
   });
   const contexts: any[] = [];
+  const cachedReads: string[][] = [];
   const repository = { ...repo,
+    readCachedDays: async (context: any, dates: string[]) => { cachedReads.push(dates); return repo.readCachedDays(context, dates); },
     ensureDays: async (context: any, dates: string[]) => { contexts.push({ ...context, dates }); return repo.ensureDays(context, dates); },
     subscribe: (fn: (event: any) => void) => { subscribes++; listeners.push(fn); return repo.subscribe(fn); },
   };
@@ -101,6 +103,9 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
       daily: { forDate: async (date: string) => daily(options.dailyRepeating ? "same" : date), get: async () => daily("today") },
     } },
     "./storage": { storage, STORAGE_KEYS: {} }, "./englishMeal": { localizedMeal: (_verse: unknown, meal: string) => meal },
+    "../widgets/prayerWidgetFallback": load(readFileSync(new URL("../widgets/prayerWidgetFallback.ts", import.meta.url), "utf8"), {
+      "../lib/prayerInstant": instants, "../lib/storage": { storage },
+    }),
     "../i18n": { getStrings: () => ({ sunriseTitle: "Sunrise", sunriseBody: "Sunrise", channelPrayer: "Prayer", channelDaily: "Daily", dailyVerse: "Verse", dailyDua: "Dua" }), fmt: () => "Prayer body", getLang: () => "tr" },
     "../i18n/strings/notifications": {}, "../i18n/strings/prayerNames": {},
     "./timeZone": { deviceTimeZone: () => ZONE },
@@ -124,7 +129,7 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     ...dependencies, "./prayerContextDeps": contextDeps,
   });
   const legacy = load(readFileSync(new URL("./__fixtures__/namazNotificationsLegacy.ts.txt", import.meta.url), "utf8"), dependencies);
-  return { app, legacy, calendarFetch, urls, values, writes, scheduled, channels, deletedChannels, contexts, emit: (event: any) => listeners.forEach(fn => fn(event)),
+  return { app, legacy, calendarFetch, urls, values, writes, scheduled, channels, deletedChannels, contexts, cachedReads, emit: (event: any) => listeners.forEach(fn => fn(event)),
     counts: () => ({ cancels, subscribes, fills }) };
 }
 
@@ -252,6 +257,30 @@ test("automatic and geo contexts use existing coordinates; geo keys never persis
     assert.equal(h.contexts[0].lon, 28.9784);
     assert.equal(JSON.stringify([...h.values]).includes("geo:"), false);
   }
+}));
+
+test("geo widget fallback: mevcut şehir korunur, [-1..+14] okunur ve bildirim günleri değişmez", async () => fixedTime(async () => {
+  const h = setup(fixtures[0], { automatic: true, noCity: true, aladhan: true });
+  const before = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+  assert.equal(h.values.has("prayerWidgetFallbackV1"), false);
+  assert.equal(h.cachedReads.length, 0);
+  h.values.set("prayerWidgetFallbackV1", JSON.stringify({
+    v: 1, city: "Berlin", tz: ZONE, writtenAtMs: NOW - 1000,
+    records: [{ sourceDate: "2026-11-18", cityKey: "fallback", cityTimeZone: ZONE,
+      source: "aladhan", revision: "fallback", fetchedAt: NOW - 1000, hijri: null, atMs: before[0].at }],
+  }));
+  const after = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+  assert.deepEqual(after, before);
+  assert.deepEqual(h.cachedReads, [Array.from({ length: 16 }, (_, i) => instants.addDaysYmd("2026-11-18", i - 1))]);
+  const json = h.values.get("prayerWidgetFallbackV1");
+  const snapshot = JSON.parse(json);
+  assert.equal(snapshot.city, "Berlin");
+  assert.equal(snapshot.writtenAtMs, NOW);
+  assert.equal(snapshot.records.length, 7);
+  assert.ok(snapshot.records.every((r: any) => r.cityKey === "fallback" && r.source === "aladhan"));
+  assert.equal(json.includes("geo:"), false);
+  assert.equal(json.includes("41.01"), false);
+  assert.equal(json.includes("28.98"), false);
 }));
 
 test("different city zone requests previous day; unsupported Intl uses device zone", async () => fixedTime(async () => {

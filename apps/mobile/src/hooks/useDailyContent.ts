@@ -12,6 +12,8 @@ import { getPrayerDayRepository } from "../lib/prayerDayRepositoryDeps";
 import type { PrayerContext, PrayerDayRecord } from "../lib/prayerDayRepository";
 import { addDaysYmd, prayerDateInZone, formatHmInZone, intlZoneSupported, PRAYER_KEYS } from "../lib/prayerInstant";
 import { HOME_LOCATION_REFRESH_MS, homeHijriDate, nextPrayerFromInstants, shouldRefreshHomeLocation, watchHomePrayerDays } from "../lib/homePrayer";
+import { clearPrayerWidgetFallback, serializeFallbackSnapshot, writePrayerWidgetFallback } from "../widgets/prayerWidgetFallback";
+import { refreshPrayerWidgetsNow } from "../widgets/widgetRefresh";
 
 function prayerTime(atMs: number, zone: string): string {
   if (intlZoneSupported()) return formatHmInZone(atMs, zone);
@@ -115,6 +117,8 @@ export function useDailyContent(): UseDailyContentResult {
   const prayerContextRef = useRef<PrayerContext | null>(null);
   const lastLocationCheckRef = useRef(0);
   const locationCheckInFlightRef = useRef(false);
+  const fallbackSignatureRef = useRef("");
+  const fallbackWriteRef = useRef<Promise<void>>(Promise.resolve());
 
   const watchPrayers = useCallback((context: PrayerContext, coords: { lat: number; lng: number },
     isCurrent: () => boolean, onSuccess: () => void, onError: () => void) => {
@@ -122,13 +126,44 @@ export function useDailyContent(): UseDailyContentResult {
     prayerContextRef.current = context;
     diyanetCityRef.current = false;
     const isActive = () => isCurrent() && prayerContextRef.current === context;
+    // A label from a previous location (or the initial Istanbul placeholder) is
+    // not a resolved name for this context.
+    let cityLabel = "";
+    let hasAladhan = false;
+    const syncFallback = () => {
+      if (!context.cityKey.startsWith("geo:") || !hasAladhan || !cityLabel.trim()) return;
+      const city = cityLabel === ISTANBUL.city && getLang() === "en" ? "Istanbul" : cityLabel;
+      fallbackWriteRef.current = fallbackWriteRef.current.then(async () => {
+        if (!isActive() || diyanetCityRef.current) return;
+        const writtenAtMs = Date.now();
+        const date = prayerDateInZone(writtenAtMs, context.cityTimeZone);
+        const records = (await getPrayerDayRepository().readCachedDays(
+          { cityKey: context.cityKey, cityTimeZone: context.cityTimeZone },
+          Array.from({ length: 16 }, (_, i) => addDaysYmd(date, i - 1)),
+        )).filter(record => record.source === "aladhan");
+        if (!records.length || !isActive() || diyanetCityRef.current) return;
+        const snapshot = { city, tz: context.cityTimeZone, writtenAtMs, records };
+        // Exclude the write clock; compare exactly the sanitized disk content.
+        const serialized = serializeFallbackSnapshot(snapshot);
+        if (!serialized) return;
+        const contentSignature = JSON.stringify({ ...JSON.parse(serialized), writtenAtMs: 0 });
+        if (contentSignature === fallbackSignatureRef.current) return;
+        await writePrayerWidgetFallback(snapshot);
+        fallbackSignatureRef.current = contentSignature;
+        if (isActive()) await refreshPrayerWidgetsNow();
+      }).catch(() => {});
+    };
     if (!context.cityKey.startsWith("m")) {
       Location.reverseGeocodeAsync({ latitude: coords.lat, longitude: coords.lng })
         .then(geo => {
           if (!isActive() || diyanetCityRef.current) return;
           const place = geo[0];
           const name = place?.city ?? place?.subregion ?? place?.region;
-          if (name) setPrayerCityState(name);
+          if (name) {
+            cityLabel = name;
+            setPrayerCityState(name);
+            syncFallback();
+          }
         }).catch(() => {});
     }
     const today = prayerDateInZone(Date.now(), context.cityTimeZone);
@@ -142,6 +177,16 @@ export function useDailyContent(): UseDailyContentResult {
         setPrayers(Object.fromEntries(PRAYER_KEYS.map(key => [key, prayerTime(day.atMs[key], day.cityTimeZone)])) as unknown as PrayerTimes);
         setHijriDate(homeHijriDate(day));
         diyanetCityRef.current = day.source === "diyanet";
+        hasAladhan = day.source === "aladhan";
+        if (day.source === "diyanet") {
+          fallbackWriteRef.current = fallbackWriteRef.current.then(async () => {
+            if (!isActive() || fallbackSignatureRef.current === "diyanet") return;
+            await clearPrayerWidgetFallback();
+            fallbackSignatureRef.current = "diyanet";
+          }).catch(() => {});
+        } else {
+          syncFallback();
+        }
         if (day.source === "diyanet" && day.cityDisplayName) {
           setPrayerCityState(titleCaseTr(day.cityDisplayName, context.cityTimeZone === "Europe/Istanbul"));
         }

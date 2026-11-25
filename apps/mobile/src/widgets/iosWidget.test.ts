@@ -63,6 +63,46 @@ const today = day("2026-11-19");
 const tomorrow = day("2026-11-20");
 const nowMs = Date.parse("2026-11-19T11:15:00+03:00");
 
+test("approximate true/false: TR ve EN işaretleri, a11y ve v1 şeması", () => {
+  for (const lang of ["tr", "en"] as const) {
+    const input = { records: [today], city: "İstanbul", tz: "Europe/Istanbul", lang, theme: null, nowMs };
+    const regular = api.buildIosWidgetPayload({ ...input, approximate: false });
+    const approximate = api.buildIosWidgetPayload({ ...input, approximate: true });
+    assert.deepEqual(regular, api.buildIosWidgetPayload(input));
+    assert.equal(approximate.city, `${regular.city} (~)`);
+    assert.equal(approximate.focusHeading, `${regular.focusHeading} (~)`);
+    assert.equal(approximate.a11yNext, `${lang === "tr" ? "Yaklaşık vakitler." : "Approximate times."} ${regular.a11yNext}`);
+    assert.deepEqual(Object.keys(approximate), Object.keys(regular));
+    assert.equal(approximate.v, 1);
+    assert.deepEqual(approximate.days, regular.days);
+    const empty = api.buildIosWidgetPayload({ ...input, city: "", approximate: true });
+    assert.equal(empty.city, "");
+    assert.equal(empty.focusHeading, "");
+    assert.equal(empty.a11yNext, regular.a11yNext);
+  }
+});
+
+test("writeIosWidgetPayload: kaynağın approximate alanını payload'a geçirir", async () => {
+  let payload: ReturnType<typeof api.buildIosWidgetPayload> | undefined;
+  class ExtensionStorage {
+    set(_key: string, value: string) { payload = JSON.parse(value); }
+    static reloadWidget() {}
+  }
+  const iosApi = load({
+    "@bacons/apple-targets": { ExtensionStorage },
+    "./namazWidgetData": {
+      TR_NAMES: { Fajr: "İmsak" }, hijriText: () => "", prayerToLabel: () => "",
+      readPrayerWidgetSource: async (_now: number, offsets: number[]) => {
+        assert.deepEqual(offsets, Array.from({ length: 16 }, (_, i) => i - 1));
+        return { records: [today], city: "Berlin", tz: "Europe/Istanbul", lang: "en", approximate: true };
+      },
+    },
+  });
+  await iosApi.writeIosWidgetPayload(nowMs);
+  assert.equal(payload?.city, "Berlin (~)");
+  assert.match(payload!.a11yNext, /Approximate times\./);
+});
+
 test("tr: 3 günlük kayıttan payload — names/toLabels/hijri/time/atMs doğru, PRAYER_KEYS sırası, days artan", () => {
   const payload = api.buildIosWidgetPayload({
     records: [tomorrow, yesterday, today],
