@@ -23,9 +23,14 @@ KEY FEATURES
 7. Qibla finder: Worship > Qibla uses the device compass and approximate location to point to the Kaaba, with haptic feedback when aligned.
 
 ALSO INCLUDED
-- Verse details with word-by-word meanings and Arabic roots, and topics for every verse (Learn > Topics).
-- Khatm tracker for the 30 juz, favorites, personal notes and verse image sharing.
-- 23 categories of duas, 219 hadiths, the 99 Names of Allah, the life of the Prophet and stories of the prophets.
+- Quran study: word-by-word meanings, an Arabic root explorer (1,703 roots), English transliteration, and a simplified commentary for all 114 surahs.
+- Browse by topic: every verse is tagged by topic (24 main topics, 260 sub-topics) under Learn > Topics, plus search across surahs and verses.
+- Optional "Daily Verse & Dua" notification.
+- Khatm tracker for the 30 juz, favorites, personal notes and shareable verse image cards.
+- Worship guide (faith, wudu, fard and sunnah), a step-by-step prayer guide, 10 special prayers and a calendar of 12 holy days.
+- 23 categories of duas, 219 hadiths, the 99 Names of Allah, the life of the Prophet (49 events), stories of the prophets, and Spiritual Refuge (verses and duas for protection and comfort).
+- Dark mode, adjustable text size, and a guided tour on first launch.
+- Optional anonymous cloud backup of favorites, notes and progress.
 
 60-SECOND TOUR
 1. Home: see the countdown, tap the bell, then open Qibla.
