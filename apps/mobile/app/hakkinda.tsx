@@ -1,6 +1,7 @@
 ﻿import React, { useState } from "react";
 import { Alert, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Constants from "expo-constants";
+import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SOURCE_LICENSE_CONTENT, getSourceLicenseLinks } from "../../../packages/core/src/presentation/sourceLicenses";
@@ -72,7 +73,7 @@ function SourcesAccordion({ c }: { c: AppColors }) {
         accessibilityState={{ expanded: open }}
       >
         <Text style={[s.accordionTitle, { color: c.textSecondary }]}>{t.sources}</Text>
-        <Text style={[s.accordionChevron, { color: c.textMuted }]}>{open ? "▴" : "▾"}</Text>
+        <Ionicons name={open ? "chevron-up" : "chevron-down"} size={20} color={c.textMuted} accessible={false} importantForAccessibility="no" />
       </TouchableOpacity>
 
       {open && (
@@ -177,7 +178,6 @@ const s = StyleSheet.create({
     paddingHorizontal: 2,
   },
   accordionTitle: { fontSize: 13, fontWeight: "600", letterSpacing: 0.3 },
-  accordionChevron: { fontSize: 12, marginLeft: 8 },
   accordionBody: { paddingTop: 2, paddingBottom: 4 },
   sourceCard: { borderRadius: 12, borderWidth: 1, padding: 14, marginBottom: 12 },
   sourceSectionTitle: { fontSize: 15, fontWeight: "700", marginBottom: 6 },

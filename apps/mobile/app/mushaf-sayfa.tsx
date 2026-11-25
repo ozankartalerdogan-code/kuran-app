@@ -5,7 +5,7 @@ import {
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { api, type MushafPageResponse, type SurahListItem } from "../src/lib/api";
 import { storage, STORAGE_KEYS } from "../src/lib/storage";
 import { useColors } from "../src/hooks/useColors";
@@ -22,7 +22,7 @@ import { useStrings, fmt } from "../src/i18n";
 import mushafStrings from "../src/i18n/strings/mushaf";
 import storageErrorStrings from "../src/i18n/strings/storageErrors";
 import { useSurahNameOf } from "../src/lib/surahNames";
-import { Button, Callout, paperColors } from "../src/components/ui";
+import { BackButton, Button, Callout, paperColors } from "../src/components/ui";
 
 // ── Mushaf Sayfa Görünümü ─────────────────────────────────────────────────────
 // 604 sayfalık Medine mushafı düzeni: her sayfanın içeriği basılı mushafla
@@ -238,6 +238,7 @@ export default function MushafSayfaEkrani() {
   const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
+  const compactHeader = width < 640;
   const { fontScale, changeFontScale } = useFontScale();
   const { sayfa: sayfaParam, hatim: hatimParam } = useLocalSearchParams<{ sayfa?: string; hatim?: string }>();
 
@@ -505,9 +506,9 @@ export default function MushafSayfaEkrani() {
       <View style={[st.screen, { backgroundColor: c.bg, paddingTop: insets.top }]}>
         {/* Üst bar */}
         <View style={[st.header, { backgroundColor: c.card, borderBottomColor: c.border }]}>
-          <TouchableOpacity style={st.backBtn} onPress={() => (router.canGoBack() ? router.back() : router.replace("/"))} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.backA11y}>
-            <Ionicons name="chevron-back" size={24} color={c.accent} />
-          </TouchableOpacity>
+          <View style={compactHeader ? undefined : { width: 210 }}>
+            <BackButton color={c.accent} accessibilityLabel={t.backA11y} />
+          </View>
           <TouchableOpacity style={st.headerMid} onPress={() => setJumpOpen((v) => !v)} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.jumpA11y} accessibilityHint={t.jumpHint}>
             <Text style={[st.headerTitle, { color: c.text }]} numberOfLines={1}>{surahName}</Text>
             {/* Hap görünümü + büyüteç: buranın dokunulur bir "sayfaya git" olduğunu belli eder */}
@@ -523,9 +524,9 @@ export default function MushafSayfaEkrani() {
               </Text>
             </View>
           </TouchableOpacity>
-          <View style={st.headerBtns}>
+          <View style={[st.headerBtns, !compactHeader && st.headerBtnsWide]}>
             <TouchableOpacity
-              style={[st.fontBtn, { borderColor: hatimOpen ? c.accent : c.border }]}
+              style={[st.fontBtn, !compactHeader && st.fontBtnWide, { borderColor: hatimOpen ? c.accent : c.border }]}
               onPress={() => { logFeature("mushaf_sayfa_hatim_ac"); setHatimOpen(true); }}
               hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button"
@@ -534,7 +535,7 @@ export default function MushafSayfaEkrani() {
               <Ionicons name="bookmarks-outline" size={16} color={c.textSecondary} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[st.fontBtn, { borderColor: tajweed ? c.accent : c.border }]}
+              style={[st.fontBtn, !compactHeader && st.fontBtnWide, { borderColor: tajweed ? c.accent : c.border }]}
               onPress={handleTajweedToggle}
               hitSlop={10} activeOpacity={0.7}
               accessibilityRole="switch"
@@ -544,24 +545,24 @@ export default function MushafSayfaEkrani() {
               <Ionicons name="color-palette-outline" size={16} color={tajweed ? c.accent : c.textSecondary} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[st.fontBtn, { borderColor: c.border }, fontScale <= FONT_SCALE_MIN && st.fontBtnOff]}
+              style={[st.fontBtn, !compactHeader && st.fontBtnWide, { borderColor: c.border }, fontScale <= FONT_SCALE_MIN && st.fontBtnOff]}
               onPress={() => changeFontScale(-FONT_SCALE_STEP)}
               disabled={fontScale <= FONT_SCALE_MIN}
               hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button" accessibilityLabel={t.shrinkA11y}
               accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
             >
-              <MaterialCommunityIcons name="magnify-minus-outline" size={16} color={c.textSecondary} />
+              <Text style={[st.fontBtnText, { color: c.textSecondary }]}>A−</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[st.fontBtn, { borderColor: c.border }, fontScale >= FONT_SCALE_MAX && st.fontBtnOff]}
+              style={[st.fontBtn, !compactHeader && st.fontBtnWide, { borderColor: c.border }, fontScale >= FONT_SCALE_MAX && st.fontBtnOff]}
               onPress={() => changeFontScale(FONT_SCALE_STEP)}
               disabled={fontScale >= FONT_SCALE_MAX}
               hitSlop={10} activeOpacity={0.7}
               accessibilityRole="button" accessibilityLabel={t.growA11y}
               accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
             >
-              <MaterialCommunityIcons name="magnify-plus-outline" size={16} color={c.textSecondary} />
+              <Text style={[st.fontBtnText, { color: c.textSecondary }]}>A+</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -720,8 +721,10 @@ const st = StyleSheet.create({
   },
   headerSub:   { fontSize: 11, flexShrink: 1 },
   headerBtns:  { flexDirection: "row", gap: 6 },
+  headerBtnsWide: { width: 210, justifyContent: "flex-end" },
+  fontBtnText: { fontSize: 15, fontWeight: "700" },
   fontBtn:     { borderRadius: 14, borderWidth: 1, paddingHorizontal: 8, paddingVertical: 5, minWidth: 36, minHeight: 34, alignItems: "center", justifyContent: "center" },
-  backBtn:     { minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },
+  fontBtnWide: { minWidth: 48, minHeight: 48 },
   fontBtnOff:  { opacity: 0.35 },
 
   jumpRow:   { flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 14, paddingVertical: 10, borderBottomWidth: 1 },

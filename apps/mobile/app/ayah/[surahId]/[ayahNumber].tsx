@@ -24,7 +24,7 @@ import { TajweedText } from "../../../src/components/TajweedText";
 import { api, type AyahDetailResponse } from "../../../src/lib/api";
 import { useNotes } from "../../../src/hooks/useNotes";
 import { useColors, type AppColors } from "../../../src/hooks/useColors";
-import { Button, Callout, paperColors, toneColors } from "../../../src/components/ui";
+import { BackButton, Button, Callout, paperColors, toneColors } from "../../../src/components/ui";
 import { useFavorites } from "../../../src/hooks/useFavorites";
 import { useStreak } from "../../../src/hooks/useStreak";
 import { notifyReviewCompletion } from "../../../src/hooks/storeReviewPolicy";
@@ -574,20 +574,11 @@ export default function AyahDetailScreen() {
         { paddingTop: insets.top + 4, backgroundColor: colors.bg, borderBottomColor: colors.border },
       ]}
     >
-      <TouchableOpacity
-        onPress={handleBack}
-        style={styles.topBarBtn}
-        hitSlop={8}
-        activeOpacity={0.7}
-        accessibilityRole="button"
-        accessibilityLabel={ay.backA11y}
-      >
-        <Ionicons name="chevron-back" size={24} color={colors.textPrimary} />
-      </TouchableOpacity>
+      <BackButton onPress={handleBack} accessibilityLabel={ay.backA11y} />
       <Text style={[styles.topBarTitle, { color: colors.textPrimary }]} numberOfLines={1}>
         {headerTitle}
       </Text>
-      <View style={styles.topBarBtn} />
+      <View style={{ width: 48, height: 48 }} />
     </View>
   );
 
@@ -1392,7 +1383,6 @@ const styles = StyleSheet.create({
     flexDirection: "row", alignItems: "center", gap: 4,
     paddingHorizontal: 8, paddingBottom: 6, borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  topBarBtn: { minWidth: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },
   topBarTitle: { flex: 1, textAlign: "center", fontSize: 16, fontWeight: "700" },
 
   // ── Sekmeler ──

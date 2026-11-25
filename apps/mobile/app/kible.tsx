@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import {
   View, Text, StyleSheet, ScrollView,
   ActivityIndicator, Alert, useWindowDimensions, Linking, Animated, Easing, Platform, AccessibilityInfo,
@@ -107,16 +107,28 @@ type Step = "locating" | "compass" | "error";
 
 export default function KibleScreen() {
   const { width, height } = useWindowDimensions();
+  const isTablet = Math.min(width, height) >= 600;
+  const landscapeTablet = isTablet && width > height;
   // Dikey telefonda mevcut ölçü birebir korunur; yatayda kısa kenar da sınırlar.
   // Telefonda en çok 300; tablette (kısa kenar ≥600) 420 — dikey tablette pusula küçük kalmasın.
-  const SIZE = Math.min(width - 48, height * (width > height ? 0.48 : 1), Math.min(width, height) >= 600 ? 420 : 300);
+  // Yatay tablette açı kutusu yanda; kısa ekranda üst bilgiler için de yer bırak.
+  const SIZE = Math.min(width - 48, height * (landscapeTablet ? 0.4 : width > height ? 0.48 : 1), Math.min(width, height) >= 600 ? 420 : 300);
   const OUTER = SIZE + 44;
   const FACE = SIZE - 56;
   // Ekrana girince doğrudan konuma geçilir; pick ekranı yok
   useKeepAwakeSafe(); // Pusulaya bakarken ekran kararmasın
   const insets = useSafeAreaInsets();
   const c = useColors();
-  const ks = useStrings(kibleStrings) as Record<string, string>;
+  const strings = useStrings(kibleStrings);
+  const ks = useMemo(() => {
+    const copy: Record<string, string> = { ...strings };
+    if (isTablet) {
+      for (const [key, value] of Object.entries(strings)) {
+        if (key.endsWith("Tablet")) copy[key.slice(0, -6)] = value;
+      }
+    }
+    return copy;
+  }, [strings, isTablet]);
   const dark = c.isDark;
   const [step, setStep]           = useState<Step>("locating");
   const [permissionReady, setPermissionReady] = useState(false);
@@ -664,6 +676,7 @@ export default function KibleScreen() {
         )}
 
         {/* Pusula — dönen gül (dış, K/G/D/B) + sabit lubber + iç Kabe ibresi */}
+        <View style={[s.compassArea, landscapeTablet && s.compassAreaLandscape]}>
         <View accessible={false} accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[s.compassWrap, { width: OUTER, height: OUTER }]}>
 
           {/* Sabit lubber göstergesi — telefonun baktığı yön (dönmez) */}
@@ -715,7 +728,7 @@ export default function KibleScreen() {
         </View>
 
         {/* Açı */}
-        <View style={[s.badge, isAligned ? { backgroundColor: c.greenBg, borderColor: c.greenBorder } : { backgroundColor: c.card, borderColor: c.border }]}>
+        <View style={[s.badge, landscapeTablet && s.badgeLandscape, isAligned ? { backgroundColor: c.greenBg, borderColor: c.greenBorder } : { backgroundColor: c.card, borderColor: c.border }]}>
           <Text accessible accessibilityLabel={compassSummary} style={[s.badgeNum, { color: isAligned ? c.greenText : c.text }]}>{Math.round(qibla ?? 0)}°</Text>
           <View style={s.badgeSubRow} accessible={false} importantForAccessibility="no-hide-descendants">
             {isAligned && <Ionicons name="checkmark-circle" size={14} color={c.greenText} />}
@@ -725,12 +738,18 @@ export default function KibleScreen() {
           </View>
         </View>
 
+        </View>
+
         {/* Durum */}
         {compassOk === false && (
           <Callout tone="error" style={s.infoBox}>{ks.noCompass}</Callout>
         )}
         {compassOk === true && (
-          <Callout tone="neutral" icon="compass-outline" style={s.infoBox}>{ks.hint}</Callout>
+          <Callout tone="neutral" icon="compass-outline" style={s.infoBox}>
+            <Text style={[s.hintText, { color: c.text }]}>
+              {ks.hint.split("▼")[0]}<Text style={{ color: north }}>{"▼"}</Text>{ks.hint.split("▼")[1]}
+            </Text>
+          </Callout>
         )}
 
         <Button
@@ -777,6 +796,11 @@ const s = StyleSheet.create({
   distText:  { fontSize: 13, marginBottom: 18 },
 
   // Pusula kapsayıcısı (sabit)
+  // Lubber 9 dp yukarı taşar; görünen boşluk en az space.sm kalsın.
+  compassArea: { alignItems: "center", marginTop: space.sm + 9 },
+  compassAreaLandscape: { flexDirection: "row", justifyContent: "center", gap: space.md },
+  badgeLandscape: { marginTop: 0, paddingHorizontal: space.md, maxWidth: 210 },
+  hintText: { fontSize: 13, lineHeight: 20 },
   compassWrap: { alignItems: "center", justifyContent: "center", position: "relative" },
 
   // Sabit lubber göstergesi — zemin renginde konturlu kırmızı üçgen (telefon yönü)
