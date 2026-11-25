@@ -127,6 +127,47 @@ muslim,islam,salah,namaz,mushaf,tajweed,arabic,hadith,dua,widget,learn,alphabet,
 > 2026-11-23: Claude + Neon ASO güncellemesi; yeni başlık/kısa/tam açıklama + 4 İngilizce ekran görüntüsü ve kendi özellik grafiği ile İNCELEMEYE GÖNDERİLDİ. Aşağıdaki metin Play'deki ile birebir.
 > 2026-11-24: A03'te gerçek İngilizce ekranlar çekildi (dersler, Elif-Ba, sure meali, tesbih, tefsir, Esma). Play en-US ekran görüntüleri 4→8 (24 Kas İNCELEMEYE GÖNDERİLDİ; YZ beyanı: etiketleme); App Store English (U.S.) 10 görsel (1206×2622). Betikler: Masaüstü/kuran-yolu-magaza-gorselleri/v2/olustur_v2.py + olustur_ios.py.
 
+> 2026-11-25: Play en-US short + full description reordered feature-first (draft saved, goes with vc25). New short: "Ad-free Quran, prayer times, widgets, qibla, tasbih, lessons & Arabic letters". New full (2349):
+
+> Kuran Yolu brings prayer times and widgets, a qibla compass, a tasbih counter, lessons and quizzes, Arabic alphabet lessons and the Quran together in one app. It is free and ad-free, and the full 604-page tajweed mushaf, the English translation, lessons and duas work offline.
+>
+> PRAYER TIMES, NOTIFICATIONS AND WIDGETS
+>
+> Check prayer times from Türkiye's Presidency of Religious Affairs (Diyanet): find your city automatically or pick it manually anywhere in the world.
+> Follow a live countdown to the next prayer.
+> Set prayer (azan time) notifications that arrive on time abroad and across time zones.
+> Add home screen widgets for prayer times, the next prayer and verses of command; the prayer time widgets keep working offline with saved times.
+>
+> QIBLA COMPASS AND TASBIH COUNTER
+>
+> Find the qibla direction with the compass (qibla finder), with a vibration when you face the right way.
+> Count your dhikr with the digital tasbih counter, with rounds and your own targets.
+>
+> LESSONS, QUIZZES AND ARABIC ALPHABET
+>
+> Learn Arabic letters and reading with Elifba lessons: letter audio, Listen & Choose practice, review of your mistakes and lesson badges.
+> Study prayer, wudu, ghusl, fasting, zakat, hajj and umrah with card-based lessons.
+> Learn about the articles of faith, good character, the life of the Prophet (seerah) and the Companions.
+> Test yourself with a quiz at the end of every lesson.
+>
+> THE QURAN
+>
+> Read all 114 surahs with Arabic text and M. M. Pickthall's 1930 English translation; quickly open surahs such as Yasin, Al-Mulk and Al-Fath.
+> Read in a mushaf view with tajweed colors, which you can turn on or off.
+> Explore verses through word-by-word morphology, Arabic roots and tafsir.
+> Track a khatm, save favorites, keep notes and share verse cards.
+> Search the Quran by word, translation, topic and root.
+>
+> DUAS, GUIDES AND KNOWLEDGE
+>
+> Browse duas, a step-by-step prayer guide, hadith, the 99 Names of Allah, seerah, stories of the prophets and blessed days.
+>
+> WHY KURAN YOLU?
+>
+> Ad-free. No advertising ID. No precise location permission. Anonymous backup of your favorites, notes and progress, which you can delete in the app. Dark mode. English and Turkish interface.
+>
+> Some content and tools are available offline; others require an internet connection. English lessons, tafsir and other content are AI-assisted translations of the app's Turkish content.
+
 **Title**  
 Kuran Yolu: Quran, Prayer Time (30)
 
