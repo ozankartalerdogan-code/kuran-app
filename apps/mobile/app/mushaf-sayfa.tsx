@@ -528,6 +528,8 @@ export default function MushafSayfaEkrani() {
             <View style={[st.headerPill, { borderColor: c.border, backgroundColor: c.cardAlt }]}>
               <Ionicons name="search" size={11} color={c.textMuted} />
               <Text
+                // Android adjustsFontSizeToFit pencere daralınca (katlanabilir kapanınca) yeniden ölçmüyor; genişlikle yeniden kur.
+                key={`sub-${width}`}
                 style={[st.headerSub, { color: c.textMuted }]}
                 numberOfLines={1}
                 adjustsFontSizeToFit
