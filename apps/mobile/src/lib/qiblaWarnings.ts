@@ -79,12 +79,12 @@ function stepTimedWarning(
   fastMs = 0,
 ): TimedWarning {
   if (state.active) {
-    const exitSince = exit ? state.exitSince ?? nowMs : null;
+    const exitSince = exit ? Math.min(state.exitSince ?? nowMs, nowMs) : null;
     if (exitSince !== null && nowMs - exitSince >= exitMs) return createTimedWarning();
     return { active: true, enterSince: null, fastSince: null, exitSince };
   }
-  const enterSince = enter ? state.enterSince ?? nowMs : null;
-  const fastSince = fast ? state.fastSince ?? nowMs : null;
+  const enterSince = enter ? Math.min(state.enterSince ?? nowMs, nowMs) : null;
+  const fastSince = fast ? Math.min(state.fastSince ?? nowMs, nowMs) : null;
   if (
     (enterSince !== null && nowMs - enterSince >= enterMs) ||
     (fastSince !== null && nowMs - fastSince >= fastMs)

@@ -173,6 +173,24 @@ test("accuracy 0/1/2/3 transitions maintain independent entry timers", () => {
   assert.equal(active(stepAccuracy(state, 3, 4200)), null);
 });
 
+test("clock rollback restarts normal entry, fast entry and exit timers", () => {
+  for (const [accuracy, delay] of [[1, 1500], [0, 1200]]) {
+    let state = stepAccuracy(createWarningState(), accuracy, 10000);
+    state = stepAccuracy(state, accuracy, 1000);
+    assert.equal(state.accuracy.enterSince, 1000);
+    assert.equal(state.accuracy.fastSince, accuracy === 0 ? 1000 : null);
+    assert.equal(active(stepAccuracy(state, accuracy, 1000 + delay - 1)), null);
+    state = stepAccuracy(state, accuracy, 1000 + delay);
+    assert.equal(active(state), "low_accuracy");
+
+    state = stepAccuracy(state, 2, 10000);
+    state = stepAccuracy(state, 2, 1000);
+    assert.equal(state.accuracy.exitSince, 1000);
+    assert.equal(active(stepAccuracy(state, 2, 2499)), "low_accuracy");
+    assert.equal(active(stepAccuracy(state, 2, 2500)), null);
+  }
+});
+
 test("invalid samples leave all sensor states and pending timers unchanged", () => {
   const scenarios = [
     [stepTilt, stepTilt(createWarningState(), 55, 0), 55, 800],
