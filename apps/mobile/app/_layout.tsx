@@ -143,6 +143,8 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
   const params = useGlobalSearchParams();
   const { onboarded } = useAppTour();
   const pending = useRef(new PendingNavigation());
+  // Onboarding'den hedefe geçiş başladıysa, pathname güncellenene dek Ana Sayfa yedeği onu ezmesin.
+  const leavingOnboarding = useRef(false);
   useEffect(() => {
     if (!navigation?.key) return;
     // Derin bağlantı karşılama ekranına geçmeden önce saklanır.
@@ -164,14 +166,19 @@ function NavigationGate({ needsOnboarding, response }: { needsOnboarding: boolea
     }
     const target = pending.current.take(!!navigation.key, onboarded);
     if (target) {
-      if (pathname === "/onboarding") router.replace(target as Href);
+      if (pathname === "/onboarding") {
+        leavingOnboarding.current = true;
+        // Hedef Ana Sayfa'nın üstüne açılır; geri tuşu uygulamadan çıkmak yerine Ana Sayfa'ya döner.
+        router.replace("/(tabs)");
+        if (target !== "/(tabs)" && target !== "/") router.push(target as Href);
+      }
       else if (target === "/(tabs)" || target === "/") {
         if (pathname !== "/") router.navigate("/(tabs)");
       } else {
         router.push(target as Href);
       }
       void Notifications.clearLastNotificationResponseAsync().catch(() => {});
-    } else if (onboarded && pathname === "/onboarding") router.replace("/(tabs)");
+    } else if (onboarded && pathname === "/onboarding" && !leavingOnboarding.current) router.replace("/(tabs)");
   }, [navigation?.key, needsOnboarding, onboarded, pathname, params, response]);
   return null;
 }
