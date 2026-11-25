@@ -16,6 +16,7 @@ const PAD = 16;
 // Kart min. genişliği ~150dp — geniş (tablet) ekranda sabit 2 sütun yerine
 // daha fazla sütun kullanılır, dar telefonda 2'de kalır.
 const CARD_MIN_WIDTH = 150;
+const GRID_MAX_WIDTH = 960;
 
 type LearnItem = {
   icon: IoniconName;
@@ -46,8 +47,9 @@ export default function NeOgreneyimScreen() {
   const t = useStrings(misc1Strings) as Record<string, string>;
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const columns = Math.max(2, Math.floor((width - PAD * 2) / CARD_MIN_WIDTH));
-  const cardW = (width - PAD * 2 - GAP * (columns - 1)) / columns;
+  const containerW = Math.min(width, GRID_MAX_WIDTH);
+  const columns = Math.min(4, Math.max(2, Math.floor((containerW - PAD * 2) / CARD_MIN_WIDTH)));
+  const cardW = (containerW - PAD * 2 - GAP * (columns - 1)) / columns;
   useEffect(() => { logScreen('NeOgreneyim'); }, []);
 
   const goBack = () => {
@@ -64,7 +66,7 @@ export default function NeOgreneyimScreen() {
       </View>
       <ScrollView
         style={{ flex: 1, backgroundColor: c.bg }}
-        contentContainerStyle={{ padding: PAD, paddingTop: 8, paddingBottom: 32 + insets.bottom }}
+        contentContainerStyle={{ padding: PAD, paddingTop: 8, paddingBottom: 32 + insets.bottom, maxWidth: GRID_MAX_WIDTH, width: "100%", alignSelf: "center" }}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[s.title, { color: c.text }]}>{t.learnTitle}</Text>

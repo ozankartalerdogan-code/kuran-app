@@ -21,9 +21,10 @@ const TAB_KEYS: SortMode[] = ["tumu", "sure", "konu"];
 
 type Ders = typeof DERSLER[number];
 
-// Kart min. genişliği ~170dp — geniş (tablet) ekranda 2 yerine daha fazla
+// Kart min. genişliği ~170dp — geniş (tablet) ekranda 2 yerine en fazla 4
 // sütun kullanılır, dar telefonda 2'de kalır.
 const CARD_MIN_WIDTH = 170;
+const GRID_MAX_WIDTH = 960;
 
 function chunk<T>(arr: T[], n: number): T[][] {
   const out: T[][] = [];
@@ -35,7 +36,7 @@ export default function DerslerScreen() {
   const insets = useSafeAreaInsets();
   const c = useColors();
   const { width } = useWindowDimensions();
-  const numColumns = Math.max(2, Math.floor(width / CARD_MIN_WIDTH));
+  const numColumns = Math.min(4, Math.max(2, Math.floor(width / CARD_MIN_WIDTH)));
   const { progress, load } = useDersProgress();
   const [sortMode, setSortMode] = useState<SortMode>("tumu");
   const firstCardTarget = useTourTarget("dersler.firstCard");
@@ -151,15 +152,17 @@ export default function DerslerScreen() {
           {footer}
         </ScrollView>
       ) : (
-        <FlashList
-          data={sortedData}
-          numColumns={numColumns}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={footer}
-        />
+        <View style={s.listWrap}>
+          <FlashList
+            data={sortedData}
+            numColumns={numColumns}
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            contentContainerStyle={[s.listContent, { paddingBottom: insets.bottom + 24 }]}
+            showsVerticalScrollIndicator={false}
+            ListFooterComponent={footer}
+          />
+        </View>
       )}
     </View>
   );
@@ -178,7 +181,8 @@ const s = StyleSheet.create({
     paddingHorizontal: space.gutter, paddingVertical: space.sm, borderBottomWidth: 1,
   },
 
-  listContent:   { paddingHorizontal: space.gutter - 6, paddingTop: space.sm },
+  listWrap:      { flex: 1, width: "100%", maxWidth: GRID_MAX_WIDTH, alignSelf: "center" },
+  listContent:   { paddingHorizontal: space.gutter - 6, paddingTop: space.sm, maxWidth: GRID_MAX_WIDTH, width: "100%", alignSelf: "center" },
   row:           { flexDirection: "row" },
   card:          {
     flex: 1, margin: 6, borderRadius: radius.lg, borderWidth: 1,

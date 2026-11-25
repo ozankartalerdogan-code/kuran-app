@@ -309,25 +309,27 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
       <Modal visible={showCelebration} transparent animationType="fade" onRequestClose={() => setShowCelebration(false)}>
         <View style={[st.celebrationOverlay, { backgroundColor: c.overlay }]}>
           <View style={[st.celebrationCard, { backgroundColor: c.card, borderColor: c.border }]}>
-            {LottieView ? (
-              <LottieView
-                source={require("../../assets/Star-Blast.json")}
-                autoPlay
-                loop={false}
-                style={{ width: 200, height: 200 }}
+            <ScrollView style={{ width: "100%" }} contentContainerStyle={st.celebrationScroll} showsVerticalScrollIndicator={false}>
+              {LottieView ? (
+                <LottieView
+                  source={require("../../assets/Star-Blast.json")}
+                  autoPlay
+                  loop={false}
+                  style={{ width: 200, height: 200 }}
+                />
+              ) : (
+                <Ionicons name="trophy-outline" size={40} color={c.goldText} style={{ marginTop: space.xs }} accessible={false} importantForAccessibility="no" />
+              )}
+              <Text style={[st.celebrationTitle, { color: c.text }]}>{t.congrats}</Text>
+              <Text style={[st.celebrationSub, { color: c.textSecondary }]}>{t.hatimCongrats}</Text>
+              <Button
+                variant="primary"
+                fullWidth
+                label={t.ok}
+                onPress={() => setShowCelebration(false)}
+                accessibilityLabel={t.celebrationCloseA11y}
               />
-            ) : (
-              <Ionicons name="trophy-outline" size={40} color={c.goldText} style={{ marginTop: space.xs }} accessible={false} importantForAccessibility="no" />
-            )}
-            <Text style={[st.celebrationTitle, { color: c.text }]}>{t.congrats}</Text>
-            <Text style={[st.celebrationSub, { color: c.textSecondary }]}>{t.hatimCongrats}</Text>
-            <Button
-              variant="primary"
-              fullWidth
-              label={t.ok}
-              onPress={() => setShowCelebration(false)}
-              accessibilityLabel={t.celebrationCloseA11y}
-            />
+            </ScrollView>
           </View>
         </View>
       </Modal>
@@ -337,7 +339,7 @@ export function HatimPanel({ visible, onClose, onOkuPage }: Props) {
 
 const st = StyleSheet.create({
   overlay:         { flex: 1 },
-  sheet:           { maxHeight: "82%", borderTopLeftRadius: 20, borderTopRightRadius: 20, borderTopWidth: 1, overflow: "hidden" },
+  sheet:           { maxHeight: "82%", width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center", borderTopLeftRadius: 20, borderTopRightRadius: 20, borderTopWidth: 1, overflow: "hidden" },
   sheetHeader:     { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingLeft: space.gutter, paddingRight: space.xs, paddingVertical: space.xs, borderBottomWidth: 1 },
   sheetTitleRow:   { flexDirection: "row", alignItems: "center", gap: space.xs },
   sheetTitle:      { fontSize: 16, fontWeight: "700" },
@@ -379,7 +381,8 @@ const st = StyleSheet.create({
   historyDays:     { fontSize: 13, fontWeight: "600" },
 
   celebrationOverlay: { flex: 1, alignItems: "center", justifyContent: "center" },
-  celebrationCard:    { borderRadius: radius.lg, borderWidth: 1, padding: space.xl, alignItems: "center", width: "82%", maxWidth: 340 },
+  celebrationCard:    { borderRadius: radius.lg, borderWidth: 1, width: "82%", maxWidth: 340, maxHeight: "90%", overflow: "hidden" },
+  celebrationScroll:  { padding: space.xl, alignItems: "center" },
   celebrationTitle:   { fontSize: 24, fontWeight: "700", marginTop: space.xs, marginBottom: 6 },
   celebrationSub:     { fontSize: 15, textAlign: "center", marginBottom: space.lg },
 });

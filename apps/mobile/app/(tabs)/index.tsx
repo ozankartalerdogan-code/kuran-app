@@ -490,33 +490,35 @@ function HomeContent() {
         <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={closeMoodCard} accessibilityRole="button" accessibilityLabel={hs.close} />
         {selectedMood && (
           <View style={[styles.moodModalCard, { backgroundColor: c.card, borderColor: c.border }]}>
-            <View style={styles.moodModalHeader}>
-              <View style={[styles.moodModalIcon, { backgroundColor: toneColors(c, selectedMood.tone).bg }]}>
-                <Ionicons name={selectedMood.icon} size={22} color={toneColors(c, selectedMood.tone).fg} />
+            <ScrollView contentContainerStyle={styles.moodModalScroll} showsVerticalScrollIndicator={false}>
+              <View style={styles.moodModalHeader}>
+                <View style={[styles.moodModalIcon, { backgroundColor: toneColors(c, selectedMood.tone).bg }]}>
+                  <Ionicons name={selectedMood.icon} size={22} color={toneColors(c, selectedMood.tone).fg} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.moodModalTitle, { color: c.text }]}>{moodLabel(selectedMood)}</Text>
+                  <Text style={[styles.moodModalSub, { color: c.textMuted }]}>{hs.mealBy}</Text>
+                </View>
+                <CloseButton onPress={closeMoodCard} accessibilityLabel={hs.close} />
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={[styles.moodModalTitle, { color: c.text }]}>{moodLabel(selectedMood)}</Text>
-                <Text style={[styles.moodModalSub, { color: c.textMuted }]}>{hs.mealBy}</Text>
-              </View>
-              <CloseButton onPress={closeMoodCard} accessibilityLabel={hs.close} />
-            </View>
 
-            <TouchableOpacity
-              onPress={openMoodAyah}
-              activeOpacity={0.75}
-              style={[styles.moodAyahLink, { backgroundColor: c.cardAlt, borderColor: c.border }]}
-              accessibilityRole="button"
-              accessibilityLabel={hs.openAyah}
-            >
-              <Text style={[styles.moodAyahLinkText, { color: c.goldText }]}>
-                {surahNameOf(selectedMood.surah_id, selectedMood.surah_name) ?? hs.ayah} · {selectedMood.surah_id}:{selectedMood.ayah_number}
+              <TouchableOpacity
+                onPress={openMoodAyah}
+                activeOpacity={0.75}
+                style={[styles.moodAyahLink, { backgroundColor: c.cardAlt, borderColor: c.border }]}
+                accessibilityRole="button"
+                accessibilityLabel={hs.openAyah}
+              >
+                <Text style={[styles.moodAyahLinkText, { color: c.goldText }]}>
+                  {surahNameOf(selectedMood.surah_id, selectedMood.surah_name) ?? hs.ayah} · {selectedMood.surah_id}:{selectedMood.ayah_number}
+                </Text>
+                <Ionicons name="open-outline" size={16} color={c.goldText} />
+              </TouchableOpacity>
+
+              <Text style={[styles.moodMeal, { color: c.text }]}>
+                {mealOf({ surah: selectedMood.surah_id, ayah: selectedMood.ayah_number }, selectedMood.meal) || hs.mealFail}
               </Text>
-              <Ionicons name="open-outline" size={16} color={c.goldText} />
-            </TouchableOpacity>
-
-            <Text style={[styles.moodMeal, { color: c.text }]}>
-              {mealOf({ surah: selectedMood.surah_id, ayah: selectedMood.ayah_number }, selectedMood.meal) || hs.mealFail}
-            </Text>
+            </ScrollView>
           </View>
         )}
       </View>
@@ -592,7 +594,8 @@ const styles = StyleSheet.create({
   moodChip:  { flexDirection: "row", alignItems: "center", gap: 6, minHeight: 44, borderRadius: 22, borderWidth: 1, paddingHorizontal: 14, marginRight: 8 },
   moodLabel: { fontSize: 13, fontWeight: "600" },
   moodModalBackdrop: { flex: 1, justifyContent: "center", padding: 20, backgroundColor: "rgba(0,0,0,0.45)" },
-  moodModalCard: { width: "100%", maxWidth: 420, alignSelf: "center", borderRadius: 16, borderWidth: 1, padding: 18, shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
+  moodModalCard: { width: "100%", maxWidth: Math.min(420, READING_MAX_WIDTH), maxHeight: "88%", alignSelf: "center", borderRadius: 16, borderWidth: 1, overflow: "hidden", shadowColor: "#000", shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 8 },
+  moodModalScroll: { padding: 18 },
   moodModalHeader: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 14 },
   moodModalIcon: { width: 44, height: 44, borderRadius: 22, alignItems: "center", justifyContent: "center" },
   moodModalTitle: { fontSize: 17, fontWeight: "800" },

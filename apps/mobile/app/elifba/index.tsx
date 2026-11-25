@@ -89,6 +89,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
     <Modal transparent animationType="fade" onRequestClose={onClose}>
       <TouchableOpacity style={[pp.overlay, { backgroundColor: c.overlay }]} onPress={onClose} activeOpacity={1} accessibilityRole="button" accessibilityLabel={ep.close}>
         <TouchableOpacity style={[pp.card, { backgroundColor: c.card, borderColor: c.border }]} activeOpacity={1} accessible={false}>
+          <ScrollView contentContainerStyle={pp.cardScroll} showsVerticalScrollIndicator={false}>
 
           <View style={{ flexDirection: "row", alignItems: "flex-start", gap: space.xs, marginBottom: space.sm }}>
             <View style={{ flex: 1 }}>
@@ -167,6 +168,7 @@ function LessonPopup({ ders, status, seenCount, quizScore, onClose, onFlashcard,
               />
             </View>
           )}
+          </ScrollView>
         </TouchableOpacity>
       </TouchableOpacity>
     </Modal>
@@ -588,9 +590,10 @@ const nd = StyleSheet.create({
 const pp = StyleSheet.create({
   overlay: { flex: 1, alignItems: "center", justifyContent: "center", padding: space.gutter },
   card:    {
-    width: "100%", maxWidth: 360,
-    borderRadius: radius.lg, padding: 18, borderWidth: 1,
+    width: "100%", maxWidth: 360, maxHeight: "90%",
+    borderRadius: radius.lg, borderWidth: 1, overflow: "hidden",
   },
+  cardScroll: { padding: 18 },
   title:     { fontSize: 15, fontWeight: "700" },
   label:     { fontSize: 12, marginBottom: 4 },
   bar:       { height: 6, borderRadius: 3, overflow: "hidden" },

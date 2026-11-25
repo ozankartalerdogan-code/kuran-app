@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import {
   View, Text, FlatList, ScrollView, TouchableOpacity, TextInput,
-  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder, Platform,
+  ActivityIndicator, StyleSheet, useWindowDimensions, Modal, PanResponder, Platform, KeyboardAvoidingView,
 } from "react-native";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -242,6 +242,10 @@ export default function MushafSayfaEkrani() {
   const { sayfa: sayfaParam, hatim: hatimParam } = useLocalSearchParams<{ sayfa?: string; hatim?: string }>();
 
   const listRef = useRef<FlatList<number>>(null);
+  const retryScrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (retryScrollTimerRef.current) clearTimeout(retryScrollTimerRef.current);
+  }, []);
   const [surahList, setSurahList] = useState<SurahListItem[]>([]);
   const [page, setPage] = useState(1);
   const [jumpOpen, setJumpOpen] = useState(false);
@@ -564,7 +568,7 @@ export default function MushafSayfaEkrani() {
 
         {/* Sayfaya / sureye atlama — alttan panel */}
         <Modal visible={jumpOpen} transparent animationType="slide" onRequestClose={() => setJumpOpen(false)}>
-          <View style={st.overlay}>
+          <KeyboardAvoidingView style={st.overlay} behavior={Platform.OS === "ios" ? "padding" : undefined}>
             <TouchableOpacity style={{ flex: 1 }} onPress={() => setJumpOpen(false)} accessibilityRole="button" accessibilityLabel={t.closePanelA11y} />
             <View style={[st.sheet, { backgroundColor: c.bg }]}>
               <View style={[st.sheetHeader, { borderBottomColor: c.border }]}>
@@ -628,7 +632,7 @@ export default function MushafSayfaEkrani() {
                 />
               )}
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </Modal>
 
         {/* Sayfalar — inverted: sağa kaydır → sonraki sayfa (Arapça kitap yönü) */}
@@ -649,6 +653,15 @@ export default function MushafSayfaEkrani() {
               renderItem={renderItem}
               getItemLayout={getItemLayout}
               initialScrollIndex={initialPage - 1}
+              onScrollToIndexFailed={(info) => {
+                if (retryScrollTimerRef.current) clearTimeout(retryScrollTimerRef.current);
+                retryScrollTimerRef.current = setTimeout(() => {
+                  listRef.current?.scrollToOffset({
+                    offset: info.index * width,
+                    animated: false,
+                  });
+                }, 50);
+              }}
               onLayout={(e) => {
                 const h = Math.round(e.nativeEvent.layout.height);
                 if (h > 0 && h !== listHeight) setListHeight(h);
@@ -663,22 +676,24 @@ export default function MushafSayfaEkrani() {
 
         {/* Seçili ayet eylem çubuğu — dokun=seç, detaya gitme ikinci adım */}
         {secili && (
-          <View style={[st.seciliBar, { backgroundColor: c.card, borderColor: c.border, paddingBottom: Math.max(insets.bottom, 10) }]}>
-            <Text style={[st.seciliText, { color: c.text }]} numberOfLines={1}>
-              {(() => { const sr = surahList.find((s) => s.id === secili.surahId); return sr ? surahNameOf(sr.id, sr.name) : fmt(t.surahFallback, { n: secili.surahId }); })()} · {secili.surahId}:{secili.ayahNumber}
-            </Text>
-            <TouchableOpacity
-              style={[st.seciliBtn, { backgroundColor: c.actionBg }]}
-              onPress={seciliDetayaGit}
-              activeOpacity={0.8}
-              accessibilityRole="button"
-              accessibilityLabel={t.openDetailA11y}
-            >
-              <Text style={[st.seciliBtnText, { color: c.actionText }]}>{t.openDetail}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSecili(null)} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.clearSelectionA11y}>
-              <Ionicons name="close" size={20} color={c.textMuted} />
-            </TouchableOpacity>
+          <View style={st.seciliBarWrap} pointerEvents="box-none">
+            <View style={[st.seciliBar, { backgroundColor: c.card, borderColor: c.border, paddingBottom: Math.max(insets.bottom, 10) }]}>
+              <Text style={[st.seciliText, { color: c.text }]} numberOfLines={1}>
+                {(() => { const sr = surahList.find((s) => s.id === secili.surahId); return sr ? surahNameOf(sr.id, sr.name) : fmt(t.surahFallback, { n: secili.surahId }); })()} · {secili.surahId}:{secili.ayahNumber}
+              </Text>
+              <TouchableOpacity
+                style={[st.seciliBtn, { backgroundColor: c.actionBg }]}
+                onPress={seciliDetayaGit}
+                activeOpacity={0.8}
+                accessibilityRole="button"
+                accessibilityLabel={t.openDetailA11y}
+              >
+                <Text style={[st.seciliBtnText, { color: c.actionText }]}>{t.openDetail}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setSecili(null)} hitSlop={10} activeOpacity={0.7} accessibilityRole="button" accessibilityLabel={t.clearSelectionA11y}>
+                <Ionicons name="close" size={20} color={c.textMuted} />
+              </TouchableOpacity>
+            </View>
           </View>
         )}
 
@@ -717,7 +732,7 @@ const st = StyleSheet.create({
 
   // ── Sayfa/Sure paneli ──
   overlay: { flex: 1, backgroundColor: "rgba(0,0,0,0.45)" },
-  sheet:   { height: "78%", borderTopLeftRadius: 20, borderTopRightRadius: 20, overflow: "hidden" },
+  sheet:   { height: "78%", width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center", borderTopLeftRadius: 20, borderTopRightRadius: 20, overflow: "hidden" },
   sheetHeader: {
     flexDirection: "row", alignItems: "center", justifyContent: "space-between",
     paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1,
@@ -769,8 +784,12 @@ const st = StyleSheet.create({
 
   sayfaNo: { textAlign: "center", fontSize: 12, marginTop: 12 },
 
-  seciliBar: {
+  seciliBarWrap: {
     position: "absolute", left: 0, right: 0, bottom: 0,
+    alignItems: "center",
+  },
+  seciliBar: {
+    width: "100%", maxWidth: READING_MAX_WIDTH,
     flexDirection: "row", alignItems: "center", gap: 10,
     paddingHorizontal: 14, paddingTop: 10, borderTopWidth: 1,
   },

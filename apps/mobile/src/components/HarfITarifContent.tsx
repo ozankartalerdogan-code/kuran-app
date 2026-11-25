@@ -5,6 +5,7 @@ import { useColors } from "../hooks/useColors";
 import { useStrings, useLang, fmt } from "../i18n";
 import { useLocalizedData } from "../i18n/localizedData";
 import { localizedTranslit } from "../lib/translitEn";
+import { READING_MAX_WIDTH } from "../lib/layout";
 import { storage, STORAGE_KEYS } from "../lib/storage";
 import {
   parseElifbaQuizScores,
@@ -343,7 +344,7 @@ export function HarfITarifContent({ paddingTop = 16, paddingBottom = 40 }: { pad
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: c.bg }}
-      contentContainerStyle={{ padding: space.gutter, paddingTop, paddingBottom }}
+      contentContainerStyle={{ padding: space.gutter, paddingTop, paddingBottom, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" }}
       showsVerticalScrollIndicator={false}
     >
       <View style={{ flexDirection: "row", alignItems: "center", gap: space.xs }}>

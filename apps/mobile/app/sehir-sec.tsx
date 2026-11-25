@@ -29,6 +29,7 @@ import { createLatestCityPicker } from "../src/lib/prayerCitySelection";
 import { buildPrayerContext, getLocationSilent } from "../src/lib/prayerContextDeps";
 import { getPrayerDayRepository } from "../src/lib/prayerDayRepositoryDeps";
 import { addDaysYmd, prayerDateInZone } from "../src/lib/prayerInstant";
+import { READING_MAX_WIDTH } from "../src/lib/layout";
 import { refreshPrayerWidgetsNow } from "../src/widgets/widgetRefresh";
 
 type SearchState =
@@ -248,7 +249,7 @@ export default function SehirSecScreen() {
 }
 
 const s = StyleSheet.create({
-  content: { padding: 16 },
+  content: { padding: 16, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   flex: { flex: 1 },
   autoRow: {
     flexDirection: "row",
