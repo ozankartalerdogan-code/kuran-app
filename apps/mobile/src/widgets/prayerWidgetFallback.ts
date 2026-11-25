@@ -97,3 +97,22 @@ export async function clearPrayerWidgetFallback(): Promise<void> {
   try { await fallbackStorage().remove(PRAYER_WIDGET_FALLBACK_KEY); }
   catch { /* Widget storage is best effort. */ }
 }
+
+/** Vakit farkları tolerans içindeyse iki kaydı yaklaşık aynı konum sayar (koordinat tutmadan). */
+export function sameApproxLocation(
+  oldRecords: PrayerDayRecord[],
+  newRecords: PrayerDayRecord[],
+  toleranceMs = 180_000,
+): boolean {
+  const byDate = new Map(oldRecords.map(r => [r.sourceDate, r]));
+  let shared = 0;
+  for (const next of newRecords) {
+    const prev = byDate.get(next.sourceDate);
+    if (!prev) continue;
+    shared++;
+    for (const key of PRAYER_KEYS) {
+      if (!(Math.abs(prev.atMs[key] - next.atMs[key]) <= toleranceMs)) return false;
+    }
+  }
+  return shared > 0;
+}

@@ -251,7 +251,10 @@ export default function MushafSayfaEkrani() {
   const surahNameOf = useSurahNameOf();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const compactHeader = width < 640;
+  // HorizontalSafeArea yan inset'lerini yansıtmak için gerçek liste genişliği ölçülür.
+  const [listWidth, setListWidth] = useState(0);
+  const pageW = listWidth > 0 ? listWidth : Math.max(1, width - insets.left - insets.right);
+  const compactHeader = pageW < 640;
   const { fontScale, changeFontScale } = useFontScale();
   const { sayfa: sayfaParam, hatim: hatimParam } = useLocalSearchParams<{ sayfa?: string; hatim?: string }>();
 
@@ -283,9 +286,9 @@ export default function MushafSayfaEkrani() {
 
   // PanResponder bir kez kurulur; güncel sayfa ve genişliği ref'ten okur.
   const pageRef = useRef(1);
-  const widthRef = useRef(width);
+  const widthRef = useRef(pageW);
   useEffect(() => { pageRef.current = page; }, [page]);
-  useEffect(() => { widthRef.current = width; }, [width]);
+  useEffect(() => { widthRef.current = pageW; }, [pageW]);
 
   // Sure listesi düşerse atlama paneli sonsuz "yükleniyor"da kalmasın — hata
   // durumu + tekrar dene (sayfa numarasıyla atlama zaten çalışmaya devam eder).
@@ -431,7 +434,7 @@ export default function MushafSayfaEkrani() {
     const t = setTimeout(() => listRef.current?.scrollToIndex({ index: page - 1, animated: false }), 50);
     return () => clearTimeout(t);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width]);
+  }, [pageW]);
 
   const handleJump = useCallback(() => {
     const hedef = Number(jumpVal);
@@ -489,18 +492,18 @@ export default function MushafSayfaEkrani() {
     ({ item }: { item: number }) => (
       <MushafSayfasi
         page={item}
-        width={width}
+        width={pageW}
         height={listHeight}
         tajweed={tajweed}
         secili={secili}
         onAyetSec={onAyetSec}
       />
     ),
-    [width, listHeight, tajweed, secili, onAyetSec],
+    [pageW, listHeight, tajweed, secili, onAyetSec],
   );
   const getItemLayout = useCallback(
-    (_: unknown, index: number) => ({ length: width, offset: width * index, index }),
-    [width],
+    (_: unknown, index: number) => ({ length: pageW, offset: pageW * index, index }),
+    [pageW],
   );
 
   // Başlık bilgisi tamamen yerel: cüz + sayfanın başladığı sure
@@ -529,7 +532,7 @@ export default function MushafSayfaEkrani() {
               <Ionicons name="search" size={11} color={c.textMuted} />
               <Text
                 // Android adjustsFontSizeToFit pencere daralınca (katlanabilir kapanınca) yeniden ölçmüyor; genişlikle yeniden kur.
-                key={`sub-${width}`}
+                key={`sub-${pageW}`}
                 style={[st.headerSub, { color: c.textMuted }]}
                 numberOfLines={1}
                 adjustsFontSizeToFit
@@ -567,7 +570,7 @@ export default function MushafSayfaEkrani() {
               accessibilityRole="button" accessibilityLabel={t.shrinkA11y}
               accessibilityState={{ disabled: fontScale <= FONT_SCALE_MIN }}
             >
-              <Text style={[st.fontBtnText, { color: c.textSecondary }]}>A−</Text>
+              <Text style={[st.fontBtnText, { color: c.textSecondary }]} maxFontSizeMultiplier={1.2}>A−</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[st.fontBtn, !compactHeader && st.fontBtnWide, { borderColor: c.border }, fontScale >= FONT_SCALE_MAX && st.fontBtnOff]}
@@ -577,7 +580,7 @@ export default function MushafSayfaEkrani() {
               accessibilityRole="button" accessibilityLabel={t.growA11y}
               accessibilityState={{ disabled: fontScale >= FONT_SCALE_MAX }}
             >
-              <Text style={[st.fontBtnText, { color: c.textSecondary }]}>A+</Text>
+              <Text style={[st.fontBtnText, { color: c.textSecondary }]} maxFontSizeMultiplier={1.2}>A+</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -655,7 +658,14 @@ export default function MushafSayfaEkrani() {
         {initialPage === null ? (
           <View style={st.center}><ActivityIndicator size="large" color={c.accent} /></View>
         ) : (
-          <View style={{ flex: 1 }} {...panResponder.panHandlers}>
+          <View
+            style={{ flex: 1 }}
+            onLayout={(e) => {
+              const w = Math.round(e.nativeEvent.layout.width);
+              if (w > 0 && w !== listWidth) setListWidth(w);
+            }}
+            {...panResponder.panHandlers}
+          >
             <FlatList
               ref={listRef}
               style={{ flex: 1 }}
@@ -673,7 +683,7 @@ export default function MushafSayfaEkrani() {
                 if (retryScrollTimerRef.current) clearTimeout(retryScrollTimerRef.current);
                 retryScrollTimerRef.current = setTimeout(() => {
                   listRef.current?.scrollToOffset({
-                    offset: info.index * width,
+                    offset: info.index * pageW,
                     animated: false,
                   });
                 }, 50);

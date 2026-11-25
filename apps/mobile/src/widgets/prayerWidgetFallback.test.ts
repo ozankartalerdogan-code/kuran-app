@@ -101,3 +101,46 @@ test("unavailable or failing storage stays best effort", async () => {
     await api.clearPrayerWidgetFallback();
   }
 });
+
+// sameApproxLocation testleri için elle PrayerDayRecord kurar.
+function recordWithShift(sourceDate: string, shiftMs = 0): PrayerDayRecord {
+  const baseAt = nowMs;
+  const atMs = Object.fromEntries(
+    instants.PRAYER_KEYS.map((key, idx) => [key, baseAt + idx * 3_600_000 + shiftMs]),
+  ) as PrayerDayRecord["atMs"];
+  return {
+    sourceDate,
+    cityKey: "geo:41.01,28.98",
+    cityTimeZone: "Europe/Istanbul",
+    source: "aladhan",
+    revision: "rev",
+    fetchedAt: nowMs,
+    hijri: null,
+    atMs,
+  };
+}
+
+test("sameApproxLocation: aynı vakitler true döner", () => {
+  assert.equal(api.sameApproxLocation([recordWithShift("2026-11-19")], [recordWithShift("2026-11-19")]), true);
+});
+
+test("sameApproxLocation: 2 dk fark tolerans içinde olduğundan true döner", () => {
+  assert.equal(
+    api.sameApproxLocation([recordWithShift("2026-11-19")], [recordWithShift("2026-11-19", 2 * 60_000)]),
+    true,
+  );
+});
+
+test("sameApproxLocation: 10 dk fark toleransı aştığından false döner", () => {
+  assert.equal(
+    api.sameApproxLocation([recordWithShift("2026-11-19")], [recordWithShift("2026-11-19", 10 * 60_000)]),
+    false,
+  );
+});
+
+test("sameApproxLocation: ortak gün yoksa false döner", () => {
+  assert.equal(
+    api.sameApproxLocation([recordWithShift("2026-11-19")], [recordWithShift("2026-11-20")]),
+    false,
+  );
+});

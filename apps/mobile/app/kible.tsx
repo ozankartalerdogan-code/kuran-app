@@ -620,7 +620,7 @@ export default function KibleScreen() {
         <View style={[s.centered, { backgroundColor: c.bg, paddingBottom: insets.bottom, paddingHorizontal: space.gutter }]}>
           <Callout tone="error" style={s.errorBox}>{ks.noLocBody}</Callout>
           <View style={s.errorActions}>
-            <Button variant="secondary" label={ks.retry} onPress={getLocation} />
+            <Button variant="secondary" label={ks.retry} onPress={() => { void getLocation(); }} />
             <Button variant="secondary" label={ks.goSettings} onPress={() => { void Linking.openSettings(); }} />
           </View>
         </View>
@@ -695,6 +695,8 @@ export default function KibleScreen() {
             {DIRS.map((d) => (
               <View key={d.l} style={[s.dirLayer, { transform: [{ rotate: `${d.b}deg` }] }]}>
                 <Animated.Text
+                  // Sabit kadran geometrisini korumak için sistem yazı ölçeklemesi kapatılır.
+                  allowFontScaling={false}
                   accessible={false}
                   importantForAccessibility="no"
                   style={[
@@ -719,7 +721,7 @@ export default function KibleScreen() {
             {/* Kabe oku */}
             <Animated.View style={[s.needleLayer, { opacity: sensorUnreliable ? 0.55 : 1, transform: [{ rotate: needleRotate }] }]}>
               <View style={[s.kaabaBadge, { backgroundColor: kaabaBg, borderColor: kaabaBorder }]}>
-                <Animated.Text accessible={false} importantForAccessibility="no" style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
+                <Animated.Text allowFontScaling={false} accessible={false} importantForAccessibility="no" style={[s.needleEmoji, { transform: [{ rotate: needleCounter }] }]}>🕋</Animated.Text>
               </View>
               <View style={[s.needleUp, { backgroundColor: needleColor }, { height: Math.max(0, FACE / 2 - 56) }]} />
             </Animated.View>
@@ -729,10 +731,10 @@ export default function KibleScreen() {
 
         {/* Açı */}
         <View style={[s.badge, landscapeTablet && s.badgeLandscape, isAligned ? { backgroundColor: c.greenBg, borderColor: c.greenBorder } : { backgroundColor: c.card, borderColor: c.border }]}>
-          <Text accessible accessibilityLabel={compassSummary} style={[s.badgeNum, { color: isAligned ? c.greenText : c.text }]}>{Math.round(qibla ?? 0)}°</Text>
+          <Text accessible accessibilityLabel={compassSummary} maxFontSizeMultiplier={1.3} style={[s.badgeNum, { color: isAligned ? c.greenText : c.text }]}>{Math.round(qibla ?? 0)}°</Text>
           <View style={s.badgeSubRow} accessible={false} importantForAccessibility="no-hide-descendants">
             {isAligned && <Ionicons name="checkmark-circle" size={14} color={c.greenText} />}
-            <Text style={[s.badgeSub, { color: isAligned ? c.greenText : c.textSecondary }]}>
+            <Text maxFontSizeMultiplier={1.3} style={[s.badgeSub, { color: isAligned ? c.greenText : c.textSecondary }]}>
               {caps(isAligned ? ks.aligned : ks.northToKaaba)}
             </Text>
           </View>
@@ -863,7 +865,7 @@ const s = StyleSheet.create({
   },
   badgeNum: { fontSize: 38, fontWeight: "800", letterSpacing: 0.5 },
   badgeSubRow: { flexDirection: "row", alignItems: "center", gap: space.xxs, marginTop: 1, minHeight: 16 },
-  badgeSub: { fontSize: 11, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase" },
+  badgeSub: { fontSize: 11, fontWeight: "600", letterSpacing: 0.5, textTransform: "uppercase", flexShrink: 1 },
 
   infoBox:  { marginTop: space.sm, width: "100%", maxWidth: READING_MAX_WIDTH, alignSelf: "center" },
   refreshBtn: { marginTop: space.md },

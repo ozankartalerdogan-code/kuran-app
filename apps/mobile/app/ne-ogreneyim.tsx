@@ -47,7 +47,8 @@ export default function NeOgreneyimScreen() {
   const t = useStrings(misc1Strings) as Record<string, string>;
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const containerW = Math.min(width, GRID_MAX_WIDTH);
+  // HorizontalSafeArea yan inset'leri düştüğü için kullanılabilir genişlikten çıkar.
+  const containerW = Math.min(Math.max(0, width - insets.left - insets.right), GRID_MAX_WIDTH);
   const columns = Math.min(4, Math.max(2, Math.floor((containerW - PAD * 2) / CARD_MIN_WIDTH)));
   const cardW = (containerW - PAD * 2 - GAP * (columns - 1)) / columns;
   useEffect(() => { logScreen('NeOgreneyim'); }, []);

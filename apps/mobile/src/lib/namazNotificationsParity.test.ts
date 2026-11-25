@@ -38,7 +38,7 @@ function load(source: string, deps: Record<string, unknown>) {
   return mod.exports;
 }
 
-function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolean; noCity?: boolean; zone?: string; intl?: boolean; aladhan?: boolean; now?: number; scheduleFail?: boolean; writeFail?: boolean; contentFail?: boolean; verseMeal?: string; android?: boolean; deleteChannelFail?: boolean; dailyRepeating?: boolean } = {}) {
+function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolean; noCity?: boolean; zone?: string; intl?: boolean; aladhan?: boolean; now?: number; scheduleFail?: boolean; writeFail?: boolean; contentFail?: boolean; verseMeal?: string; android?: boolean; deleteChannelFail?: boolean; dailyRepeating?: boolean; legacyDailyImportance?: number } = {}) {
   const values = new Map<string, any>([["namazNotifEnabled", "1"], ["dailyVerseNotifEnabled", "0"]]);
   const writes: string[] = [];
   let cancels = 0, subscribes = 0, fills = 0;
@@ -91,6 +91,7 @@ function setup(city = fixtures[0], options: { fail?: boolean; automatic?: boolea
     "expo-notifications": {
       SchedulableTriggerInputTypes: { DATE: "date", DAILY: "daily" },
       AndroidImportance: { HIGH: 4, DEFAULT: 3 },
+      getNotificationChannelAsync: async (id: string) => channels.get(id) ?? (id === "gunun-ayeti" && options.legacyDailyImportance !== undefined ? { id, importance: options.legacyDailyImportance } : null),
       setNotificationChannelAsync: async (id: string, channel: any) => { channels.set(id, channel); },
       deleteNotificationChannelAsync: async (id: string) => { deletedChannels.push(id); if (options.deleteChannelFail) throw Error("channel"); },
       cancelAllScheduledNotificationsAsync: async () => { cancels++; scheduled.length = 0; },
@@ -182,6 +183,16 @@ test("Android günlük kanal DEFAULT'a taşınır; eski kanal silme hatası plan
     assert.deepEqual(h.channels.get("gunun-ayeti-v2"), { name: "Daily", importance: 3, lightColor: "#059669" });
     assert.deepEqual(h.deletedChannels, ["gunun-ayeti"]);
     assert.equal(h.scheduled.length, 56);
+  }
+}));
+
+test("Android günlük kanal geçişi eski kanalın kısık/kapalı önemini korur, yükseltmez", async () => fixedTime(async () => {
+  for (const [legacy, expected] of [[1, 1], [0, 0], [4, 3]] as const) {
+    const h = setup(fixtures[0], { android: true, legacyDailyImportance: legacy });
+    const days = await h.app.fetchPrayerDays(fixtures[0].lat, fixtures[0].lon);
+    await h.app.applyNotifications({ days, prayer: true, dailyVerse: true });
+    assert.equal(h.channels.get("gunun-ayeti-v2").importance, expected);
+    assert.deepEqual(h.deletedChannels, ["gunun-ayeti"]);
   }
 }));
 

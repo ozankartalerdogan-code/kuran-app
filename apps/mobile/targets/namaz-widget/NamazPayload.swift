@@ -207,9 +207,8 @@ enum NamazCalculator {
         }
 
         if payload.approximate == true {
-            guard let payloadTz = TimeZone(identifier: payload.tz),
-                  payloadTz.secondsFromGMT(for: now) == TimeZone.current.secondsFromGMT(for: now)
-            else {
+            // Aynı UTC ofsetindeki farklı şehirleri ayırmak için IANA kimliğini karşılaştır.
+            guard payload.tz == TimeZone.current.identifier else {
                 return NamazViewState(
                     lang: payload.lang,
                     theme: payload.theme,

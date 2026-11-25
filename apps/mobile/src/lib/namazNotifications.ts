@@ -23,7 +23,7 @@ import { getPrayerDayRepository } from "./prayerDayRepositoryDeps";
 import type { PrayerDayRecord } from "./prayerDayRepository";
 import { dedupeVerses, pickFromPool } from "./notifVersePick";
 import { canScheduleExactAlarms } from "../../modules/exact-alarm";
-import { readPrayerWidgetFallback, writePrayerWidgetFallback } from "../widgets/prayerWidgetFallback";
+import { readPrayerWidgetFallback, sameApproxLocation, writePrayerWidgetFallback } from "../widgets/prayerWidgetFallback";
 
 const VAKITLER = [
   { key: "Fajr",    label: "İmsak" },
@@ -162,7 +162,8 @@ export async function fetchPrayerDays(lat: number, lng: number): Promise<DayTime
           { cityKey: context.cityKey, cityTimeZone: context.cityTimeZone },
           Array.from({ length: 16 }, (_, i) => addDaysYmd(date, i - 1)),
         )).filter(record => record.source === "aladhan");
-        if (cached.length && !(await getManualCity(diyanetDeps()))) await writePrayerWidgetFallback({
+        // Aynı saat dilimindeki farklı konuma eski şehir adını yapıştırmamak için vakit yakınlığını doğrula.
+        if (cached.length && sameApproxLocation(snapshot.records, cached) && !(await getManualCity(diyanetDeps()))) await writePrayerWidgetFallback({
           city: snapshot.city, tz: context.cityTimeZone, writtenAtMs, records: cached,
         });
       }
@@ -213,9 +214,17 @@ async function ensureAndroidChannel(): Promise<void> {
     vibrationPattern: [0, 250, 250, 250],
     lightColor:       "#059669",
   });
+  // Mevcut v2 veya eski kanalın kullanıcı önem/sessizleştirme tercihini koru.
+  const existingV2 = await Notifications.getNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY).catch(() => null);
+  const legacy = existingV2 ? null : await Notifications.getNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY_LEGACY).catch(() => null);
+  const dailyImportance = existingV2
+    ? existingV2.importance
+    : legacy && legacy.importance < Notifications.AndroidImportance.DEFAULT
+      ? legacy.importance
+      : Notifications.AndroidImportance.DEFAULT;
   await Notifications.setNotificationChannelAsync(ANDROID_CHANNEL_ID_DAILY, {
     name:             getStrings(notifStrings).channelDaily,
-    importance:       Notifications.AndroidImportance.DEFAULT,
+    importance:       dailyImportance,
     // sound belirtilmez → kanal sistem varsayılan bildirim sesini kullanır.
     // Not: string "default" verilirse expo-notifications onu ÖZEL ses dosyası
     // adı sanıp ("Custom sound 'default' not found") hata basıyordu.
