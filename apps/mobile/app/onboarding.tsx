@@ -34,7 +34,8 @@ export default function OnboardingScreen() {
   };
   const locked = useRef(false), completed = useRef(false), title = useRef<Text>(null);
   const scroll = useRef<ScrollView>(null);
-  const { fontScale } = useWindowDimensions();
+  const { fontScale, height } = useWindowDimensions();
+  const footerInScroll = fontScale >= 1.3 || height < 560;
   const backState = useRef({ step, result });
   backState.current = { step, result };
   useEffect(() => {
@@ -124,10 +125,10 @@ export default function OnboardingScreen() {
               <Text accessibilityLiveRegion={result ? "polite" : "none"} style={{ flex: 1, fontSize: 14, lineHeight: 22, color: c.textSecondary }}>{result ? result === "denied" ? t.permissionDenied : result === "slow" ? t.setupSlow : t.setupFailed : t.locationNote}</Text>
             </View>}
         </Entrance>
-        {fontScale >= 1.3 && <OnboardingFooter step={step} busy={busy || !preferenceReady} primaryLabel={step === 1 || result ? t.continueBtn : t.enableBtn}
+        {footerInScroll && <OnboardingFooter step={step} busy={busy || !preferenceReady} primaryLabel={step === 1 || result ? t.continueBtn : t.enableBtn}
           onPrimary={primary} onSecondary={step === 2 && !result ? () => { void decline(); } : undefined} />}
       </ScrollView>
-      {fontScale < 1.3 && <View style={{ paddingHorizontal: 24 }}><OnboardingFooter reserveSecondary step={step} busy={busy || !preferenceReady} primaryLabel={step === 1 || result ? t.continueBtn : t.enableBtn}
+      {!footerInScroll && <View style={{ paddingHorizontal: 24 }}><OnboardingFooter reserveSecondary step={step} busy={busy || !preferenceReady} primaryLabel={step === 1 || result ? t.continueBtn : t.enableBtn}
         onPrimary={primary} onSecondary={step === 2 && !result ? () => { void decline(); } : undefined} /></View>}
     </View>
   </>;

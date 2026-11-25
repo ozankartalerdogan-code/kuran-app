@@ -3,8 +3,8 @@ import type { Href } from "expo-router";
 import { trackAppOpen } from '../src/hooks/useStoreReview';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
-import { AppState } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AppState, View } from "react-native";
+import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Notifications from "expo-notifications";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
@@ -195,6 +195,16 @@ function ExactAlarmOpeningPrompt() {
   return null;
 }
 
+function HorizontalSafeArea({ children }: { children: ReactNode }) {
+  const insets = useSafeAreaInsets();
+  const c = useColors();
+  return (
+    <View style={{ flex: 1, paddingLeft: insets.left, paddingRight: insets.right, backgroundColor: c.bg }}>
+      {children}
+    </View>
+  );
+}
+
 function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; response: Notifications.NotificationResponse | null | undefined }) {
   const c = useColors();
   const t = useStrings(layoutStrings);
@@ -204,6 +214,7 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
       <AppTourProvider>
       <NavigationGate needsOnboarding={needsOnboarding} response={response} />
       <ExactAlarmOpeningPrompt />
+      <HorizontalSafeArea>
       <Stack
         initialRouteName={needsOnboarding ? "onboarding" : "(tabs)"}
         screenOptions={{
@@ -252,6 +263,7 @@ function AppContent({ needsOnboarding, response }: { needsOnboarding: boolean; r
         <Stack.Screen name="esma"                                options={{ title: t.names, headerBackTitle: t.back }} />
         <Stack.Screen name="elifba/harf-i-tarif"                 options={{ title: t.harfITarif, headerBackTitle: t.back }} />
       </Stack>
+      </HorizontalSafeArea>
       </AppTourProvider>
     </SafeAreaProvider>
   );
