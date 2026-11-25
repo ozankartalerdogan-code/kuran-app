@@ -12,7 +12,7 @@ module.exports = {
     name: 'Kuran Yolu',
     slug: 'kuran-analiz',
     scheme: 'kuranyolu',
-    version: '1.2.4',
+    version: '1.2.5',
     sdkVersion: '56.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
@@ -30,6 +30,7 @@ module.exports = {
       // yatay moda hiç geçilemez, gerçekte tablet deneyimi yok.
       supportsTablet: false,
       bundleIdentifier: 'com.kuranapp.mobile',
+      appStoreUrl: 'https://apps.apple.com/app/id6816732808',
       // Apple Developer > Membership details. @bacons/apple-targets widget hedefini bu takımla imzalar.
       appleTeamId: 'B58BQR745Y',
       entitlements: {
@@ -60,10 +61,11 @@ module.exports = {
       // (sistem açılış süresi) bu API'leri kullanıyor; yalnız app-içi amaçlar.
       // 0A2A.1/3B52.1/85F4.1 SDK nedenlerini expo-file-system kendi PrivacyInfo.xcprivacy
       // dosyasında beyan eder; uygulama manifesti yalnız uygulama nedenlerini taşır.
+      // 1C8F.1 = App Group paylaşımlı UserDefaults (iOS namaz widget'ı).
       privacyManifests: {
         NSPrivacyTracking: false,
         NSPrivacyAccessedAPITypes: [
-          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults', NSPrivacyAccessedAPITypeReasons: ['CA92.1'] },
+          { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryUserDefaults', NSPrivacyAccessedAPITypeReasons: ['CA92.1', '1C8F.1'] },
           { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryFileTimestamp', NSPrivacyAccessedAPITypeReasons: ['C617.1'] },
           { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategoryDiskSpace', NSPrivacyAccessedAPITypeReasons: ['E174.1'] },
           { NSPrivacyAccessedAPIType: 'NSPrivacyAccessedAPICategorySystemBootTime', NSPrivacyAccessedAPITypeReasons: ['35F9.1'] },
