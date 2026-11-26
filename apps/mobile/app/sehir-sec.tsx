@@ -15,6 +15,7 @@ import { useColors } from "../src/hooks/useColors";
 import { useStrings, useLang, fmt } from "../src/i18n";
 import type { Lang } from "../src/i18n";
 import { citySubtitle } from "../src/lib/countryNamesEn";
+import { cityNameEn, searchCitiesWithAliases } from "../src/lib/cityNamesEn";
 import sehirSecStrings from "../src/i18n/strings/sehirSec";
 import {
   getManualCity,
@@ -105,7 +106,7 @@ export default function SehirSecScreen() {
     let active = true;
     setSearch({ status: "loading" });
     const timer = setTimeout(() => {
-      searchDiyanetCities(trimmed, diyanetDeps())
+      searchCitiesWithAliases(trimmed, (q) => searchDiyanetCities(q, diyanetDeps()))
         .then((cities) => {
           if (!active) return;
           setSearch(
@@ -208,7 +209,8 @@ export default function SehirSecScreen() {
       {search.status === "done" &&
         search.cities.map((city) => {
           const isSelected = manual?.id === city.id;
-          const name = titleCaseTr(city.name, isTurkeyCountry(city.country));
+          const isTurkey = isTurkeyCountry(city.country);
+          const name = (lang === "en" && !isTurkey ? cityNameEn(city.id) : null) ?? titleCaseTr(city.name, isTurkey);
           const subtitle = subtitleOf(city, lang);
           return (
             <TouchableOpacity

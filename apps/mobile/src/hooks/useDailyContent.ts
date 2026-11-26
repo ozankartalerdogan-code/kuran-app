@@ -6,6 +6,7 @@ import * as Location from "expo-location";
 import { getStrings, getLang } from "../i18n";
 import prayerNameStrings from "../i18n/strings/prayerNames";
 import { getManualCity, isTurkeyCountry, titleCaseTr } from "../lib/diyanetPrayer";
+import { cityNameEn } from "../lib/cityNamesEn";
 import { diyanetDeps } from "../lib/diyanetPrayerDeps";
 import { buildPrayerContext, getHomeLocation } from "../lib/prayerContextDeps";
 import { getPrayerDayRepository } from "../lib/prayerDayRepositoryDeps";
@@ -93,8 +94,14 @@ export function useDailyContent(): UseDailyContentResult {
   const [prayerLoading, setPrayerLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [prayerCityState, setPrayerCityState] = useState<string>(ISTANBUL.city);
-  const prayerCity = prayerCityState === ISTANBUL.city && getLang() === "en" ? "Istanbul" : prayerCityState;
+  const [prayerCityState, setPrayerCityState] = useState<{ name: string; diyanetId?: number }>({ name: ISTANBUL.city });
+  const currentLang = getLang();
+  const prayerCity =
+    currentLang === "en" && prayerCityState.diyanetId != null
+      ? (cityNameEn(prayerCityState.diyanetId) ?? prayerCityState.name)
+      : prayerCityState.name === ISTANBUL.city && currentLang === "en"
+        ? "Istanbul"
+        : prayerCityState.name;
   const PRAYER_LABELS = prayerLabels();
 
   // Canlı geri sayım için tik — 30 sn'de bir yeniden render tetikler, nextPrayer
@@ -156,7 +163,7 @@ export function useDailyContent(): UseDailyContentResult {
     const applyLocationLabel = () => {
       if (!isActive() || diyanetCityRef.current || !context.cityKey.startsWith("geo:")) return;
       cityLabel = getLang() === "tr" ? "Konumunuz" : "Your location";
-      setPrayerCityState(cityLabel);
+      setPrayerCityState({ name: cityLabel });
       syncFallback();
     };
     if (!context.cityKey.startsWith("m")) {
@@ -168,7 +175,7 @@ export function useDailyContent(): UseDailyContentResult {
             .find(value => value?.trim());
           if (name) {
             cityLabel = name;
-            setPrayerCityState(name);
+            setPrayerCityState({ name });
             syncFallback();
           } else {
             applyLocationLabel();
@@ -198,7 +205,10 @@ export function useDailyContent(): UseDailyContentResult {
           syncFallback();
         }
         if (day.source === "diyanet" && day.cityDisplayName) {
-          setPrayerCityState(titleCaseTr(day.cityDisplayName, context.cityTimeZone === "Europe/Istanbul"));
+          setPrayerCityState({
+            name: titleCaseTr(day.cityDisplayName, context.cityTimeZone === "Europe/Istanbul"),
+            diyanetId: context.diyanetCity?.id,
+          });
         }
         onSuccess();
       }, onError,
@@ -289,7 +299,11 @@ export function useDailyContent(): UseDailyContentResult {
     setPrayerDays([]);
     setPrayerWindow(null);
     setHijriDate(null);
-    setPrayerCityState(manualCity ? titleCaseTr(manualCity.name, isTurkeyCountry(manualCity.country)) : ISTANBUL.city);
+    setPrayerCityState(
+      manualCity
+        ? { name: titleCaseTr(manualCity.name, isTurkeyCountry(manualCity.country)), diyanetId: manualCity.id }
+        : { name: ISTANBUL.city },
+    );
 
     // 2. Günün Ayeti + Günün Duası — geniş havuzdan tarih bazlı seçim
     api.daily
