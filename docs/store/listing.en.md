@@ -37,6 +37,8 @@ Support: https://kuran-app-web-ozan-s-projects8.vercel.app/support
 >
 > Privacy: location is requested only as approximate location, for prayer times and Qibla. Analytics (Firebase) and crash reports (Sentry) are anonymous; no tracking. An optional anonymous cloud backup (Firebase anonymous sign-in) keeps favorites, notes and progress, and can be deleted at any time under More > Privacy Policy.
 
+> **2026-11-26 KARAR (kullanıcı): ad iki mağazada aynı.** 1.2.6 gönderiminde ASC en-US Name → **Kuran Yolu: Quran, Prayer Time** (30, Play en-US başlığıyla aynı). Subtitle, açıklama ve keywords aynen kalır (ASC EN açıklaması Play EN'den zengin; ileride Play EN bu metne çekilebilir).
+
 > 2026-11-24: App Store Connect'e English (U.S.) yerelleştirmesi olarak KAYDEDİLDİ (ASO düzeni). Aşağısı ASC'deki ile birebir.
 
 **Name**  
