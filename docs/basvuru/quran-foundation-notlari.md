@@ -44,10 +44,8 @@ Production base URL (from `apps/mobile/src/lib/runtimeConfig.ts`): `https://kura
 
 ## 5. Open Items
 
-### Privacy Policy Gaps (for separate follow-up — not modified in this task)
-1. **Notifications:** Neither web (`/privacy`, `/privacy/en`) nor mobile (`gizlilik.json`, `gizlilik.en.json`) mentions local prayer/daily-verse notifications (`expo-notifications`) or notification permission/preferences.
-2. **Upstash Redis:** Used in `apps/web/src/middleware.ts` (IP-based API rate limiting) and `apps/web/src/app/api/vakit/route.ts` (Diyanet rate limiting/auth slot), but not listed under Third-Party Services.
-3. **OpenStreetMap Nominatim:** Declared in `apps/web/next.config.mjs` CSP (`connect-src`) for web Qibla lookup (`KibleClient`), but not listed in web Third-Party Services.
+### Privacy Policy Gaps — resolved (27 November 2026)
+Web (`/privacy`, `/privacy/en`) and mobile (`gizlilik.json`, `gizlilik.en.json`) now cover local notifications (no push tokens), Upstash Redis IP-based rate limiting, and OpenStreetMap Nominatim reverse geocoding on the web Qibla page.
 
 ### `[CONFIRM]` / `[FILL]` Placeholders
 - `[CONFIRM: edition-specific public-domain/redistribution rights for the packaged Elmalılı digital edition]`
