@@ -9,9 +9,10 @@ rehberleri ile namaz vakitlerini bir araya getiren web ve mobil uygulamasıdır.
 ## Özellikler
 
 - **Kur'an ve meal:** Sure listesi ve ayet ayet okuma; Elmalılı Hamdi Yazır meali,
-  okunuş ve tefsir açıklamaları; arama, favoriler, notlar ve hatim takibi.
-- **Tecvidli Mushaf:** Sayfa sayfa Mushaf görünümü, renkli tecvid ve 30 cüz
-  ızgarası (okunan cüzler işaretli).
+  okunuş ve tefsir açıklamaları; arama, favoriler, notlar ve hatim takibi;
+  ayet paylaşım kartı.
+- **Tecvidli Mushaf:** 604 sayfalık Mushaf görünümü, renkli tecvid, yazı boyutu
+  düğmeleri (A−/A+) ve 30 cüz ızgarası (okunan cüzler işaretli).
 - **Kelime ve kök analizi:** Her kelimenin anlamı, kökü ve dil bilgisi; kök
   haritası ve aynı kökten gelen kelimeler.
 - **Çevrimdışı kullanım:** Meal ve tecvidli Mushaf uygulamaya gömülüdür; internet
@@ -19,13 +20,26 @@ rehberleri ile namaz vakitlerini bir araya getiren web ve mobil uygulamasıdır.
 - **Konu etiketleri:** Ayetlerde tema etiketleri ve konulara göre gezinme
   (Konular ekranı).
 - **Elif-Ba ve dersler:** Harf kartları ve sesleri, testler, dinle-seç ve tekrar
-  modları, "Sınavla geç"; konu dersleri.
+  modları, "Sınavla geç"; konu dersleri ve "Ne Öğreneyim" rehberi.
 - **Namaz vakitleri:** Diyanet verisi (yoksa Aladhan), dünya genelinde şehir
-  seçimi, vakit bildirimleri ve Android ana ekran widget'ları; kıble pusulası.
-- **Dua ve ibadet rehberleri:** Dualar, Esmâ-ül Hüsnâ, hadisler, namaz ve ibadet
-  rehberi, mübarek günler, siyer, peygamber kıssaları, Manevi Sığınak.
+  seçimi (İngilizce modda İngilizce şehir/ülke adları), saat ve Odak modunda da
+  görünen vakit bildirimleri; bildirime dokununca ilgili ekran (vakit / ayet)
+  açılır.
+- **Widget'lar:** Android'de üç ana ekran/kilit ekranı widget'ı (altı vakit
+  şeridi, sıradaki vakit, ayet); iOS'ta ana ekran ve kilit ekranı namaz widget'ı.
+  Diyanet şehri yokken yaklaşık vakit "(~)" işaretiyle gösterilir.
+- **Kıble pusulası:** Eğim, manyetik parazit, düşük doğruluk ve eski konum
+  uyarıları; güvenilmez sensörde hizalama durur.
+- **Zikirmatik ve dua/ibadet rehberleri:** Tesbih sayacı; dualar, Esmâ-ül Hüsnâ,
+  hadisler, namaz ve ibadet rehberi, mübarek günler, siyer, peygamber kıssaları,
+  Manevi Sığınak.
 - **Günün içeriği:** Seçilmiş havuzdan Günün Ayeti ve Günün Duası.
+- **Kişiselleştirme:** Açık/koyu tema, yazı boyutu, anonim ve silinebilir bulut
+  yedeği; reklamsız.
 - **Dil:** Türkçe ve İngilizce arayüz (İngilizcede Pickthall meali).
+- **Ekran uyumu:** Telefon, Android tablet ve katlanabilir cihazlarda dikey ve
+  yatay düzen (içerik ortalanmış okuma genişliğinde). iPad düzeni kodda hazır;
+  App Store'da iPad desteği henüz kapalı (`supportsTablet: false`).
 
 Proje, npm workspaces kullanan bir TypeScript monoreposudur. Web uygulaması
 Next.js 15 ve React 19; mobil uygulama Expo SDK 56, React Native ve React 19
@@ -38,6 +52,9 @@ package-lock.json içinde tutulur.
 |---|---|
 | `apps/web` | Next.js web uygulaması ve HTTP API |
 | `apps/mobile` | Expo / React Native mobil uygulaması |
+| `apps/mobile/targets/namaz-widget` | iOS namaz widget'ı (SwiftUI, App Group ile veri) |
+| `apps/mobile/modules` | Yerel Expo modülleri (ör. Android tam zamanlı alarm izni) |
+| `apps/mobile/plugins` | Expo config eklentileri (widget, isteğe bağlı Android özellikleri, iOS ayarları) |
 | `packages/core` | Ortak analiz, veri adaptörleri, sunum ve kaynak bildirimleri |
 | `packages/types` | Ortak TypeScript veri tipleri |
 | `packages/storage` | Web ve native depolama adaptörleri |
@@ -170,10 +187,16 @@ iOS paket kimliği `com.kuranapp.mobile`; App Store hazırlığı (izin metinler
 privacy manifest, Firebase plist) yapılmıştır, gönderim `eas.json` içindeki
 `submit.production` profiliyle yapılır.
 
-Yayın durumu (21 Kasım 2026): Android 1.2.3 (versionCode 23) Google Play'de
-yayında. App Store gönderimi Apple
-4.2 itiraz sürecinde bekliyor. Sürüm notları GitHub Releases altındadır
-(`v1.2.0` … `v1.2.3`).
+Yayın durumu (27 Kasım 2026):
+
+| Platform | Durum |
+|---|---|
+| Google Play | 1.2.5 (versionCode 25) yayında (25 Kasım 2026) |
+| App Store | 1.2.5 (build 6) Apple 4.2 itirazı sonrası 25 Kasım 2026'da yeniden gönderildi; inceleme sonucu bekleniyor |
+| Sıradaki sürüm | 1.2.6 (versionCode 26) `master` üzerinde hazırlanıyor: tablet/katlanabilir uyumu, kıble uyarıları, bildirimden ilgili ekrana geçiş, İngilizce şehir adları, widget yaklaşık-vakit yedeği |
+
+Sürüm notları GitHub Releases altındadır (`v1.2.0` … `v1.2.3`); mağaza metinleri
+`docs/store/` içindedir.
 
 ## Lisans ve üçüncü taraf kaynaklar
 

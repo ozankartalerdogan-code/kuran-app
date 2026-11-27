@@ -11,22 +11,35 @@ supplication and worship guides, and prayer times.
 
 - **Quran and translation:** Surah list and verse-by-verse reading; Elmalılı
   Hamdi Yazır Turkish translation, transliteration and tafsir notes; search,
-  favorites, notes and khatm tracking.
-- **Tajweed Mushaf:** Page-by-page Mushaf view with color-coded tajweed and a
-  30-juz grid (read juz marked).
+  favorites, notes and khatm tracking; verse share card.
+- **Tajweed Mushaf:** 604-page Mushaf view with color-coded tajweed, text size
+  buttons (A−/A+) and a 30-juz grid (read juz marked).
 - **Word and root analysis:** Meaning, root and grammar of every word; root map
   and words sharing the same root.
 - **Offline use:** The translation and tajweed Mushaf are bundled with the app
   and open without an internet connection.
 - **Topic tags:** Theme tags on verses and browsing by topic (Topics screen).
 - **Elif-Ba and lessons:** Letter cards and sounds, quizzes, listen-and-choose
-  and review modes, "Test out"; topic lessons.
+  and review modes, "Test out"; topic lessons and a "What should I learn" guide.
 - **Prayer times:** Diyanet data (Aladhan as fallback), worldwide city
-  selection, prayer notifications and Android home screen widgets; Qibla compass.
-- **Supplication and worship guides:** Duas, Asma ul-Husna, hadiths, prayer and
-  worship guides, blessed days, Seerah, stories of the prophets, Spiritual Refuge.
+  selection (English city/country names in English mode), prayer notifications
+  that show on smartwatches and in Focus mode; tapping a notification opens the
+  related screen (prayer times / verse).
+- **Widgets:** Three Android home/lock screen widgets (six-prayer strip, next
+  prayer, verse); iOS home and lock screen prayer widget. Without a Diyanet city,
+  approximate times are shown with a "(~)" mark.
+- **Qibla compass:** Warnings for tilt, magnetic interference, low accuracy and
+  stale location; alignment pauses when the sensor is unreliable.
+- **Tasbih counter and guides:** Dhikr counter; duas, Asma ul-Husna, hadiths,
+  prayer and worship guides, blessed days, Seerah, stories of the prophets,
+  Spiritual Refuge.
 - **Daily content:** Verse and Dua of the Day from a curated selection.
+- **Personalization:** Light/dark theme, text size, anonymous and deletable
+  cloud backup; no ads.
 - **Language:** Turkish and English interface (Pickthall translation in English).
+- **Screen support:** Portrait and landscape layouts on phones, Android tablets
+  and foldables (content centered at a reading width). The iPad layout is ready
+  in code; iPad support is still off on the App Store (`supportsTablet: false`).
 
 The project is a TypeScript monorepo using npm workspaces. The web application
 uses Next.js 15 and React 19; the mobile application uses Expo SDK 56,
@@ -39,6 +52,9 @@ package.json files and package-lock.json.
 |---|---|
 | `apps/web` | Next.js web application and HTTP API |
 | `apps/mobile` | Expo / React Native mobile application |
+| `apps/mobile/targets/namaz-widget` | iOS prayer widget (SwiftUI, data via App Group) |
+| `apps/mobile/modules` | Local Expo modules (e.g. Android exact alarm permission) |
+| `apps/mobile/plugins` | Expo config plugins (widgets, optional Android features, iOS settings) |
 | `packages/core` | Shared analysis, data adapters, presentation, and source notices |
 | `packages/types` | Shared TypeScript data types |
 | `packages/storage` | Web and native storage adapters |
@@ -176,10 +192,16 @@ The iOS bundle identifier is `com.kuranapp.mobile`; App Store preparations
 (permission descriptions, privacy manifest, Firebase plist) are completed,
 and submission is handled via the `submit.production` profile in `eas.json`.
 
-Release status (21 November 2026): Android 1.2.3 (versionCode 23) is live on
-Google Play. The App Store submission
-is pending the Apple 4.2 appeal. Release notes are on GitHub Releases
-(`v1.2.0` … `v1.2.3`).
+Release status (27 November 2026):
+
+| Platform | Status |
+|---|---|
+| Google Play | 1.2.5 (versionCode 25) live (25 November 2026) |
+| App Store | 1.2.5 (build 6) resubmitted on 25 November 2026 after the Apple 4.2 appeal; awaiting review |
+| Next release | 1.2.6 (versionCode 26) in preparation on `master`: tablet/foldable support, Qibla warnings, notification deep links, English city names, approximate-time widget fallback |
+
+Release notes are on GitHub Releases (`v1.2.0` … `v1.2.3`); store listings are
+in `docs/store/`.
 
 ## Licenses and Third-Party Sources
 
