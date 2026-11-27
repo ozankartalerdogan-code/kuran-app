@@ -225,6 +225,9 @@ export default function RootListScreen() {
           }
           ItemSeparatorComponent={Separator}
           renderItem={renderItem}
+          ListFooterComponent={
+            <Text style={[s.aiNote, { color: c.textMuted }]}>{t.aiNote}</Text>
+          }
         />
         </View>
       </View>
@@ -259,4 +262,5 @@ const s = StyleSheet.create({
   meaningText: { fontSize: 12 },
   freqBadge: { borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1 },
   freqText: { fontSize: 12, fontWeight: "700" },
+  aiNote: { fontSize: 10.5, fontStyle: "italic", textAlign: "center", marginTop: 14, lineHeight: 16 },
 });

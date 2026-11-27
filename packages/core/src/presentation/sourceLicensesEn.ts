@@ -10,6 +10,11 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
     "license": "CC BY 3.0"
   },
   {
+    "id": "tanzil-home",
+    "title": "Tanzil.net",
+    "url": "https://tanzil.net/"
+  },
+  {
     "id": "elmalili",
     "title": "Elmalılı Muhammed Hamdi Yazır",
     "url": "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi"
@@ -35,7 +40,8 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
   {
     "id": "qac",
     "title": "Quranic Arabic Corpus",
-    "url": "https://corpus.quran.com/download/"
+    "url": "https://corpus.quran.com/download/",
+    "license": "GPL / QAC Terms of Use"
   },
   {
     "id": "mustafa0x",
@@ -79,6 +85,35 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
     "title": "GeoNames",
     "url": "https://www.geonames.org/",
     "license": "CC BY 4.0"
+  },
+  {
+    "id": "sunnah",
+    "title": "Sunnah.com",
+    "url": "https://sunnah.com/"
+  },
+  {
+    "id": "font-amiri",
+    "title": "Amiri",
+    "url": "https://github.com/aliftype/amiri",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "id": "font-figtree",
+    "title": "Figtree",
+    "url": "https://github.com/erikdkennedy/figtree",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "id": "font-lora",
+    "title": "Lora",
+    "url": "https://github.com/cyrealtype/Lora-Cyrillic",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "id": "font-uthmanic-hafs",
+    "title": "KFGQPC HAFS Uthmanic Script (UthmanicHafs)",
+    "url": "https://fonts.qurancomplex.gov.sa/",
+    "license": "KFGQPC EULA"
   }
 ];
 
@@ -86,9 +121,10 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "quran-text",
     "title": "Quran text",
-    "body": "The Arabic Quran text is taken from Tanzil Quran Text Uthmani version 1.1. Its letters and marks are stored exactly as published; font and display adjustments on screen never change the original text.",
+    "body": "The Arabic Quran text is taken from Tanzil Quran Text Uthmani version 1.1, published by Tanzil Project (tanzil.net, Copyright © 2007–2026 Tanzil Project) under the CC BY 3.0 license. Its letters and marks are stored verbatim without modification; font and display adjustments on screen never change the original text.",
     "linkIds": [
-      "tanzil"
+      "tanzil",
+      "tanzil-home"
     ]
   },
   {
@@ -130,6 +166,25 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
       "diyanet-awqat",
       "aladhan",
       "geonames"
+    ]
+  },
+  {
+    "id": "hadith",
+    "title": "Hadith",
+    "body": "The Hadith section presents selections from classical hadith collections such as Bukhari, Muslim, Tirmidhi, Abu Dawud, Ibn Majah, and Ahmad ibn Hanbal. Numbered narrations include Sunnah.com reference links. The Turkish and English presentation and explanatory notes were prepared for Kuran Yolu with AI assistance.",
+    "linkIds": [
+      "sunnah"
+    ]
+  },
+  {
+    "id": "fonts",
+    "title": "Fonts",
+    "body": "The app bundles the Amiri, Figtree, and Lora fonts under the SIL Open Font License 1.1; the KFGQPC HAFS Uthmanic Script (UthmanicHafs) font used for the Qur'an text is distributed unmodified under the End-User License Agreement (EULA) embedded in the font by the King Fahd Glorious Quran Printing Complex (KFGQPC).",
+    "linkIds": [
+      "font-amiri",
+      "font-figtree",
+      "font-lora",
+      "font-uthmanic-hafs"
     ]
   },
   {

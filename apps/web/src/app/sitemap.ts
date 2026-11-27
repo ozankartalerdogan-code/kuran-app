@@ -59,6 +59,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ["/kible", "monthly", 0.4],
     ["/privacy", "yearly", 0.2],
     ["/privacy/en", "yearly", 0.2],
+    ["/terms", "yearly", 0.2],
+    ["/terms/en", "yearly", 0.2],
     ["/support", "yearly", 0.2],
     ["/hakkinda", "yearly", 0.2],
   ];

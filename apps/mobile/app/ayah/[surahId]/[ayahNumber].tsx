@@ -852,7 +852,9 @@ export default function AyahDetailScreen() {
               <Text style={[styles.readingText, scaledText.reading, { color: colors.textSecondary }]}>{localizedVerseTranslit({ surah: surahId, ayah: ayahNumber }, reading, lang)}</Text>
               {lang === "en" ? (
                 <Text style={{ fontSize: 10, marginTop: 4, color: colors.textMuted }}>{`Transliteration: ${EN_TRANSLIT_SOURCE}`}</Text>
-              ) : null}
+              ) : (
+                <Text style={{ fontSize: 10, marginTop: 4, color: colors.textMuted }}>{ay.translitAiNote}</Text>
+              )}
             </>
           ) : null}
 
@@ -1038,6 +1040,9 @@ export default function AyahDetailScreen() {
                     </View>
                   ))}
                 </View>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted, marginTop: 10, marginBottom: 0 }]}>
+                  {ay.wordMeaningAiNote}
+                </Text>
               </View>
             ) : (
               <View style={[styles.emptyState, { borderColor: colors.border, backgroundColor: colors.surfaceAlt }]}>
@@ -1054,6 +1059,9 @@ export default function AyahDetailScreen() {
             <View style={[styles.sectionCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
               <Text style={[styles.sectionTitle, { color: colors.accent }]}>{ay.rootsTitle}</Text>
               <UniqueRootList words={data.words} rootMeanings={data.rootMeanings ?? {}} colors={colors} />
+              <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted, marginTop: 10, marginBottom: 0 }]}>
+                {ay.wordMeaningAiNote}
+              </Text>
             </View>
           </View>
         )}
@@ -1071,6 +1079,9 @@ export default function AyahDetailScreen() {
                 <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
                   {literalText}
                 </Text>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted, marginTop: 8, marginBottom: 0 }]}>
+                  {ay.aiAssistedNote}
+                </Text>
               </View>
             ) : null}
 
@@ -1085,6 +1096,9 @@ export default function AyahDetailScreen() {
                 </Text>
                 <Text style={[styles.analysisCardBody, { color: colors.textSecondary }]}>
                   {data.farkAnalizi}
+                </Text>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted, marginTop: 8, marginBottom: 0 }]}>
+                  {ay.aiAssistedNote}
                 </Text>
               </View>
             ) : null}
@@ -1122,6 +1136,9 @@ export default function AyahDetailScreen() {
                     );
                   })}
                 </View>
+                <Text style={[styles.analysisCardSubtitle, { color: colors.textMuted, marginTop: 10, marginBottom: 0 }]}>
+                  {ay.wordMeaningAiNote}
+                </Text>
               </View>
             )}
 

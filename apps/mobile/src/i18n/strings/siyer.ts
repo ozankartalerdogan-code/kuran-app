@@ -19,6 +19,7 @@ export default defineStrings({
     statEvent: "Olay",
     periods: "Dönemler",
     sources: "Kaynaklar: {s}",
+    aiNote: "Siyer anlatımı ve özet notlar yapay zekâ desteğiyle hazırlanmıştır.",
   },
   en: {
     title: "Life of the Prophet",
@@ -38,5 +39,6 @@ export default defineStrings({
     statEvent: "Events",
     periods: "Periods",
     sources: "Sources: {s}",
+    aiNote: "Seerah narratives and summary notes were prepared with AI assistance.",
   },
 });

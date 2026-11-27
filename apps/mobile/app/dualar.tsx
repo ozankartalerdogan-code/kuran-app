@@ -168,6 +168,7 @@ export default function DualarScreen() {
       >
         <Text style={[s.intro, { color: c.textSecondary }]}>{D.aciklama}</Text>
         {D.kategoriler.map((k) => <KategoriAccordion key={k.kod} kat={k} />)}
+        <Text style={[s.aiNote, { color: c.textMuted }]}>{t.aiNote}</Text>
       </ScrollView>
     </>
   );
@@ -176,6 +177,7 @@ export default function DualarScreen() {
 const s = StyleSheet.create({
   content: { padding: space.gutter, paddingBottom: 40, maxWidth: READING_MAX_WIDTH, width: "100%", alignSelf: "center" },
   intro:   { fontSize: 12.5, lineHeight: 19, marginBottom: 14 },
+  aiNote:  { fontSize: 10.5, fontStyle: "italic", textAlign: "center", marginTop: 14, lineHeight: 16 },
 
   // Kategori akordiyon
   katCard:    { borderRadius: radius.lg, borderWidth: 1, marginBottom: 10, overflow: "hidden" },

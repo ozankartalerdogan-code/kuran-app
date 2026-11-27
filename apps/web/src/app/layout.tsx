@@ -156,6 +156,9 @@ export default function RootLayout({
                 <Link href="/privacy" className="inline-flex min-h-8 items-center hover:text-white hover:underline">
                   Gizlilik
                 </Link>
+                <Link href="/terms" className="inline-flex min-h-8 items-center hover:text-white hover:underline">
+                  Kullanım Şartları
+                </Link>
                 <a href="mailto:kuranyolu.iletisim@gmail.com" className="inline-flex min-h-8 items-center hover:text-white hover:underline">
                   İletişim
                 </a>

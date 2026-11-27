@@ -27,6 +27,7 @@ export default defineStrings({
     topics: "Konular",
     empty: "Bu bölüm için gösterilecek hadis kaydı bulunamadı.",
     sources: "Kaynaklar: {s}",
+    aiNote: "Hadis tercümeleri ve açıklayıcı notlar yapay zekâ desteğiyle hazırlanmıştır.",
   },
   en: {
     title: "Hadith",
@@ -54,5 +55,6 @@ export default defineStrings({
     topics: "Topics",
     empty: "No hadith records to show for this section.",
     sources: "Sources: {s}",
+    aiNote: "Hadith translations and explanatory notes were prepared with AI assistance.",
   },
 });

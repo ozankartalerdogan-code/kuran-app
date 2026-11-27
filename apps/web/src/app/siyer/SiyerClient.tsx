@@ -213,6 +213,9 @@ export function SiyerClient() {
             Kaynaklar: {META.sources.join(" · ")}
           </p>
         ) : null}
+        <p className="mt-1.5 text-center text-xs italic leading-relaxed text-stone-500 dark:text-stone-400">
+          Siyer anlatımı ve özet notlar yapay zekâ desteğiyle hazırlanmıştır.
+        </p>
       </div>
     </main>
   );

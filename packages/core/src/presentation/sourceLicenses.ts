@@ -20,6 +20,11 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     license: "CC BY 3.0",
   },
   {
+    id: "tanzil-home",
+    title: "Tanzil.net",
+    url: "https://tanzil.net/",
+  },
+  {
     id: "elmalili",
     title: "Elmalılı Muhammed Hamdi Yazır",
     url: "https://islamansiklopedisi.org.tr/elmalili-muhammed-hamdi",
@@ -46,6 +51,7 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     id: "qac",
     title: "Quranic Arabic Corpus",
     url: "https://corpus.quran.com/download/",
+    license: "GPL / QAC Terms of Use",
   },
   {
     id: "mustafa0x",
@@ -90,6 +96,35 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     url: "https://www.geonames.org/",
     license: "CC BY 4.0",
   },
+  {
+    id: "sunnah",
+    title: "Sunnah.com",
+    url: "https://sunnah.com/",
+  },
+  {
+    id: "font-amiri",
+    title: "Amiri",
+    url: "https://github.com/aliftype/amiri",
+    license: "SIL OFL 1.1",
+  },
+  {
+    id: "font-figtree",
+    title: "Figtree",
+    url: "https://github.com/erikdkennedy/figtree",
+    license: "SIL OFL 1.1",
+  },
+  {
+    id: "font-lora",
+    title: "Lora",
+    url: "https://github.com/cyrealtype/Lora-Cyrillic",
+    license: "SIL OFL 1.1",
+  },
+  {
+    id: "font-uthmanic-hafs",
+    title: "KFGQPC HAFS Uthmanic Script (UthmanicHafs)",
+    url: "https://fonts.qurancomplex.gov.sa/",
+    license: "KFGQPC EULA",
+  },
 ] as const;
 
 export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
@@ -97,8 +132,8 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "quran-text",
     title: "Kur'an metni",
     body:
-      "Arapça Kur'an metni, Tanzil Quran Text Uthmani 1.1 sürümünden alınır. Metnin harfleri ve işaretleri hiç değiştirilmeden saklanır; ekranda düzgün görünmesi için yapılan yazı tipi ayarları asıl metne dokunmaz.",
-    linkIds: ["tanzil"],
+      "Arapça Kur'an metni, Tanzil Project (tanzil.net, Copyright © 2007–2026 Tanzil Project) tarafından yayımlanan Tanzil Quran Text Uthmani 1.1 sürümünden CC BY 3.0 lisansı kapsamında alınır. Metnin harfleri ve işaretleri hiç değiştirilmeden saklanır; ekranda düzgün görünmesi için yapılan yazı tipi ayarları asıl metne dokunmaz.",
+    linkIds: ["tanzil", "tanzil-home"],
   },
   {
     id: "meal-tafsir",
@@ -127,6 +162,20 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     body:
       "Namaz vakitleri, T.C. Diyanet İşleri Başkanlığı'nın Awqat Salah servisinden şehir bazında alınır; bu servise ulaşılamadığında veya yakında bir Diyanet şehri bulunmadığında Aladhan servisi yedek olarak kullanılır. Size en yakın Diyanet şehrini bulmak için kullanılan şehir koordinatları GeoNames verisinden (CC BY 4.0) yararlanılarak Kuran Yolu tarafından eşleştirilmiş ve doğrulanmıştır.",
     linkIds: ["diyanet-awqat", "aladhan", "geonames"],
+  },
+  {
+    id: "hadith",
+    title: "Hadisler",
+    body:
+      "Hadisler bölümünde Buhârî, Müslim, Tirmizî, Ebû Dâvûd, İbn Mâce ve Ahmed b. Hanbel gibi klasik hadis kaynaklarından seçmeler sunulur. Numaralı rivayetlerde doğrulama için Sunnah.com bağlantıları kullanılır. Hadislerin Türkçe ve İngilizce sunumu ile açıklayıcı notlar Kuran Yolu için yapay zekâ desteğiyle hazırlanmıştır.",
+    linkIds: ["sunnah"],
+  },
+  {
+    id: "fonts",
+    title: "Yazı tipleri",
+    body:
+      "Uygulamada Amiri, Figtree ve Lora yazı tipleri SIL Open Font License 1.1 kapsamında; Kur'an metni için kullanılan KFGQPC HAFS Uthmanic Script (UthmanicHafs) yazı tipi ise Kral Fahd Kur'an-ı Kerim Basım Kompleksi'nin (KFGQPC) yazı tipine gömülü son kullanıcı lisansı (EULA) kapsamında değiştirilmeden dağıtılır.",
+    linkIds: ["font-amiri", "font-figtree", "font-lora", "font-uthmanic-hafs"],
   },
   {
     id: "project-content",

@@ -52,6 +52,7 @@ export default defineStrings({
     othersA11y: "Diğer anlamlar, {n} anlam",
     othersHint: "Nadir kullanılan anlamları açar veya kapatır",
     others: "Diğer anlamlar ({n})",
+    aiNote: "Kök anlamları kaynak verilerden derlenmiş olup düzeltmeler yapay zekâ desteğiyle hazırlanmıştır.",
   },
   en: {
     title: "Word Roots",
@@ -102,5 +103,6 @@ export default defineStrings({
     othersA11y: "Other meanings, {n} meanings",
     othersHint: "Expands or collapses rarely used meanings",
     others: "Other meanings ({n})",
+    aiNote: "Root meanings are compiled from source data with AI-assisted English translations and corrections.",
   },
 });

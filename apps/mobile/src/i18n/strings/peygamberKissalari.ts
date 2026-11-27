@@ -20,6 +20,7 @@ export default defineStrings({
     statProphet: "Peygamber",
     generalLessons: "Genel Dersler",
     prophets: "Peygamberler ({n})",
+    aiNote: "Kıssa anlatımları ve ders notları yapay zekâ desteğiyle hazırlanmıştır.",
   },
   en: {
     title: "Stories of the Prophets",
@@ -40,5 +41,6 @@ export default defineStrings({
     statProphet: "Prophets",
     generalLessons: "General Lessons",
     prophets: "Prophets ({n})",
+    aiNote: "Prophet stories and lesson notes were prepared with AI assistance.",
   },
 });

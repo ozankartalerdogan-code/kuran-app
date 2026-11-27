@@ -9,6 +9,7 @@ export default defineStrings({
     less: "Daha az",
     more: "Açıklama ve fazileti",
     categoryA11y: "{name}, {n} dua",
+    aiNote: "Anlam ve açıklayıcı notlar yapay zekâ desteğiyle hazırlanmıştır.",
   },
   en: {
     title: "Duas & Dhikr",
@@ -18,5 +19,6 @@ export default defineStrings({
     less: "Show less",
     more: "Explanation and virtues",
     categoryA11y: "{name}, {n} duas",
+    aiNote: "Meanings and explanatory notes were prepared with AI assistance.",
   },
 });

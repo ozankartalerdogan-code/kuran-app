@@ -400,37 +400,40 @@ export default function RootDetailScreen() {
           />
         )}
         ListFooterComponent={
-          groups.others.length > 0 ? (
-            <View style={[s.otherWrap, { borderTopColor: c.border }]}>
-              <TouchableOpacity
-                style={s.otherToggle}
-                onPress={() => setOthersOpen((o) => !o)}
-                activeOpacity={0.6}
-                accessibilityRole="button"
-                accessibilityLabel={fmt(t.othersA11y, { n: groups.others.length })}
-                accessibilityHint={t.othersHint}
-                accessibilityState={{ expanded: othersOpen }}
-              >
-                <Text style={[s.otherToggleText, { color: c.textMuted }]}>
-                  {fmt(t.others, { n: groups.others.length })}
-                </Text>
-                <Ionicons name={othersOpen ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
-              </TouchableOpacity>
+          <>
+            {groups.others.length > 0 ? (
+              <View style={[s.otherWrap, { borderTopColor: c.border }]}>
+                <TouchableOpacity
+                  style={s.otherToggle}
+                  onPress={() => setOthersOpen((o) => !o)}
+                  activeOpacity={0.6}
+                  accessibilityRole="button"
+                  accessibilityLabel={fmt(t.othersA11y, { n: groups.others.length })}
+                  accessibilityHint={t.othersHint}
+                  accessibilityState={{ expanded: othersOpen }}
+                >
+                  <Text style={[s.otherToggleText, { color: c.textMuted }]}>
+                    {fmt(t.others, { n: groups.others.length })}
+                  </Text>
+                  <Ionicons name={othersOpen ? "chevron-up" : "chevron-down"} size={18} color={c.textMuted} accessible={false} importantForAccessibility="no" />
+                </TouchableOpacity>
 
-              {othersOpen &&
-                groups.others.map(([meaning, group]) => (
-                  <MeaningGroup
-                    key={meaning}
-                    meaning={meaning}
-                    forms={group.forms}
-                    verses={group.verses}
-                    isOpen={openMeaning === meaning}
-                    onToggle={handleToggle}
-                    c={c}
-                  />
-                ))}
-            </View>
-          ) : null
+                {othersOpen &&
+                  groups.others.map(([meaning, group]) => (
+                    <MeaningGroup
+                      key={meaning}
+                      meaning={meaning}
+                      forms={group.forms}
+                      verses={group.verses}
+                      isOpen={openMeaning === meaning}
+                      onToggle={handleToggle}
+                      c={c}
+                    />
+                  ))}
+              </View>
+            ) : null}
+            <Text style={[s.aiNote, { color: c.textMuted }]}>{t.aiNote}</Text>
+          </>
         }
       />
     </>
@@ -473,6 +476,7 @@ const s = StyleSheet.create({
   verseChipText: { fontSize: 12, fontWeight: "600" },
   verseMore: { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 5, justifyContent: "center" },
   verseMoreText: { fontSize: 12, fontStyle: "italic" },
+  aiNote: { fontSize: 10.5, fontStyle: "italic", textAlign: "center", marginTop: 14, marginHorizontal: 12, lineHeight: 16 },
 });
 
 const hg = StyleSheet.create({

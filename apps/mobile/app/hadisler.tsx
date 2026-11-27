@@ -417,6 +417,7 @@ export default function HadislerScreen() {
         {sources.length > 0 ? (
           <Text style={[s.kaynak, { color: c.textMuted }]}>{fmt(t.sources, { s: sources.join(" · ") })}</Text>
         ) : null}
+        <Text style={[s.kaynak, { color: c.textMuted, marginTop: 6 }]}>{t.aiNote}</Text>
       </ScrollView>
     </>
   );

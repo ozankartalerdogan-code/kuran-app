@@ -288,6 +288,10 @@ export default function RootDetailContent({ root: _root, data, error }: Props) {
             )}
           </section>
         )}
+
+        <p className="mt-6 text-center text-xs italic leading-relaxed text-stone-500 dark:text-stone-400">
+          Kök anlamları kaynak verilerden derlenmiş olup düzeltmeler yapay zekâ desteğiyle hazırlanmıştır.
+        </p>
       </div>
     </main>
   );

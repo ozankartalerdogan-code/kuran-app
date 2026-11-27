@@ -1242,6 +1242,9 @@ export default async function Page({ params, searchParams: searchParamsPromise }
               <StatusBadge status={sectionStatuses.wordMeanings} show={showDeveloperDebug} />
             </div>
             <WordMeaningSummary words={detail.wordAnalyses} />
+            <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+              Kelime ve kök anlamları kaynak verilerden derlenmiş; bazı düzeltmeler yapay zekâ desteğiyle hazırlanmıştır.
+            </p>
           </div>
         </div>
       )
@@ -1263,6 +1266,9 @@ export default async function Page({ params, searchParams: searchParamsPromise }
             </p>
           </div>
           <UniqueRootList words={detail.wordAnalyses} />
+          <p className="text-xs text-stone-500 dark:text-stone-400">
+            Kök açıklamaları kaynak verilerden derlenmiş; bazı düzeltmeler yapay zekâ desteğiyle hazırlanmıştır.
+          </p>
         </div>
       )
     },
@@ -1296,6 +1302,9 @@ export default async function Page({ params, searchParams: searchParamsPromise }
                 Kelimelerin orijinal sırasına birebir sadık, Türkçe dil bilgisine uygun çeviri
               </p>
               <p className="mt-3 text-sm leading-7 text-stone-700">{detail.ayah.literalCeviri}</p>
+              <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                Bu bölüm yapay zekâ desteğiyle hazırlanmıştır; mealin yerine geçmez.
+              </p>
             </div>
           ) : null}
           {detail.ayah.farkAnalizi ? (
@@ -1306,6 +1315,9 @@ export default async function Page({ params, searchParams: searchParamsPromise }
               </p>
               <p className="mt-3 whitespace-pre-line text-sm leading-7 text-stone-700">
                 {detail.ayah.farkAnalizi}
+              </p>
+              <p className="mt-2 text-xs text-stone-500 dark:text-stone-400">
+                Bu bölüm yapay zekâ desteğiyle hazırlanmıştır; mealin yerine geçmez.
               </p>
             </div>
           ) : null}
@@ -1433,6 +1445,9 @@ export default async function Page({ params, searchParams: searchParamsPromise }
                 <GoldDivider />
                 <p className="text-center font-display text-base italic leading-8 text-stone-600 dark:text-stone-400">
                   {detail.ayah.readingTr ?? readingTrResult?.output ?? detail.ayah.transliteration}
+                </p>
+                <p className="mt-1.5 text-center text-xs text-stone-500 dark:text-stone-400">
+                  Okunuş (transliterasyon), yapay zekâ desteğiyle hazırlanmış yardımcı bir rehberdir.
                 </p>
                 {showExperimentalControls ? (
                   <details className="mt-4 rounded-xl border border-stone-200 bg-stone-50 p-4">

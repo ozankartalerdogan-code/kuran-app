@@ -20,8 +20,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 117372,
-    "sha256": "d46fdb96f483e7494d4df399ffb10296b911c89db7b915eac5ba1ed41d7b0fb4",
+    "totalBytes": 119266,
+    "sha256": "68aa8598cccc4f8321c5184dc5eb4e767d5350f6c7eb12ecee394433b3add9b7",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -30,8 +30,8 @@
       },
       {
         "path": "apps/web/src/app/hakkinda/page.tsx",
-        "bytes": 4255,
-        "sha256": "7ca25b80638c078ccbfd51df30bbd05e809096bdb3f3f1795d4bd56a49d66a2d"
+        "bytes": 4298,
+        "sha256": "e0d1f0411288ffc1fec36703990a27ecbd8eab87b038b6dc450496ac1e19b6b8"
       },
       {
         "path": "licenses/CAMEL-MORPH-CC-BY-4.0-NOTICE.md",
@@ -90,8 +90,8 @@
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 7937,
-        "sha256": "974553376e14f1b33b924be8debeeef8ffc0c746e0fdb7661038ba8f52ab575c"
+        "bytes": 9788,
+        "sha256": "7c1b3e3f312a7a0d6e39ed2208d216f23819d3a0d861c7cd4085eabd6cb3c2ba"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
@@ -1845,8 +1845,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3153987,
-        "sha256": "1bd1ea6d5c2ca4a9080edca73a0aa0660090a322064722926e6e53df3684dee0",
+        "totalBytes": 3155856,
+        "sha256": "dc292db8a814398d4d264e76090e8b288755226ff9edebbe50b738318bd4a30b",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -2100,8 +2100,8 @@
           },
           {
             "path": "packages/core/src/presentation/sourceLicensesEn.ts",
-            "bytes": 7930,
-            "sha256": "d1b41fd100f8f4e9cd9824da4ea9999d1e9d518e7c1f8a9275208b848ead5325"
+            "bytes": 9799,
+            "sha256": "b921f5653e7ddc133c5f954508d4790ddd7d42c2e68eb222b85e751b950baca5"
           },
           {
             "path": "scripts/build-elifba-en.mjs",

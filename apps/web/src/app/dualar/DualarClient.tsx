@@ -156,6 +156,10 @@ export function DualarClient() {
         <section className="space-y-3">
           {DATA.kategoriler.map((kategori) => <KategoriAccordion key={kategori.kod} kategori={kategori} />)}
         </section>
+
+        <p className="mt-6 text-center text-xs italic leading-relaxed text-stone-500 dark:text-stone-400">
+          Anlam ve açıklayıcı notlar yapay zekâ desteğiyle hazırlanmıştır.
+        </p>
       </div>
     </main>
   );

@@ -279,6 +279,7 @@ export default function SiyerScreen() {
         {META.sources.length > 0 ? (
           <Text style={[s.sources, { color: c.textMuted }]}>{fmt(t.sources, { s: META.sources.join(" · ") })}</Text>
         ) : null}
+        <Text style={[s.sources, { color: c.textMuted, marginTop: 6 }]}>{t.aiNote}</Text>
       </ScrollView>
     </>
   );

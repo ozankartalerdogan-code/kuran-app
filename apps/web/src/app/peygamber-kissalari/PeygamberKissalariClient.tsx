@@ -224,6 +224,9 @@ export function PeygamberKissalariClient() {
         </section>
 
         <p className="mt-6 text-center text-xs italic leading-relaxed text-stone-400">{META.kaynak_not}</p>
+        <p className="mt-1.5 text-center text-xs italic leading-relaxed text-stone-500 dark:text-stone-400">
+          Kıssa anlatımları ve ders notları yapay zekâ desteğiyle hazırlanmıştır.
+        </p>
       </div>
     </main>
   );

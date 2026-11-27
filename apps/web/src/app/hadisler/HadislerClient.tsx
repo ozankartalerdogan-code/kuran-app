@@ -273,6 +273,9 @@ export function HadislerClient() {
             Kaynaklar: {sources.join(" · ")}
           </p>
         ) : null}
+        <p className="mt-1.5 text-center text-xs italic leading-relaxed text-stone-500 dark:text-stone-400">
+          Hadis tercümeleri ve açıklayıcı notlar yapay zekâ desteğiyle hazırlanmıştır.
+        </p>
       </div>
     </main>
   );

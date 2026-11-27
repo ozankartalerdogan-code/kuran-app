@@ -53,7 +53,7 @@ export default function HakkindaPage() {
                         rel="noopener noreferrer"
                         className="text-xs font-semibold text-navy-700 underline dark:text-navy-300"
                       >
-                        {link.title}
+                        {link.title}{link.license ? ` · ${link.license}` : ""}
                       </a>
                     ))}
                   </div>

@@ -280,6 +280,7 @@ export default function PeygamberKissalariScreen() {
         {PEYGAMBERLER.map(p => <PeygamberCard key={p.id} p={p} />)}
 
         <Text style={[s.kaynak, { color: c.textMuted }]}>{META.kaynak_not}</Text>
+        <Text style={[s.kaynak, { color: c.textMuted, marginTop: 6 }]}>{t.aiNote}</Text>
       </ScrollView>
     </>
   );

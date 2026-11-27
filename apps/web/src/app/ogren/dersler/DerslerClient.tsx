@@ -151,7 +151,7 @@ export function DerslerClient() {
         )}
 
         <p className="mt-8 rounded-2xl border border-gold-200/60 bg-gold-50/60 px-4 py-3 text-center text-xs leading-5 text-stone-500 dark:border-gold-900/40 dark:bg-gold-950/10 dark:text-stone-400">
-          Dersler Kur'an-ı Kerim, sahih hadis kaynakları ve klasik ilmihal birikimi esas alınarak hazırlanmıştır.
+          Dersler, kartlar ve quizler Kur'an-ı Kerim, sahih hadis kaynakları ve klasik ilmihal birikimi esas alınarak yapay zekâ desteğiyle hazırlanmıştır.
         </p>
       </div>
     </main>
