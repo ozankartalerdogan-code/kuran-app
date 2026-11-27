@@ -14,7 +14,7 @@ export default function PrivacyPage() {
     <main className="mx-auto max-w-3xl px-4 py-10 text-stone-700 dark:text-stone-300 sm:px-6 [&_a]:font-medium [&_a]:text-navy-700 [&_a]:underline [&_a]:underline-offset-2 dark:[&_a]:text-navy-300 [&_li]:pl-1 [&_ol]:ml-6 [&_ol]:list-decimal [&_ol]:space-y-1.5 [&_p]:mt-3 [&_p]:leading-7 [&_strong]:font-semibold [&_strong]:text-stone-900 dark:[&_strong]:text-stone-100 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:space-y-1.5">
       <p className="mb-4 text-sm"><Link href="/privacy/en" hrefLang="en" lang="en">English</Link></p>
       <h1 className="font-display text-3xl font-bold tracking-tight text-navy-900 dark:text-stone-50">Gizlilik Politikası</h1>
-      <p className="mb-10 text-sm text-stone-500 dark:text-stone-400">Son Güncelleme: 14 Kasım 2026</p>
+      <p className="mb-10 text-sm text-stone-500 dark:text-stone-400">Son Güncelleme: 27 Kasım 2026</p>
 
       <p><strong>Geliştirici:</strong> Kartal Studio<br/>
       <strong>İletişim:</strong> kuranyolu.iletisim@gmail.com<br/>
@@ -40,10 +40,11 @@ export default function PrivacyPage() {
       <p>Bu veriler öncelikle cihazınızda saklanır. Favori veya not eklenmiş ayetlerin meal ve ayet bilgilerini gösterebilmek için ilgili ayet anahtarları uygulama API&apos;sine iletilebilir.</p>
       <p><strong>Bulut yedekleme (Firebase):</strong> Yukarıdaki veriler, uygulamayı kaldırıp yeniden kurduğunuzda veya yeni bir cihaza geçtiğinizde ilerlemenizin kaybolmaması için Google Firebase (Cloud Firestore) altyapısında yedeklenir. Bu yedek; ad-soyad, e-posta veya telefon numarası gibi hiçbir kimlik bilgisi istenmeden oluşturulan <strong>anonim bir kimlikle</strong> (Firebase Anonymous Authentication) eşleştirilir. Yedeğinize erişim, güvenlik kurallarıyla yalnızca sizin anonim kimliğinizle sınırlandırılmıştır; iletim HTTPS ile şifrelenir. Not metinleriniz dahil yedek içeriği reklam, profilleme veya analitik amaçla kullanılmaz, üçüncü taraflarla paylaşılmaz. Yedeğinizi ve anonim hesabınızı dilediğiniz an uygulama içinden kalıcı olarak silebilirsiniz (aşağıdaki <a href="#hesap-silme">&quot;Hesap ve Veri Silme&quot;</a> bölümüne bakınız).</p>
       <p><strong>Cihaz sistem yedeği:</strong> Ayrıca cihazınızın sistem yedekleme özelliği açıksa bu cihaz-içi veriler otomatik yedeklenebilir: Android&apos;de cihazınızın bağlı olduğu Google Drive hesabına, iOS&apos;ta iCloud hesabınıza. Bu yedek Google veya Apple tarafından yönetilir ve cihaz ayarlarınızdan kapatılabilir.</p>
-      <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitleri için konumunuz yaklaşık 1 km hassasiyete yuvarlanarak uygulama sunucumuza gönderilir; sunucu bunu yalnızca size en yakın <strong>Diyanet İşleri Başkanlığı</strong> şehrini bulmak için kullanır ve vakitleri Diyanet&apos;ten şehir bazında alır (konumunuz Diyanet&apos;e gönderilmez). Bu hizmete ulaşılamazsa veya yakınınızda bir Diyanet şehri yoksa, yaklaşık konumunuz üçüncü taraf <strong>Aladhan.com</strong> servisine gönderilir (aşağıdaki &quot;Üçüncü Taraf Hizmetler&quot; bölümüne bakınız). Konumunuz sunucularımızda kaydedilmez; yalnızca barındırma sağlayıcımızın (Vercel) standart, kısa süreli istek kayıtlarında geçici olarak yer alabilir. Bulunan şehir ve vakitler cihazınızda saklanır.</p>
+      <p><strong>Konum verisi:</strong> Namaz vakitleri ve kıble yönü için yaklaşık (şehir düzeyi) konum kullanılır; hassas (GPS) konum kullanılmaz. Kıble yönü tamamen cihazınızda hesaplanır. Namaz vakitleri için konumunuz yaklaşık 1 km hassasiyete yuvarlanarak uygulama sunucumuza gönderilir; sunucu bunu yalnızca size en yakın <strong>Diyanet İşleri Başkanlığı</strong> şehrini bulmak için kullanır ve vakitleri Diyanet&apos;ten şehir bazında alır (konumunuz Diyanet&apos;e gönderilmez). Bu hizmete ulaşılamazsa veya yakınınızda bir Diyanet şehri yoksa, yaklaşık konumunuz üçüncü taraf <strong>Aladhan.com</strong> servisine gönderilir (aşağıdaki &quot;Üçüncü Taraf Hizmetler&quot; bölümüne bakınız). Konumunuz sunucularımızda kaydedilmez; yalnızca barındırma sağlayıcımızın (Vercel) standart, kısa süreli istek kayıtlarında geçici olarak yer alabilir. Bulunan şehir ve vakitler cihazınızda saklanır. Web sitesindeki Kıble sayfasında konum izni verilirse, tarayıcının verdiği enlem/boylam bulunduğunuz şehrin adını göstermek için doğrudan tarayıcıdan <strong>OpenStreetMap Nominatim</strong> hizmetine gönderilir (ters coğrafi kodlama); konum izni verilmezse bu istek yapılmaz. Mobil uygulamada bu hizmet kullanılmaz.</p>
       <p><strong>Arama verisi:</strong> Uygulama içindeki arama özelliği kullanıldığında, arama sorgusu yalnızca arama sonuçlarını getirmek amacıyla uygulama sunucusuna iletilebilir. Arama sorguları reklam hedefleme veya kullanıcı profili oluşturma amacıyla kullanılmaz; Firebase Analytics&apos;e arama metni gönderilmez.</p>
       <p><strong>Reklam kimliği:</strong> Uygulama reklam içermez ve reklam kimliğinizi (Advertising ID) toplamaz.</p>
       <p><strong>Mikrofon:</strong> Uygulama mikrofon erişimi istemez ve ses kaydı yapmaz.</p>
+      <p><strong>Bildirimler (mobil uygulama):</strong> Namaz vakti ve Günün Ayeti bildirimleri cihazınızda yerel olarak planlanır (expo-notifications). Push token veya bildirim verisi sunucularımıza gönderilmez. Bildirim izni isteğe bağlıdır; bildirimleri uygulama içindeki Bildirimler ekranından veya cihaz ayarlarınızdan kapatabilirsiniz. Android&apos;de tam zamanında bildirim için &quot;tam zamanlı alarm&quot; izni istenebilir; bu izin verilmezse bildirimler birkaç dakika gecikebilir.</p>
 
       <h2 className={sectionTitleClass}>2. Verilerin Kullanımı</h2>
       <p>Toplanan veriler yalnızca şu amaçlarla kullanılır:</p>
@@ -65,6 +66,8 @@ export default function PrivacyPage() {
         <li><strong>Aladhan.com</strong> — Yedek namaz vakitleri API (<a href="https://aladhan.com/privacy" target="_blank">Aladhan Gizlilik Politikası</a>)</li>
         <li><strong>Vercel</strong> — Uygulama sunucusu (barındırma) (<a href="https://vercel.com/legal/privacy-policy" target="_blank">Vercel Gizlilik Politikası</a>)</li>
         <li><strong>Turso</strong> — Veritabanı (<a href="https://turso.tech/privacy" target="_blank">Turso Gizlilik Politikası</a>)</li>
+        <li><strong>Upstash Redis</strong> — Web API istek hız sınırlaması (kötüye kullanımı önlemek için IP adresi 60 saniyelik kayan pencereli sayaç anahtarı olarak kısa süreli tutulur; başka amaçla kullanılmaz, profillenmez) ve Diyanet namaz vakti isteklerinin eşgüdümü (kişisel veri içermez)</li>
+        <li><strong>OpenStreetMap Nominatim</strong> — Yalnız web sitesindeki Kıble sayfasında, konum izni verilirse şehir adını göstermek için ters coğrafi kodlama (<a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">OpenStreetMap Vakfı Gizlilik Politikası</a>)</li>
       </ul>
 
       <h2 className={sectionTitleClass}>4. Veri Güvenliği</h2>
@@ -97,7 +100,7 @@ export default function PrivacyPage() {
       <p>Uygulamaya erişiminiz yoksa silme talebinizi <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a> adresine iletebilirsiniz; size yedeğinizin silinmesi konusunda yardımcı oluruz.</p>
 
       <h2 className={sectionTitleClass}>8. Değişiklikler</h2>
-      <p>Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişikliklerde uygulama içinde bildirim yapılır.</p>
+      <p>Bu gizlilik politikası zaman zaman güncellenebilir. Güncel sürümün yürürlük tarihi sayfanın başında belirtilir.</p>
 
       <h2 className={sectionTitleClass}>9. İletişim</h2>
       <p>Sorularınız için: <a href="mailto:kuranyolu.iletisim@gmail.com">kuranyolu.iletisim@gmail.com</a></p>

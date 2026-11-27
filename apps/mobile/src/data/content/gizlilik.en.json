@@ -1,6 +1,6 @@
 {
   "sonGuncelleme": "Last Updated",
-  "tarih": "November 14, 2026",
+  "tarih": "November 27, 2026",
   "meta": {
     "gelistirici": "Developer",
     "gelistiriciAdi": "Kartal Studio",
@@ -135,6 +135,18 @@
               "metin": "The app does not request microphone access or record audio."
             }
           ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            {
+              "metin": "Notifications:",
+              "kalin": true
+            },
+            {
+              "metin": "Prayer time and Verse of the Day notifications are scheduled locally on your device (expo-notifications). Push tokens or notification data are not sent to our servers. Notification permission is optional; you can turn off notifications from the Notifications screen in the app or in your device settings. On Android, an \"exact alarm\" permission may be requested for on-time notifications; if not granted, notifications may be delayed by a few minutes."
+            }
+          ]
         }
       ]
     },
@@ -206,6 +218,10 @@
         {
           "tip": "madde",
           "metin": "Turso — Database"
+        },
+        {
+          "tip": "madde",
+          "metin": "Upstash Redis — Web API rate limiting (to prevent abuse, the request IP address is stored briefly as a 60-second sliding-window counter key; it is not used for any other purpose or profiled) and coordination of Diyanet prayer time requests (contains no personal data)"
         }
       ]
     },
@@ -292,7 +308,7 @@
       "ogeler": [
         {
           "tip": "paragraf",
-          "metin": "This privacy policy may be updated from time to time. You will be notified in the app of significant changes."
+          "metin": "This privacy policy may be updated from time to time. The effective date of the current version is stated at the top of this page."
         }
       ]
     },

@@ -1845,13 +1845,13 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3155856,
-        "sha256": "dc292db8a814398d4d264e76090e8b288755226ff9edebbe50b738318bd4a30b",
+        "totalBytes": 3156906,
+        "sha256": "d0da66ec44cfc466f98da0a76e081b00c36009fe64c83b240ab8c937133e7098",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
-            "bytes": 11613,
-            "sha256": "4fccbb48ccf18970e2e48f9c868b9e69aea24bdf70f0b65095ae7b56391cc0a3"
+            "bytes": 12663,
+            "sha256": "cbdf6238e3417177538aa6af6283b9f3076eaa6bcb9861ff003f0942274e1b15"
           },
           {
             "path": "apps/mobile/src/data/content/harf_i_tarif.en.json",

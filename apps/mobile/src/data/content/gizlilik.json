@@ -1,6 +1,6 @@
 {
   "sonGuncelleme": "Son Güncelleme",
-  "tarih": "14 Kasım 2026",
+  "tarih": "27 Kasım 2026",
   "meta": {
     "gelistirici": "Geliştirici",
     "gelistiriciAdi": "Kartal Studio",
@@ -69,6 +69,13 @@
             { "metin": "Mikrofon:", "kalin": true },
             { "metin": "Uygulama mikrofon erişimi istemez ve ses kaydı yapmaz." }
           ]
+        },
+        {
+          "tip": "paragraf",
+          "parcalar": [
+            { "metin": "Bildirimler:", "kalin": true },
+            { "metin": "Namaz vakti ve Günün Ayeti bildirimleri cihazınızda yerel olarak planlanır (expo-notifications). Push token veya bildirim verisi sunucularımıza gönderilmez. Bildirim izni isteğe bağlıdır; bildirimleri uygulama içindeki Bildirimler ekranından veya cihaz ayarlarınızdan kapatabilirsiniz. Android'de tam zamanında bildirim için \"tam zamanlı alarm\" izni istenebilir; bu izin verilmezse bildirimler birkaç dakika gecikebilir." }
+          ]
         }
       ]
     },
@@ -93,7 +100,8 @@
         { "tip": "madde", "metin": "Diyanet İşleri Başkanlığı — Namaz vakitleri (şehir bazında; konumunuz gönderilmez)" },
         { "tip": "madde", "metin": "Aladhan.com — Yedek namaz vakitleri API" },
         { "tip": "madde", "metin": "Vercel — Uygulama sunucusu (barındırma)" },
-        { "tip": "madde", "metin": "Turso — Veritabanı" }
+        { "tip": "madde", "metin": "Turso — Veritabanı" },
+        { "tip": "madde", "metin": "Upstash Redis — Web API istek hız sınırlaması (kötüye kullanımı önlemek için IP adresi 60 saniyelik kayan pencereli sayaç anahtarı olarak kısa süreli tutulur; başka amaçla kullanılmaz, profillenmez) ve Diyanet namaz vakti isteklerinin eşgüdümü (kişisel veri içermez)" }
       ]
     },
     {
@@ -138,7 +146,7 @@
     {
       "baslik": "8. Değişiklikler",
       "ogeler": [
-        { "tip": "paragraf", "metin": "Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişikliklerde uygulama içinde bildirim yapılır." }
+        { "tip": "paragraf", "metin": "Bu gizlilik politikası zaman zaman güncellenebilir. Güncel sürümün yürürlük tarihi sayfanın başında belirtilir." }
       ]
     },
     {
