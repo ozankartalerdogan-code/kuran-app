@@ -215,7 +215,7 @@ the project code's license does not alter these rights.
 |---|---|
 | Tanzil Quran Text Uthmani 1.1 | CC BY 3.0; attribution, link, notice, and non-modification conditions |
 | Elmalılı digital source chain / Semar Ketir | Digital JSON work MIT; rights for the exact edition/manuscript used TODO |
-| Quranic Arabic Corpus / mustafa0x fork | GPL / Corpus Terms record; exact GPL version and fork license proof TODO |
+| Quranic Arabic Corpus / mustafa0x fork | Reference/comparison during development only; raw data removed from the runtime on 2026-07-28, credited on the About screen. Morphology is Kuran Yolu's own CAMeL-based output |
 | CAMeL Tools | MIT |
 | CAMeL Morph | CC BY 4.0 |
 | AlQuran.cloud tajweed markers | Provider terms of use; explicit license definition TODO |

@@ -20,8 +20,8 @@
   },
   "licenseAndDisclosureArtifacts": {
     "fileCount": 15,
-    "totalBytes": 119266,
-    "sha256": "68aa8598cccc4f8321c5184dc5eb4e767d5350f6c7eb12ecee394433b3add9b7",
+    "totalBytes": 119546,
+    "sha256": "0f2e57da76fdc2c298b5b14560a71c0f2573338ced8923dd470e0fa21ac4e083",
     "files": [
       {
         "path": "apps/mobile/app/hakkinda.tsx",
@@ -85,18 +85,18 @@
       },
       {
         "path": "NOTICE",
-        "bytes": 2213,
-        "sha256": "75d2aaf5d51bb30ad479730fa3fdc58dd9516d57e135d789899ed5caade8a067"
+        "bytes": 2379,
+        "sha256": "ffd8ab141b172e046b3a269f6b860dcfd31f6e993123b64a664c3c9373ca41e0"
       },
       {
         "path": "packages/core/src/presentation/sourceLicenses.ts",
-        "bytes": 9788,
-        "sha256": "7c1b3e3f312a7a0d6e39ed2208d216f23819d3a0d861c7cd4085eabd6cb3c2ba"
+        "bytes": 9873,
+        "sha256": "4da5de09b9953d632d2c66cd94df5e49b72f0e0c2aa963dadcb93102a1ba5492"
       },
       {
         "path": "THIRD_PARTY_LICENSES.md",
-        "bytes": 8000,
-        "sha256": "e37884decdba5e3b9f344e5dea2c5e25be9e055a762f281163722f7eb0da2295"
+        "bytes": 8029,
+        "sha256": "5c1e9447c5191be7a068e1de9921e521e4c1265fc98370db1adfff2d64c6c143"
       }
     ]
   },
@@ -1845,8 +1845,8 @@
       "evidenceGap": "Exact araştırma URL geçmişi korunmamıştır; kullanılan kaynakların tamamı kayıt bazında yeniden oluşturulamaz.",
       "artifacts": {
         "fileCount": 56,
-        "totalBytes": 3156906,
-        "sha256": "d0da66ec44cfc466f98da0a76e081b00c36009fe64c83b240ab8c937133e7098",
+        "totalBytes": 3156963,
+        "sha256": "2692ab2ecb715e8d035d99f564282ce582664c9c6a62d89c0a65ecf1ba65dc33",
         "files": [
           {
             "path": "apps/mobile/src/data/content/gizlilik.en.json",
@@ -2100,8 +2100,8 @@
           },
           {
             "path": "packages/core/src/presentation/sourceLicensesEn.ts",
-            "bytes": 9799,
-            "sha256": "b921f5653e7ddc133c5f954508d4790ddd7d42c2e68eb222b85e751b950baca5"
+            "bytes": 9856,
+            "sha256": "af03fe38b8a5c5c2c8bf3360d219de5a694b2ca6d4052d2468c311fa61c4e49e"
           },
           {
             "path": "scripts/build-elifba-en.mjs",

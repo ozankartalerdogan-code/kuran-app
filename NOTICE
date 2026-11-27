@@ -11,10 +11,12 @@ Primary source notices:
 - Qur'an Arabic text: Tanzil Quran Text, Uthmani 1.1, CC BY 3.0.
   Copyright (C) 2007-2026 Tanzil Project. The canonical source is retained
   verbatim and attributed at https://tanzil.net/.
-- Morphology references: Quranic Arabic Corpus v0.4 and the
-  mustafa0x/quran-morphology fork; CAMeL Tools (MIT) and CAMeL Morph
-  (CC BY 4.0). Kuran Yolu adds canonical token alignment, Unicode
+- Morphology: produced by Kuran Yolu's own pipeline built on CAMeL Tools
+  (MIT) and CAMeL Morph (CC BY 4.0), with canonical token alignment, Unicode
   normalization, contextual selection, corrections and manual verification.
+  Quranic Arabic Corpus v0.4 and the mustafa0x/quran-morphology fork were
+  used during development only as reference/comparison evidence; the raw
+  QAC-derived table was removed from the runtime on 2026-07-28.
 - Tajweed rule source: AlQuran.cloud quran-tajweed markers. Kuran Yolu
   realigns them to canonical Tanzil text and produces its own span,
   coordinate, color, validation and manual-override layer.

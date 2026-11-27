@@ -34,7 +34,7 @@
 - Website: [https://corpus.quran.com/](https://corpus.quran.com/)
 - Attribution requirement: The source should be clearly indicated and linked to `https://corpus.quran.com/` so users can track updates.
 - Fork chain: `https://github.com/mustafa0x/quran-morphology`, a modified Arabic/fix fork of QAC v0.4.
-- Change notice: Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu'nun canonical token hizalama, Unicode normalizasyonu, bağlamsal seçim, hata düzeltme ve manuel doğrulama süreçleriyle hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.
+- Usage: reference and comparison evidence during development only. The final word morphology is Kuran Yolu's own CAMeL Tools / CAMeL Morph based output (canonical token alignment, Unicode normalization, contextual selection, corrections, manual verification); raw QAC data is not distributed in the app. QAC is credited on the About screen.
 - Runtime note: the raw `morfoloji` table was removed from the runtime on 2026-07-28 (local and Turso); its full 130,030-row pre-image and schema are preserved in hashed provenance artefacts. It was never reclassified as the final Kuran Yolu morphology output.
 
 ## Kuran Yolu Analysis Layer

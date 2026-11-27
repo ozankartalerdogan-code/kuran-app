@@ -51,7 +51,6 @@ export const SOURCE_LICENSE_LINKS: readonly SourceLicenseLink[] = [
     id: "qac",
     title: "Quranic Arabic Corpus",
     url: "https://corpus.quran.com/download/",
-    license: "GPL / QAC Terms of Use",
   },
   {
     id: "mustafa0x",
@@ -146,8 +145,8 @@ export const SOURCE_LICENSE_SECTIONS: readonly SourceLicenseSection[] = [
     id: "morphology",
     title: "Kelime morfolojisi",
     body:
-      "Kelime morfolojisi, Quranic Arabic Corpus ve CAMeL kaynaklarından yararlanılarak Kuran Yolu tarafından kelimeleri asıl metinle eşleştirme, harf kodlarını tek biçime getirme, bağlama göre doğru çözümlemeyi seçme, hata düzeltme ve elle kontrol adımlarıyla hazırlanmıştır. Nihai veri kaynak dosyaların birebir kopyası değildir.",
-    linkIds: ["qac", "mustafa0x", "camel-tools", "camel-morph"],
+      "Kelime morfolojisi, Kuran Yolu'nun CAMeL Tools ve CAMeL Morph üzerine kurulu kendi çözümleme hattıyla hazırlanmıştır: kelimeleri asıl metinle eşleştirme, harf kodlarını tek biçime getirme, bağlama göre doğru çözümlemeyi seçme, hata düzeltme ve elle kontrol. Quranic Arabic Corpus ve mustafa0x düzeltmeli kopyası geliştirme sırasında yalnız karşılaştırma ve kontrol kaynağı olarak kullanılmıştır; ham Corpus verisi uygulamada yer almaz.",
+    linkIds: ["camel-tools", "camel-morph", "qac", "mustafa0x"],
   },
   {
     id: "tajweed",

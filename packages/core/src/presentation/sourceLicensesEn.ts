@@ -40,8 +40,7 @@ export const SOURCE_LICENSE_LINKS_EN: readonly SourceLicenseLink[] = [
   {
     "id": "qac",
     "title": "Quranic Arabic Corpus",
-    "url": "https://corpus.quran.com/download/",
-    "license": "GPL / QAC Terms of Use"
+    "url": "https://corpus.quran.com/download/"
   },
   {
     "id": "mustafa0x",
@@ -141,12 +140,12 @@ export const SOURCE_LICENSE_SECTIONS_EN: readonly SourceLicenseSection[] = [
   {
     "id": "morphology",
     "title": "Word morphology",
-    "body": "Word morphology was prepared using Quranic Arabic Corpus and CAMeL sources, together with Kuran Yolu's own steps for matching words to the original text, standardizing character codes, choosing the right analysis for each context, fixing errors, and checking by hand. The final data is not an exact copy of the source files.",
+    "body": "Word morphology is produced by Kuran Yolu's own analysis pipeline built on CAMeL Tools and CAMeL Morph: matching words to the original text, standardizing character codes, choosing the right analysis for each context, fixing errors, and checking by hand. The Quranic Arabic Corpus and its mustafa0x fix fork were used during development only as reference and comparison sources; raw Corpus data is not included in the app.",
     "linkIds": [
-      "qac",
-      "mustafa0x",
       "camel-tools",
-      "camel-morph"
+      "camel-morph",
+      "qac",
+      "mustafa0x"
     ]
   },
   {

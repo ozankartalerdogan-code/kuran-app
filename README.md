@@ -210,7 +210,7 @@ proje kodunun lisansı bu hakları değiştirmez.
 |---|---|
 | Tanzil Quran Text Uthmani 1.1 | CC BY 3.0; atıf, bağlantı, bildirim ve metni değiştirmeme şartları |
 | Elmalılı dijital kaynak zinciri / Semar Ketir | Dijital JSON çalışması MIT; kullanılan kesin baskı/nüsha hakları TODO |
-| Quranic Arabic Corpus / mustafa0x fork | GPL / Corpus Terms kaydı; kesin GPL sürümü ve fork lisans kanıtı TODO |
+| Quranic Arabic Corpus / mustafa0x fork | Yalnız geliştirmede referans/karşılaştırma; ham veri 28 Temmuz 2026'da runtime'dan kaldırıldı, atıf Hakkında ekranında. Morfoloji Kuran Yolu'nun CAMeL tabanlı kendi çıktısıdır |
 | CAMeL Tools | MIT |
 | CAMeL Morph | CC BY 4.0 |
 | AlQuran.cloud tecvid markerları | Sağlayıcı kullanım şartları; açık lisans tanımı TODO |
